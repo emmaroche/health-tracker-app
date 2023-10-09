@@ -15,6 +15,7 @@ class JavalinConfig {
 
         registerRoutes(app)
         return app
+
     }
 
 
