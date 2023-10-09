@@ -8,7 +8,6 @@ class JavalinConfig {
 
     fun startJavalinService(): Javalin {
 
-
         val app = Javalin.create().apply {
             exception(Exception::class.java) { e, _ -> e.printStackTrace() }
             error(404) { ctx -> ctx.json("404 : Not Found") }
@@ -16,7 +15,6 @@ class JavalinConfig {
 
         registerRoutes(app)
         return app
-
     }
 
 
@@ -42,7 +40,7 @@ class JavalinConfig {
         val remotePort = System.getenv("PORT")
         return if (remotePort != null) {
             Integer.parseInt(remotePort)
-        } else 7000
+        } else 7001
     }
 
 }
