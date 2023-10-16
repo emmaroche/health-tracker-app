@@ -58,7 +58,7 @@ object ActivityController {
 
     // Delete a specific activity by activity id
     fun deleteActivity(ctx: Context) {
-        if (activityDAO.deleteByActivityId(ctx.pathParam("id").toInt()) != 0)
+        if (activityDAO.deleteByActivityId(ctx.pathParam("activity-id").toInt()) != 0)
             ctx.status(204)
         else
             ctx.status(404)

@@ -51,9 +51,9 @@ class ActivityDAO {
     }
 
     // Delete all activities associated with a user
-    fun deleteByActivityId (id: Int): Int{
+    fun deleteByActivityId (activityId: Int): Int{
         return transaction{
-            Activities.deleteWhere { Activities.id eq id }
+            Activities.deleteWhere { Activities.id eq activityId }
         }
     }
 
