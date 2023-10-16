@@ -102,6 +102,14 @@
             <version>3.14.1</version>
             <classifier>standalone</classifier>
         </dependency>
+        <!-- standalone jar with shaded dependencies (renames dependencies to help avoid
+            clashing with other versions of dependencies) -->
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.14.1</version>
+            <classifier>standalone</classifier>
+        </dependency>
     </dependencies>
 
     <build>
