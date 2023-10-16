@@ -22,7 +22,7 @@ class ActivityDAO {
     fun findByActivityId(id: Int): Activity?{
         return transaction {
             Activities
-                .select() { Activities.id eq id}
+                .select { Activities.id eq id}
                 .map{mapToActivity(it)}
                 .firstOrNull()
         }
@@ -38,28 +38,28 @@ class ActivityDAO {
     }
 
     //Save an activity to the database
-    fun save(activity: Activity){
-        transaction {
+    fun save(activity: Activity): Int {
+        return transaction {
             Activities.insert {
                 it[description] = activity.description
                 it[duration] = activity.duration
-                it[started] = activity.started
                 it[calories] = activity.calories
+                it[started] = activity.started
                 it[userId] = activity.userId
             }
-        }
+        } get Activities.id
     }
 
-    // Delete a specific activity by activity id
-    fun deleteByActivityId(id: Int) {
-        transaction {
+    // Delete all activities associated with a user
+    fun deleteByActivityId (id: Int): Int{
+        return transaction{
             Activities.deleteWhere { Activities.id eq id }
         }
     }
 
-    // Delete all activities associated with a user
-    fun deleteAllByUserId(userId: Int) {
-        transaction {
+    // Delete a specific activity by activity id
+    fun deleteAllByUserId (userId: Int): Int{
+        return transaction{
             Activities.deleteWhere { Activities.userId eq userId }
         }
     }
