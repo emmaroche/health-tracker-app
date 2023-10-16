@@ -1,6 +1,8 @@
 package ie.setu.config
 
-import ie.setu.controllers.HealthTrackerController
+//import ie.setu.controllers.HealthTrackerController
+import ie.setu.controllers.UserController
+import ie.setu.controllers.ActivityController
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
 
@@ -27,24 +29,29 @@ class JavalinConfig {
     private fun registerRoutes(app: Javalin) {
         app.routes {
             path("/api/users") {
-                get(HealthTrackerController::getAllUsers)
-                post(HealthTrackerController::addUser)
+                get(UserController::getAllUsers)
+                post(UserController::addUser)
                 path("{user-id}"){
-                    get(HealthTrackerController::getUserByUserId)
-                    delete(HealthTrackerController::deleteUser)
-                    patch(HealthTrackerController::updateUser)
-                    //The overall path is: "/api/users/:user-id/activities"
+                    get(UserController::getUserByUserId)
+                    delete(UserController::deleteUser)
+                    patch(UserController::updateUser)
                     path("activities"){
-                        get(HealthTrackerController::getActivitiesByUserId)
+                        get(ActivityController::getActivitiesByUserId)
+                        delete(ActivityController::deleteAllActivitiesByUserId)
                     }
                 }
                 path("/email/{email}"){
-                    get(HealthTrackerController::getUserByEmail)
+                    get(UserController::getUserByEmail)
                 }
             }
             path("/api/activities") {
-                get(HealthTrackerController::getAllActivities)
-                post(HealthTrackerController::addActivity)
+                get(ActivityController::getAllActivities)
+                post(ActivityController::addActivity)
+                path("{activity-id}") {
+                    get(ActivityController::getActivityByActivityId)
+                    delete(ActivityController::deleteActivity)
+                    patch(ActivityController::updateActivity)
+                }
             }
         }
     }
