@@ -38,11 +38,8 @@ class UserControllerTest {
         @Test
         fun `get user by id when user does not exist returns 404 response`() {
 
-            //Arrange - test data for user id
-            val id = Integer.MIN_VALUE
-
-            // Act - attempt to retrieve the non-existent user from the database
-            val retrieveResponse = Unirest.get(origin + "/api/users/${id}").asString()
+            //Arrange & Act - attempt to retrieve the non-existent user from the database
+            val retrieveResponse = retrieveUserById(Integer.MIN_VALUE)
 
             // Assert -  verify return code
             assertEquals(404, retrieveResponse.status)
@@ -51,7 +48,8 @@ class UserControllerTest {
         @Test
         fun `get user by email when user does not exist returns 404 response`() {
             // Arrange & Act - attempt to retrieve the non-existent user from the database
-            val retrieveResponse = Unirest.get(origin + "/api/users/email/${nonExistingEmail}").asString()
+            val retrieveResponse = retrieveUserByEmail(nonExistingEmail)
+
             // Assert -  verify return code
             assertEquals(404, retrieveResponse.status)
         }
