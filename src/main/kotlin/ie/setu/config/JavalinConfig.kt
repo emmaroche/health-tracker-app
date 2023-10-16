@@ -17,6 +17,12 @@ class JavalinConfig {
         return app
     }
 
+    private fun getRemoteAssignedPort(): Int {
+        val remotePort = System.getenv("PORT")
+        return if (remotePort != null) {
+            Integer.parseInt(remotePort)
+        } else 7000
+    }
 
     private fun registerRoutes(app: Javalin) {
         app.routes {
@@ -27,20 +33,20 @@ class JavalinConfig {
                     get(HealthTrackerController::getUserByUserId)
                     delete(HealthTrackerController::deleteUser)
                     patch(HealthTrackerController::updateUser)
+                    //The overall path is: "/api/users/:user-id/activities"
+                    path("activities"){
+                        get(HealthTrackerController::getActivitiesByUserId)
+                    }
+                }
+                path("/email/{email}"){
+                    get(HealthTrackerController::getUserByEmail)
                 }
             }
-
-            path("/api/users/email/{email}") {
-                get(HealthTrackerController::getUserByEmail)
+            path("/api/activities") {
+                get(HealthTrackerController::getAllActivities)
+                post(HealthTrackerController::addActivity)
             }
         }
-    }
-
-    private fun getRemoteAssignedPort(): Int {
-        val remotePort = System.getenv("PORT")
-        return if (remotePort != null) {
-            Integer.parseInt(remotePort)
-        } else 7001
     }
 
 }

@@ -1,0 +1,177 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Health Tracker API
+  description: This API provides endpoints for handling CRUD operations on the Health Tracker data.
+  contact:
+    name: Emma Roche
+    email: 20088680@mail.wit.ie
+paths:
+  /api/users/{user-id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: This is a specific user in the app
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        204:
+          description: User has been deleted successfully
+    patch:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: User has been updated
+  /api/users/{user-id}/activities:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: List of activities for a specific user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+  /api/users/email/{email}:
+    get:
+      parameters:
+        - in: path
+          name: email
+          description: User email path parameter
+          required: true
+          schema:
+            type: string
+            example: joe@soap.com
+      responses:
+        200:
+          description: This is a specific user by email in the app
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/activities:
+    get:
+      responses:
+        200:
+          description: List of all activities in the app
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+    post:
+      description: Create a new activity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+      responses:
+        201:
+          description: The activity has been created
+  /api/activities/{activity-id}:
+    get:
+      parameters:
+        - in: path
+          name: activity-id
+          description: Activity ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: This is a specific activity in the app
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+    delete:
+      parameters:
+        - in: path
+          name: activity-id
+          description: Activity ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Activity has been deleted
+    patch:
+      parameters:
+        - in: path
+          name: activity-id
+          description: Activity ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Activity has been updated
+  /api/users:
+    post:
+      description: Add a user to the app
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: The user has been created
+    get:
+      responses:
+        200:
+          description: This is a list of the users in the app
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+components:
+  parameters:
+    UserIdPath:
+      in: path
+      name: user-id
+      description: User ID path parameter
+      required: true
+      schema:
+        type: integer
+        example: 3232
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3232
+        name:
+          type: string
+          example: Joe Soap
+        email:
+          type: string
+          example: joe@soap.com
+    Activity:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12345
+        name:
+          type: string
+          example: Running
+        description:
+          type: string
+          example: Jogging in the park
