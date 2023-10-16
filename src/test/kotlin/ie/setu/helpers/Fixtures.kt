@@ -43,3 +43,6 @@ fun populateActivityTable(): ActivityDAO {
     activityDAO.save(activities[2])
     return activityDAO
 }
+
+const val updatedName = "Updated Name"
+const val updatedEmail = "Updated Email"

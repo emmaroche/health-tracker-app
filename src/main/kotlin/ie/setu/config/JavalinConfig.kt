@@ -23,7 +23,7 @@ class JavalinConfig {
         val remotePort = System.getenv("PORT")
         return if (remotePort != null) {
             Integer.parseInt(remotePort)
-        } else 7000
+        } else 7001
     }
 
     private fun registerRoutes(app: Javalin) {
