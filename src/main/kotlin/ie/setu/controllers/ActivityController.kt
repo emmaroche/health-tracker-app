@@ -7,6 +7,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import ie.setu.domain.Activity
 import ie.setu.domain.repository.ActivityDAO
 import ie.setu.domain.repository.UserDAO
+import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
 object ActivityController {
@@ -58,11 +59,14 @@ object ActivityController {
     }
 
     // Update a specific activity by activity id
-    fun updateActivity(ctx: Context) {
-        val mapper = jacksonObjectMapper()
-        val activityUpdates = mapper.readValue<Activity>(ctx.body())
-        val activityId = ctx.pathParam("activity-id").toInt()
-        activityDAO.updateByActivityId(activityId, activityUpdates)
+    fun updateActivity(ctx: Context){
+        val activity : Activity = jsonToObject(ctx.body())
+        if (activityDAO.updateByActivityId(
+                activityId = ctx.pathParam("activity-id").toInt(),
+                activityToUpdate = activity) != 0)
+            ctx.status(204)
+        else
+            ctx.status(404)
     }
 
     // Get activities by activity id
