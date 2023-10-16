@@ -1,9 +1,5 @@
 package ie.setu.controllers
 
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.joda.JodaModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import ie.setu.domain.Activity
 import ie.setu.domain.repository.ActivityDAO
 import ie.setu.domain.repository.UserDAO
@@ -14,56 +10,68 @@ object ActivityController {
 
     private val userDao = UserDAO()
     private val activityDAO = ActivityDAO()
-    
+
     fun getAllActivities(ctx: Context) {
-        //mapper handles the deserialization of Joda date into a String.
-        val mapper = jacksonObjectMapper()
-            .registerModule(JodaModule())
-            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        ctx.json(mapper.writeValueAsString(activityDAO.getAll()))
+        val activities = activityDAO.getAll()
+        if (activities.size != 0) {
+            ctx.status(200)
+        } else {
+            ctx.status(404)
+        }
+        ctx.json(activities)
     }
 
     fun getActivitiesByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val activities = activityDAO.findByUserId(ctx.pathParam("user-id").toInt())
             if (activities.isNotEmpty()) {
-                //mapper handles the deserialization of Joda date into a String.
-                val mapper = jacksonObjectMapper()
-                    .registerModule(JodaModule())
-                    .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-                ctx.json(mapper.writeValueAsString(activities))
+                ctx.json(activities)
+                ctx.status(200)
+            } else {
+                ctx.status(404)
             }
+        } else {
+            ctx.status(404)
         }
     }
 
     fun addActivity(ctx: Context) {
-        //mapper handles the serialisation of Joda date into a String.
-        val mapper = jacksonObjectMapper()
-            .registerModule(JodaModule())
-            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        val activity = mapper.readValue<Activity>(ctx.body())
-        activityDAO.save(activity)
-        ctx.json(activity)
+        val activity: Activity = jsonToObject(ctx.body())
+        val userId = userDao.findById(activity.userId)
+        if (userId != null) {
+            val activityId = activityDAO.save(activity)
+            activity.id = activityId
+            ctx.json(activity)
+            ctx.status(201)
+        } else {
+            ctx.status(404)
+        }
     }
 
     // Delete all activities associated with a user
     fun deleteAllActivitiesByUserId(ctx: Context) {
-        val userId = ctx.pathParam("user-id").toInt()
-        activityDAO.deleteAllByUserId(userId)
+        if (activityDAO.deleteAllByUserId(ctx.pathParam("user-id").toInt()) != 0)
+            ctx.status(204)
+        else
+            ctx.status(404)
     }
 
     // Delete a specific activity by activity id
     fun deleteActivity(ctx: Context) {
-        val activityId = ctx.pathParam("activity-id").toInt()
-        activityDAO.deleteByActivityId(activityId)
+        if (activityDAO.deleteByActivityId(ctx.pathParam("id").toInt()) != 0)
+            ctx.status(204)
+        else
+            ctx.status(404)
     }
 
     // Update a specific activity by activity id
-    fun updateActivity(ctx: Context){
-        val activity : Activity = jsonToObject(ctx.body())
+    fun updateActivity(ctx: Context) {
+        val activity: Activity = jsonToObject(ctx.body())
         if (activityDAO.updateByActivityId(
                 activityId = ctx.pathParam("activity-id").toInt(),
-                activityToUpdate = activity) != 0)
+                activityToUpdate = activity
+            ) != 0
+        )
             ctx.status(204)
         else
             ctx.status(404)
@@ -71,10 +79,12 @@ object ActivityController {
 
     // Get activities by activity id
     fun getActivityByActivityId(ctx: Context) {
-        val activityId = ctx.pathParam("activity-id").toInt()
-        val activity = activityDAO.findByActivityId(activityId)
+        val activity = activityDAO.findByActivityId((ctx.pathParam("activity-id").toInt()))
         if (activity != null) {
             ctx.json(activity)
+            ctx.status(200)
+        } else {
+            ctx.status(404)
         }
     }
 }
