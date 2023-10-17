@@ -8,7 +8,7 @@ import io.javalin.http.Context
 
 object ActivityController {
 
-    private val userDao = UserDAO()
+    val userDao = UserDAO()
     private val activityDAO = ActivityDAO()
 
     fun getAllActivities(ctx: Context) {

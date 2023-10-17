@@ -3,6 +3,7 @@ package ie.setu.config
 //import ie.setu.controllers.HealthTrackerController
 import ie.setu.controllers.UserController
 import ie.setu.controllers.ActivityController
+import ie.setu.controllers.HealthRecordController
 import ie.setu.utils.jsonObjectMapper
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
@@ -31,21 +32,30 @@ class JavalinConfig {
         } else 7001
     }
 
-    private fun registerRoutes(app: Javalin) {
+    fun registerRoutes(app: Javalin) {
         app.routes {
             path("/api/users") {
                 get(UserController::getAllUsers)
                 post(UserController::addUser)
-                path("{user-id}"){
+                path("{user-id}") {
                     get(UserController::getUserByUserId)
                     delete(UserController::deleteUser)
                     patch(UserController::updateUser)
-                    path("activities"){
+                    path("health-records") {
+                        get(HealthRecordController::getAllHealthRecords)
+                        post(HealthRecordController::addHealthRecord)
+                        path("{health-record-id}") {
+                            get(HealthRecordController::getHealthRecordByUserId)
+                            patch(HealthRecordController::updateHealthRecord)
+                            delete(HealthRecordController::deleteHealthRecord)
+                        }
+                    }
+                    path("activities") {
                         get(ActivityController::getActivitiesByUserId)
                         delete(ActivityController::deleteAllActivitiesByUserId)
                     }
                 }
-                path("/email/{email}"){
+                path("/email/{email}") {
                     get(UserController::getUserByEmail)
                 }
             }
@@ -57,6 +67,10 @@ class JavalinConfig {
                     delete(ActivityController::deleteActivity)
                     patch(ActivityController::updateActivity)
                 }
+            }
+            path("/api/health-records") {
+                get(HealthRecordController::getAllHealthRecords)
+                post(HealthRecordController::addHealthRecord)
             }
         }
     }
