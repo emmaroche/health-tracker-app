@@ -23,7 +23,7 @@ fun mapToActivity(it: ResultRow) = Activity(
     userId = it[Activities.userId]
 )
 
-fun mapToHealthRecord(it: ResultRow): HealthRecords = HealthRecord(
+fun mapToHealthRecord(it: ResultRow): HealthRecord = HealthRecord(
     id = it[HealthRecords.id],
     timestamp = it[HealthRecords.timestamp],
     firstName = it[HealthRecords.firstName],
