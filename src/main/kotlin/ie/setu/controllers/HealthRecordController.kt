@@ -1,5 +1,6 @@
 package ie.setu.controllers
 
+import ie.setu.domain.Activity
 import ie.setu.domain.HealthRecord
 import ie.setu.domain.repository.HealthRecordDAO
 import ie.setu.domain.repository.UserDAO
@@ -12,7 +13,7 @@ object HealthRecordController {
 
     fun getAllHealthRecords(ctx: Context) {
         val healthRecords = healthRecordDAO.getAll()
-        if (healthRecords.isNotEmpty()) {
+        if (healthRecords.size != 0) {
             ctx.status(200)
         } else {
             ctx.status(404)
@@ -44,13 +45,25 @@ object HealthRecordController {
         }
     }
 
+//    fun updateHealthRecord(ctx: Context) {
+//        val foundHealthRecord: HealthRecord = jsonToObject(ctx.body())
+//        if (healthRecordDAO.updateHealthRecord(id = ctx.pathParam("health-record-id").toInt(), healthRecord = foundHealthRecord) != 0) {
+//            ctx.status(204)
+//        } else {
+//            ctx.status(404)
+//        }
+//    }
+
     fun updateHealthRecord(ctx: Context) {
         val foundHealthRecord: HealthRecord = jsonToObject(ctx.body())
-        if (healthRecordDAO.updateHealthRecord(id = ctx.pathParam("health-record-id").toInt(), healthRecord = foundHealthRecord) != 0) {
+        if (healthRecordDAO.updateHealthRecord(
+                id = ctx.pathParam("health-record-id").toInt(),
+                healthRecord = foundHealthRecord
+            ) != 0
+        )
             ctx.status(204)
-        } else {
+        else
             ctx.status(404)
-        }
     }
 
     fun deleteHealthRecord(ctx: Context) {
