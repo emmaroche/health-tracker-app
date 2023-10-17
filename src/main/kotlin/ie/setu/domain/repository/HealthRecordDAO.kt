@@ -1,11 +1,15 @@
 package ie.setu.domain.repository
 
+import ie.setu.domain.Activity
 import ie.setu.domain.HealthRecord
 import ie.setu.domain.User
+import ie.setu.domain.db.Activities
 import ie.setu.domain.db.HealthRecords
+import ie.setu.utils.mapToActivity
 import ie.setu.utils.mapToHealthRecord
 import ie.setu.utils.mapToUser
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class HealthRecordDAO {
@@ -21,11 +25,11 @@ class HealthRecordDAO {
     }
 
     // Find health record by user ID
-    fun findByUserId(id: Int): HealthRecord? {
+    fun findByUserId(userId: Int): List<HealthRecord>{
         return transaction {
-            HealthRecords.select {
-                HealthRecords.userId eq id
-            }.map { mapToHealthRecord(it) }.firstOrNull()
+            HealthRecords
+                .select { HealthRecords.userId eq userId}
+                .map { mapToHealthRecord(it) }
         }
     }
 

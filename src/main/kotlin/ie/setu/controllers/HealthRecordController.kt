@@ -12,15 +12,24 @@ object HealthRecordController {
     private val healthRecordDAO = HealthRecordDAO()
 
     fun getAllHealthRecords(ctx: Context) {
-        val healthRecords = healthRecordDAO.getAll()
-        ctx.json(healthRecords)
+        val healthRec = healthRecordDAO.getAll()
+        if (healthRec.size != 0) {
+            ctx.status(200)
+        } else {
+            ctx.status(404)
+        }
+        ctx.json(healthRec)
     }
 
     fun getHealthRecordByUserId(ctx: Context) {
-        val userId = ctx.pathParam("user-id").toInt()
-        val healthRecord = healthRecordDAO.findByUserId(userId)
-        if (healthRecord != null) {
-            ctx.json(healthRecord)
+        if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
+            val healthRec = healthRecordDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (healthRec.isNotEmpty()) {
+                ctx.json(healthRec)
+                ctx.status(200)
+            } else {
+                ctx.status(404)
+            }
         } else {
             ctx.status(404)
         }

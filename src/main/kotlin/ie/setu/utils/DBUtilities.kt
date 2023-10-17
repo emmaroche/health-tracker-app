@@ -38,5 +38,4 @@ fun mapToHealthRecord(it: ResultRow) = HealthRecord(
     medications = it[HealthRecords.medications],
     notes = it[HealthRecords.notes],
     userId = it[HealthRecords.userId]
-
 )
