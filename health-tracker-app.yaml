@@ -7,6 +7,28 @@ info:
     name: Emma Roche
     email: 20088680@mail.wit.ie
 paths:
+  /api/users:
+    get:
+      responses:
+        200:
+          description: This is a list of the users in the app
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      description: Add a user to the app
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: The user has been created
+
   /api/users/{user-id}:
     get:
       parameters:
@@ -30,19 +52,7 @@ paths:
       responses:
         200:
           description: User has been updated
-  /api/users/{user-id}/activities:
-    get:
-      parameters:
-        - $ref: '#/components/parameters/UserIdPath'
-      responses:
-        200:
-          description: List of activities for a specific user
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Activity'
+
   /api/users/email/{email}:
     get:
       parameters:
@@ -60,6 +70,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+
+  /api/users/{user-id}/activities:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: List of activities for a specific user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+
   /api/activities:
     get:
       responses:
@@ -81,6 +106,7 @@ paths:
       responses:
         201:
           description: The activity has been created
+
   /api/activities/{activity-id}:
     get:
       parameters:
@@ -119,27 +145,7 @@ paths:
       responses:
         200:
           description: Activity has been updated
-  /api/users:
-    post:
-      description: Add a user to the app
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        200:
-          description: The user has been created
-    get:
-      responses:
-        200:
-          description: This is a list of the users in the app
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
+
 components:
   parameters:
     UserIdPath:
