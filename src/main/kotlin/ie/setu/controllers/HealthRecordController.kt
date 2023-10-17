@@ -39,7 +39,7 @@ object HealthRecordController {
         val healthRecord: HealthRecord = jsonToObject(ctx.body())
         val user = userDao.findById(healthRecord.userId)
         if (user != null) {
-            val healthRecordId = healthRecordDAO.saveHealthRecord(healthRecord)
+            val healthRecordId = healthRecordDAO.save(healthRecord)
             healthRecord.id = healthRecordId
             ctx.json(healthRecord)
             ctx.status(201)
