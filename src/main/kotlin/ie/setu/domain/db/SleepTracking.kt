@@ -2,12 +2,11 @@ package ie.setu.domain.db
 
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
-
-object Activities : Table("activities") {
+object SleepTracking : Table("sleep-entries") {
     val id = integer("id").autoIncrement().primaryKey()
-    val description = varchar("description", 100)
-    val duration = double("duration")
-    val calories = integer("calories")
-    val started = datetime("started")
+    val date = datetime("date")
+    val duration = integer("duration")
+    val quality = varchar("quality", 50)
+    val notes = varchar("notes", 200)
     val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
 }
