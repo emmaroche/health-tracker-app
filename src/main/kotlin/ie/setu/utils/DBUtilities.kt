@@ -5,8 +5,8 @@ import ie.setu.domain.db.Users
 import org.jetbrains.exposed.sql.ResultRow
 import ie.setu.domain.Activity
 import ie.setu.domain.HealthRecord
-import ie.setu.domain.db.Activities
 import ie.setu.domain.db.HealthRecords
+import ie.setu.domain.db.Activities
 
 fun mapToUser(it: ResultRow) = User(
     id = it[Users.id],
@@ -23,7 +23,7 @@ fun mapToActivity(it: ResultRow) = Activity(
     userId = it[Activities.userId]
 )
 
-fun mapToHealthRecord(it: ResultRow): HealthRecord = HealthRecord(
+fun mapToHealthRecord(it: ResultRow) = HealthRecord(
     id = it[HealthRecords.id],
     timestamp = it[HealthRecords.timestamp],
     firstName = it[HealthRecords.firstName],

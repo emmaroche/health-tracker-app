@@ -2,9 +2,7 @@ package ie.setu.domain.repository
 
 import ie.setu.domain.HealthRecord
 import ie.setu.domain.User
-import ie.setu.domain.db.Activities
 import ie.setu.domain.db.HealthRecords
-import ie.setu.domain.db.Users
 import ie.setu.utils.mapToHealthRecord
 import ie.setu.utils.mapToUser
 import org.jetbrains.exposed.sql.*
@@ -13,13 +11,13 @@ import org.jetbrains.exposed.sql.transactions.transaction
 class HealthRecordDAO {
 
     // Get all health records
-    fun getAll(): ArrayList<HealthRecords> {
-        val userList: ArrayList<HealthRecords> = arrayListOf()
+    fun getAll(): ArrayList<HealthRecord> {
+        val hrList: ArrayList<HealthRecord> = arrayListOf()
         transaction {
             HealthRecords.selectAll().map {
-                userList.add(mapToHealthRecord(it)) }
+                hrList.add(mapToHealthRecord(it)) }
         }
-        return userList
+        return hrList
     }
 
     // Find health record by user ID
