@@ -146,6 +146,375 @@ paths:
         200:
           description: Activity has been updated
 
+  /api/health-records:
+    post:
+      description: Create a Health Record Entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthRecord'
+      responses:
+        201:
+          description: Health Record Entry has been created
+
+  /api/health-records/{id}:
+    patch:
+      parameters:
+        - in: path
+          name: id
+          description: Health Record Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Update a Health Record Entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthRecord'
+      responses:
+        200:
+          description: Health Record Entry has been updated
+
+    get:
+      parameters:
+        - in: path
+          name: id
+          description: Health Record Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Get a specific Health Record Entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthRecord'
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          description: Health Record Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Health Record Entry has been deleted
+
+  /api/health-records/user/{user-id}:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/UserIdPath'
+
+      responses:
+        200:
+          description: Get all Health Records for a User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthRecord'
+
+  /api/sleep-entries:
+    post:
+      description: Create a Sleep Entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SleepTracking'
+      responses:
+        201:
+          description: Sleep Entry has been created
+
+  /api/sleep-entries/{id}:
+    patch:
+      parameters:
+        - in: path
+          name: id
+          description: Sleep Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Update a Sleep Entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SleepTracking'
+      responses:
+        200:
+          description: Sleep Entry has been updated
+
+    get:
+      parameters:
+        - in: path
+          name: id
+          description: Sleep Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Get a specific Sleep Entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SleepTracking'
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          description: Sleep Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Sleep Entry has been deleted
+
+  /api/sleep-entries/user/{user-id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+
+        - in: path
+          name: userId
+          description: User ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Get all Sleep Entries for a User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SleepTracking'
+
+  /api/fitness-goals:
+    post:
+      description: Create a Fitness Goal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goals'
+      responses:
+        201:
+          description: Fitness Goal has been created
+
+  /api/fitness-goals/{id}:
+    patch:
+      parameters:
+        - in: path
+          name: id
+          description: Fitness Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Update a Fitness Goal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goals'
+      responses:
+        200:
+          description: Fitness Goal has been updated
+
+    get:
+      parameters:
+        - in: path
+          name: id
+          description: Fitness Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Get a specific Fitness Goal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goals'
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          description: Fitness Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Fitness Goal has been deleted
+
+  /api/fitness-goals/{id}/complete:
+    put:
+      parameters:
+        - in: path
+          name: id
+          description: Fitness Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Mark a Fitness Goal as Completed
+      responses:
+        200:
+          description: Fitness Goal has been marked as completed
+
+  /api/nutrition-goals:
+    post:
+      description: Create a Nutrition Goal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goals'
+      responses:
+        201:
+          description: Nutrition Goal has been created
+
+  /api/nutrition-goals/{id}:
+    patch:
+      parameters:
+        - in: path
+          name: id
+          description: Nutrition Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Update a Nutrition Goal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goals'
+      responses:
+        200:
+          description: Nutrition Goal has been updated
+
+    get:
+      parameters:
+        - in: path
+          name: id
+          description: Nutrition Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Get a specific Nutrition Goal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goals'
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          description: Nutrition Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Nutrition Goal has been deleted
+
+  /api/nutrition-goals/{id}/complete:
+    put:
+      parameters:
+        - in: path
+          name: id
+          description: Nutrition Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Mark a Nutrition Goal as Completed
+      responses:
+        200:
+          description: Nutrition Goal has been marked as completed
+
+  /api/weight-goals:
+    post:
+      description: Create a Weight Goal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goals'
+      responses:
+        201:
+          description: Weight Goal has been created
+
+  /api/weight-goals/{id}:
+    patch:
+      parameters:
+        - in: path
+          name: id
+          description: Weight Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Update a Weight Goal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goals'
+      responses:
+        200:
+          description: Weight Goal has been updated
+
+    get:
+      parameters:
+        - in: path
+          name: id
+          description: Weight Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Get a specific Weight Goal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goals'
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          description: Weight Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Weight Goal has been deleted
+
+  /api/weight-goals/{id}/complete:
+    put:
+      parameters:
+        - in: path
+          name: id
+          description: Weight Goal ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Mark a Weight Goal as Completed
+      responses:
+        200:
+          description: Weight Goal has been marked as completed
+
 components:
   parameters:
     UserIdPath:
@@ -181,3 +550,33 @@ components:
         description:
           type: string
           example: Jogging in the park
+    HealthRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 5785
+        firstName:
+          type: string
+          example: Emma
+        height:
+          type: integer
+          example: 166
+    Goals:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 5744
+        type:
+          type: string
+          example: Weight loss goal
+    SleepTracking:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 5648
+        type:
+          type: string
+          example: Poor
