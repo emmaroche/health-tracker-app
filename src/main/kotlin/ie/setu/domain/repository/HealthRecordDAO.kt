@@ -21,15 +21,13 @@ class HealthRecordDAO {
     }
 
     // Find health record by user ID
-    fun findByUserId(id: Int): User?{
+    fun findByUserId(id: Int): HealthRecord? {
         return transaction {
             HealthRecords.select {
-                HealthRecords.id eq id}
-                .map{ mapToUser(it) }
-                .firstOrNull()
+                HealthRecords.userId eq id
+            }.map { mapToHealthRecord(it) }.firstOrNull()
         }
     }
-
 
     // Save health records
     fun saveHealthRecord(healthRecord: HealthRecord): Int {

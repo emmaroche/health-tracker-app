@@ -13,11 +13,6 @@ object HealthRecordController {
 
     fun getAllHealthRecords(ctx: Context) {
         val healthRecords = healthRecordDAO.getAll()
-        if (healthRecords.size != 0) {
-            ctx.status(200)
-        } else {
-            ctx.status(404)
-        }
         ctx.json(healthRecords)
     }
 
@@ -26,7 +21,6 @@ object HealthRecordController {
         val healthRecord = healthRecordDAO.findByUserId(userId)
         if (healthRecord != null) {
             ctx.json(healthRecord)
-            ctx.status(200)
         } else {
             ctx.status(404)
         }
@@ -34,8 +28,8 @@ object HealthRecordController {
 
     fun addHealthRecord(ctx: Context) {
         val healthRecord: HealthRecord = jsonToObject(ctx.body())
-        val userId = ActivityController.userDao.findById(healthRecord.userId)
-        if (userId != null) {
+        val user = userDao.findById(healthRecord.userId)
+        if (user != null) {
             val healthRecordId = healthRecordDAO.saveHealthRecord(healthRecord)
             healthRecord.id = healthRecordId
             ctx.json(healthRecord)
@@ -45,29 +39,21 @@ object HealthRecordController {
         }
     }
 
-//    fun updateHealthRecord(ctx: Context) {
-//        val foundHealthRecord: HealthRecord = jsonToObject(ctx.body())
-//        if (healthRecordDAO.updateHealthRecord(id = ctx.pathParam("health-record-id").toInt(), healthRecord = foundHealthRecord) != 0) {
-//            ctx.status(204)
-//        } else {
-//            ctx.status(404)
-//        }
-//    }
-
     fun updateHealthRecord(ctx: Context) {
+        val healthRecordId = ctx.pathParam("health-record-id").toInt()
         val foundHealthRecord: HealthRecord = jsonToObject(ctx.body())
-        if (healthRecordDAO.updateHealthRecord(
-                id = ctx.pathParam("health-record-id").toInt(),
-                healthRecord = foundHealthRecord
-            ) != 0
-        )
+        val updatedCount = healthRecordDAO.updateHealthRecord(healthRecordId, foundHealthRecord)
+        if (updatedCount != 0) {
             ctx.status(204)
-        else
+        } else {
             ctx.status(404)
+        }
     }
 
     fun deleteHealthRecord(ctx: Context) {
-        if (healthRecordDAO.delete(ctx.pathParam("health-record-id").toInt()) != 0) {
+        val healthRecordId = ctx.pathParam("health-record-id").toInt()
+        val deletedCount = healthRecordDAO.delete(healthRecordId)
+        if (deletedCount != 0) {
             ctx.status(204)
         } else {
             ctx.status(404)
