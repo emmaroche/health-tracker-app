@@ -42,9 +42,8 @@ class JavalinConfig {
                     delete(UserController::deleteUser)
                     patch(UserController::updateUser)
                     path("healthRecords") {
-//                        get(HealthRecordController::getAllHealthRecords)
-//                        post(HealthRecordController::addHealthRecord)
-                        get(HealthRecordController::getHealthRecordByUserId)
+                        get(HealthRecordController::getAllHealthRecords)
+                        post(HealthRecordController::addHealthRecord)
                         delete(HealthRecordController::deleteHealthRecord)
                     }
                     path("activities") {
@@ -69,7 +68,7 @@ class JavalinConfig {
                 get(HealthRecordController::getAllHealthRecords)
                 post(HealthRecordController::addHealthRecord)
                 path("{health-record-id}") {
-//                    get(HealthRecordController::getHealthRecordByUserId)
+                    get(HealthRecordController::getHealthRecordByUserId)
                     patch(HealthRecordController::updateHealthRecord)
                 }
             }
