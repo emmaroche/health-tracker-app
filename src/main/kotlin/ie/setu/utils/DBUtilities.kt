@@ -26,13 +26,10 @@ fun mapToActivity(it: ResultRow) = Activity(
 fun mapToHealthRecord(it: ResultRow): HealthRecord {
     return HealthRecord(
         id = it[HealthRecords.id],
-        timestamp = it[HealthRecords.timestamp],
         firstName = it[HealthRecords.firstName],
         lastName = it[HealthRecords.lastName],
         sex = it[HealthRecords.sex],
-//        DOB = it[HealthRecords.DOB],
         weight = it[HealthRecords.weight],
-//        height = it[HealthRecords.height],
         bloodType = it[HealthRecords.bloodType] ?: "",
         allergies = it[HealthRecords.allergies] ?: "",
         medicalConditions = it[HealthRecords.medicalConditions] ?: "",

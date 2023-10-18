@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 data class HealthRecord(
     var id: Int,
-    val timestamp: String,
+//    val timestamp: String,
     val firstName: String,
     val lastName: String,
     val sex: String,
