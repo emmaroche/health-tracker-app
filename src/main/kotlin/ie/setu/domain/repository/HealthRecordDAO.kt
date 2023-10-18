@@ -39,12 +39,12 @@ class HealthRecordDAO {
                 it[sex] = healthRecord.sex
 //                it[DOB] = healthRecord.DOB
                 it[weight] = healthRecord.weight
-//                it[height] = healthRecord.height
-//                it[bloodType] = healthRecord.bloodType
-//                it[allergies] = healthRecord.allergies
-//                it[medicalConditions] = healthRecord.medicalConditions
-//                it[medications] = healthRecord.medications
-//                it[notes] = healthRecord.notes
+                it[height] = healthRecord.height
+                it[bloodType] = healthRecord.bloodType
+                it[allergies] = healthRecord.allergies
+                it[medicalConditions] = healthRecord.medicalConditions
+                it[medications] = healthRecord.medications
+                it[notes] = healthRecord.notes
                 it[userId] = healthRecord.userId
             } get HealthRecords.id
         }
