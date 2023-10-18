@@ -8,7 +8,7 @@ object HealthRecords : Table("healthRecords") {
     val firstName = varchar("first_name", 50)
     val lastName = varchar("last_name", 50)
     val sex = varchar("sex", 10)
-    val DOB = datetime("dob")
+//    val DOB = datetime("dob")
     val weight = double("weight")
     val height = integer("height")
 //    val bloodType = varchar("blood_type", 5)
