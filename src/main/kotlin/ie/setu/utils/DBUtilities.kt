@@ -31,11 +31,11 @@ fun mapToHealthRecord(it: ResultRow) = HealthRecord(
     sex = it[HealthRecords.sex],
 //    DOB = it[HealthRecords.DOB],
     weight = it[HealthRecords.weight],
-//    height = it[HealthRecords.height],
-//    bloodType = it[HealthRecords.bloodType],
-//    allergies = it[HealthRecords.allergies],
-//    medicalConditions = it[HealthRecords.medicalConditions],
-//    medications = it[HealthRecords.medications],
-//    notes = it[HealthRecords.notes],
+    height = it[HealthRecords.height],
+    bloodType = it[HealthRecords.bloodType],
+    allergies = it[HealthRecords.allergies],
+    medicalConditions = it[HealthRecords.medicalConditions],
+    medications = it[HealthRecords.medications],
+    notes = it[HealthRecords.notes],
     userId = it[HealthRecords.userId]
 )
