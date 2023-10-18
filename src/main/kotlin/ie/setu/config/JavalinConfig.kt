@@ -67,6 +67,7 @@ class JavalinConfig {
             path("/api/healthRecords") {
                 get(HealthRecordController::getAllHealthRecords)
                 post(HealthRecordController::addHealthRecord)
+                delete(ActivityController::deleteAllActivitiesByUserId)
                 path("{health-record-id}") {
                     get(HealthRecordController::getHealthRecordByUserId)
                     patch(HealthRecordController::updateHealthRecord)
