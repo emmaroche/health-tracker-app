@@ -70,6 +70,7 @@ class JavalinConfig {
                 path("{health-record-id}") {
                     get(HealthRecordController::getHealthRecordByUserId)
                     patch(HealthRecordController::updateHealthRecord)
+                    delete(ActivityController::deleteAllActivitiesByUserId)
                 }
             }
         }
