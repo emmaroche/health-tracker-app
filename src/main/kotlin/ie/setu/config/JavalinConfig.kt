@@ -67,11 +67,11 @@ class JavalinConfig {
             path("/api/healthRecords") {
                 get(HealthRecordController::getAllHealthRecords)
                 post(HealthRecordController::addHealthRecord)
-                delete(ActivityController::deleteAllActivitiesByUserId)
+                delete(HealthRecordController::deleteHealthRecord)
                 path("{health-record-id}") {
                     get(HealthRecordController::getHealthRecordByUserId)
+                    delete(HealthRecordController::deleteHealthRecord)
                     patch(HealthRecordController::updateHealthRecord)
-                    delete(ActivityController::deleteAllActivitiesByUserId)
                 }
             }
         }
