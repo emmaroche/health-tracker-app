@@ -11,10 +11,10 @@ data class HealthRecord(
 //    val DOB: DateTime,
     val weight: Double,
 //    val height: Int,
-//    val bloodType: String,
-//    val allergies: String,
-//    val medicalConditions: String,
-//    val medications: String,
-//    val notes: String,
+    val bloodType: String,
+    val allergies: String,
+    val medicalConditions: String,
+    val medications: String,
+    val notes: String,
     var userId: Int
 )
