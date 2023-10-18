@@ -8,7 +8,7 @@ data class HealthRecord(
     val firstName: String,
     val lastName: String,
     val sex: String,
-    val DOB: DateTime,
+//    val DOB: DateTime,
     val weight: Double,
 //    val height: Int,
     val bloodType: String,
