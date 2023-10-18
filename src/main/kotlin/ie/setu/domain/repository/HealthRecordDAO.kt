@@ -37,14 +37,14 @@ class HealthRecordDAO {
                 it[firstName] = healthRecord.firstName
                 it[lastName] = healthRecord.lastName
                 it[sex] = healthRecord.sex
-//                it[DOB] = healthRecord.DOB
+                it[DOB] = healthRecord.DOB
                 it[weight] = healthRecord.weight
                 it[height] = healthRecord.height
-                it[bloodType] = healthRecord.bloodType
-                it[allergies] = healthRecord.allergies
-                it[medicalConditions] = healthRecord.medicalConditions
-                it[medications] = healthRecord.medications
-                it[notes] = healthRecord.notes
+//                it[bloodType] = healthRecord.bloodType
+//                it[allergies] = healthRecord.allergies
+//                it[medicalConditions] = healthRecord.medicalConditions
+//                it[medications] = healthRecord.medications
+//                it[notes] = healthRecord.notes
                 it[userId] = healthRecord.userId
             } get HealthRecords.id
         }
@@ -82,14 +82,14 @@ class HealthRecordDAO {
                 it[firstName] = healthRecord.firstName
                 it[lastName] = healthRecord.lastName
                 it[sex] = healthRecord.sex
-//                it[DOB] = healthRecord.DOB
+                it[DOB] = healthRecord.DOB
                 it[weight] = healthRecord.weight
                 it[height] = healthRecord.height
-                it[bloodType] = healthRecord.bloodType
-                it[allergies] = healthRecord.allergies
-                it[medicalConditions] = healthRecord.medicalConditions
-                it[medications] = healthRecord.medications
-                it[notes] = healthRecord.notes
+//                it[bloodType] = healthRecord.bloodType
+//                it[allergies] = healthRecord.allergies
+//                it[medicalConditions] = healthRecord.medicalConditions
+//                it[medications] = healthRecord.medications
+//                it[notes] = healthRecord.notes
                 it[userId] = healthRecord.userId
             }
         }
