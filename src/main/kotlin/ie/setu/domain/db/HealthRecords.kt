@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.Table
 
 object HealthRecords : Table("healthRecords") {
     val id = integer("id").autoIncrement().primaryKey()
-//    val timestamp = datetime("timestamp")
+    val timestamp = date("timestamp")
     val firstName = varchar("first_name", 50)
     val lastName = varchar("last_name", 50)
     val sex = varchar("sex", 10)

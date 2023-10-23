@@ -33,7 +33,7 @@ class HealthRecordDAO {
     fun save(healthRecord: HealthRecord): Int {
         return transaction {
             HealthRecords.insert {
-//                it[timestamp] = healthRecord.timestamp
+                it[timestamp] = healthRecord.timestamp
                 it[firstName] = healthRecord.firstName
                 it[lastName] = healthRecord.lastName
                 it[sex] = healthRecord.sex
@@ -78,11 +78,11 @@ class HealthRecordDAO {
             HealthRecords.update({
                 HealthRecords.id eq healthId
             }) {
-//                it[timestamp] = healthRecordToUpdate.timestamp
+                it[timestamp] = healthRecordToUpdate.timestamp
                 it[firstName] = healthRecordToUpdate.firstName
                 it[lastName] = healthRecordToUpdate.lastName
                 it[sex] = healthRecordToUpdate.sex
-//                it[DOB] = healthRecordToUpdate.DOB
+                it[DOB] = healthRecordToUpdate.dob
                 it[weight] = healthRecordToUpdate.weight
                 it[height] = healthRecordToUpdate.height
                 it[bloodType] = healthRecordToUpdate.bloodType
