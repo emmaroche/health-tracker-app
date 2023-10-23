@@ -2,6 +2,7 @@ package ie.setu.domain.db
 
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
+
 object HealthRecords : Table("healthRecords") {
     val id = integer("id").autoIncrement().primaryKey()
     val timestamp = datetime("timestamp")

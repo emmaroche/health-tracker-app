@@ -7,6 +7,7 @@ import ie.setu.utils.mapToHealthRecord
 import ie.setu.utils.mapToUser
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.joda.time.DateTime
 
 class HealthRecordDAO {
 
@@ -33,7 +34,7 @@ class HealthRecordDAO {
     fun save(healthRecord: HealthRecord): Int {
         return transaction {
             HealthRecords.insert {
-                it[timestamp] = healthRecord.timestamp
+                it[timestamp] = healthRecord.timestamp as DateTime
                 it[firstName] = healthRecord.firstName
                 it[lastName] = healthRecord.lastName
                 it[sex] = healthRecord.sex
@@ -73,24 +74,24 @@ class HealthRecordDAO {
 
     // Update health record
 
-    fun updateHealthRecord(id: Int, healthRecord: HealthRecord): Int {
+    fun updateHealthRecord(healthId: Int, healthRecordToUpdate: HealthRecord): Int {
         return transaction {
             HealthRecords.update({
-                HealthRecords.id eq id
+                HealthRecords.id eq healthId
             }) {
-                it[timestamp] = healthRecord.timestamp
-                it[firstName] = healthRecord.firstName
-                it[lastName] = healthRecord.lastName
-                it[sex] = healthRecord.sex
-//                it[DOB] = healthRecord.DOB
-                it[weight] = healthRecord.weight
+                it[timestamp] = healthRecordToUpdate.timestamp as DateTime
+                it[firstName] = healthRecordToUpdate.firstName
+                it[lastName] = healthRecordToUpdate.lastName
+                it[sex] = healthRecordToUpdate.sex
+//                it[DOB] = healthRecordToUpdate.DOB
+                it[weight] = healthRecordToUpdate.weight
 //                it[height] = healthRecord.height
-                it[bloodType] = healthRecord.bloodType
-                it[allergies] = healthRecord.allergies
-                it[medicalConditions] = healthRecord.medicalConditions
-                it[medications] = healthRecord.medications
-                it[notes] = healthRecord.notes
-                it[userId] = healthRecord.userId
+                it[bloodType] = healthRecordToUpdate.bloodType
+                it[allergies] = healthRecordToUpdate.allergies
+                it[medicalConditions] = healthRecordToUpdate.medicalConditions
+                it[medications] = healthRecordToUpdate.medications
+                it[notes] = healthRecordToUpdate.notes
+                it[userId] = healthRecordToUpdate.userId
             }
         }
     }

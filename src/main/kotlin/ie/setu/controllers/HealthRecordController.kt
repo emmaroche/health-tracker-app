@@ -48,15 +48,27 @@ object HealthRecordController {
         }
     }
 
+//    fun updateHealthRecord(ctx: Context) {
+//        val healthRecordId = ctx.pathParam("health-record-id").toInt()
+//        val foundHealthRecord: HealthRecord = jsonToObject(ctx.body())
+//        val updatedCount = healthRecordDAO.updateHealthRecord(healthRecordId, foundHealthRecord)
+//        if (updatedCount != 0) {
+//            ctx.status(204)
+//        } else {
+//            ctx.status(404)
+//        }
+//    }
+
     fun updateHealthRecord(ctx: Context) {
-        val healthRecordId = ctx.pathParam("health-record-id").toInt()
-        val foundHealthRecord: HealthRecord = jsonToObject(ctx.body())
-        val updatedCount = healthRecordDAO.updateHealthRecord(healthRecordId, foundHealthRecord)
-        if (updatedCount != 0) {
+        val hr: HealthRecord = jsonToObject(ctx.body())
+        if (healthRecordDAO.updateHealthRecord(
+                healthId = ctx.pathParam("health-record-id").toInt(),
+                healthRecordToUpdate = hr
+            ) != 0
+        )
             ctx.status(204)
-        } else {
+        else
             ctx.status(404)
-        }
     }
 
     fun deleteHealthRecord(ctx: Context) {
