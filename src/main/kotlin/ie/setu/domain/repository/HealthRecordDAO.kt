@@ -29,6 +29,16 @@ class HealthRecordDAO {
         }
     }
 
+    //Find a specific health record  by health record id
+    fun findByHealthRecordId(id: Int): HealthRecord?{
+        return transaction {
+            HealthRecords
+                .select { HealthRecords.id eq id}
+                .map{ mapToHealthRecord(it) }
+                .firstOrNull()
+        }
+    }
+
     // Save health records
     fun save(healthRecord: HealthRecord): Int {
         return transaction {
@@ -37,7 +47,7 @@ class HealthRecordDAO {
                 it[firstName] = healthRecord.firstName
                 it[lastName] = healthRecord.lastName
                 it[sex] = healthRecord.sex
-                it[DOB] = healthRecord.dob
+                it[dob] = healthRecord.dob
                 it[weight] = healthRecord.weight
                 it[height] = healthRecord.height
                 it[bloodType] = healthRecord.bloodType
@@ -82,7 +92,7 @@ class HealthRecordDAO {
                 it[firstName] = healthRecordToUpdate.firstName
                 it[lastName] = healthRecordToUpdate.lastName
                 it[sex] = healthRecordToUpdate.sex
-                it[DOB] = healthRecordToUpdate.dob
+                it[dob] = healthRecordToUpdate.dob
                 it[weight] = healthRecordToUpdate.weight
                 it[height] = healthRecordToUpdate.height
                 it[bloodType] = healthRecordToUpdate.bloodType
