@@ -1,6 +1,8 @@
 package ie.setu.domain
 
+
 import org.joda.time.DateTime
+import java.util.*
 
 data class HealthRecord(
     var id: Int,
@@ -8,7 +10,7 @@ data class HealthRecord(
     val firstName: String,
     val lastName: String,
     val sex: String,
-//    val DOB: DateTime,
+    val dob: DateTime,
     val weight: Double,
     val height: Int,
     val bloodType: String,
