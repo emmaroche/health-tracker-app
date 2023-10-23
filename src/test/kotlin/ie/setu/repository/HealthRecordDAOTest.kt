@@ -58,7 +58,7 @@ class HealthRecordDAOTest {
         fun `get all health records over empty table returns none`() {
             transaction {
 
-                //Arrange - create and setup activityDAO object
+                //Arrange - create and setup healthRecordDAO object
                 SchemaUtils.create(HealthRecords)
                 val healthRecordDAO = HealthRecordDAO()
 
@@ -112,21 +112,35 @@ class HealthRecordDAOTest {
     @Nested
     inner class UpdateHealthRecords {
 
-//        @Test
-//        fun `updating existing activity in table results in successful update`() {
-//            transaction {
-//
-//                //Arrange - create and populate tables with three users and three activities
-//                populateUserTable()
-//                val healthRecordDAO = populateHRTable()
-//
-//                //Act & Assert
-//                val activity3updated = Activity(id = 3, description = "Cardio", duration = 42.0,
-//                    calories = 220, started = DateTime.now(), userId = 2)
-//                healthRecordDAO.updateHealthRecord(activity3updated.id, activity3updated)
-//                assertEquals(activity3updated, healthRecordDAO.findByHealthRecordId(3))
-//            }
-//        }
+        @Test
+        fun `updating existing health record in table results in successful update`() {
+            transaction {
+
+                //Arrange - create and populate tables with three users and three health records
+                populateUserTable()
+                val healthRecordDAO = populateHRTable()
+
+                //Act & Assert
+                val updatedHealthRecord = HealthRecord(
+                    id = 2,
+                    timestamp = DateTime.now(),
+                    firstName = "John",
+                    lastName = "Doe",
+                    sex = "Male",
+                    dob = DateTime(635734800000),
+                    weight = 75.5,
+                    height = 175,
+                    bloodType = "A+",
+                    allergies = "None",
+                    medicalConditions = "None",
+                    medications = "None",
+                    notes = "Regular checkup",
+                    userId = 2
+                )
+                healthRecordDAO.updateHealthRecord(updatedHealthRecord.id, updatedHealthRecord)
+                assertEquals(updatedHealthRecord, healthRecordDAO.findByHealthRecordId(2))
+            }
+        }
 
         @Test
         fun `updating non-existent health record in table results in no updates`() {
@@ -152,10 +166,8 @@ class HealthRecordDAOTest {
                     notes = "Regular checkup",
                     userId = 2
                 )
-
-
                 // Assert - Ensure that no updates were made and the record is not found
-
+                healthRecordDAO.updateHealthRecord(4, updatedHealthRecord)
                 assertEquals(null, healthRecordDAO.findByHealthRecordId(4))
                 assertEquals(3, healthRecordDAO.getAll().size)
             }
@@ -164,5 +176,69 @@ class HealthRecordDAOTest {
 
     }
 
+    @Nested
+    inner class DeleteHealthRecords {
+
+        @Test
+        fun `deleting a non-existent health record (by id) in table results in no deletion`() {
+            transaction {
+
+                //Arrange - create and populate tables with three users and three health records
+                populateUserTable()
+                val healthRecordDAO = populateHRTable()
+
+                //Act & Assert
+                assertEquals(3, healthRecordDAO.getAll().size)
+                healthRecordDAO.delete(4)
+                assertEquals(3, healthRecordDAO.getAll().size)
+            }
+        }
+
+        @Test
+        fun `deleting an existing health record (by id) in table results in record being deleted`() {
+            transaction {
+
+                //Arrange - create and populate tables with three users and three health records
+                populateUserTable()
+                val healthRecordDAO = populateHRTable()
+
+                //Act & Assert
+                assertEquals(3, healthRecordDAO.getAll().size)
+                healthRecordDAO.delete(hr3.id)
+                assertEquals(2, healthRecordDAO.getAll().size)
+            }
+        }
+
+
+        @Test
+        fun `deleting health records when none exist for user id results in no deletion`() {
+            transaction {
+
+                //Arrange - create and populate tables with three users and three health records
+                populateUserTable()
+                val healthRecordDAO = populateHRTable()
+
+                //Act & Assert
+                assertEquals(3, healthRecordDAO.getAll().size)
+                healthRecordDAO.delete(2)
+                assertEquals(2, healthRecordDAO.getAll().size)
+            }
+        }
+
+        @Test
+        fun `deleting health records when 1 or more exist for user id results in deletion`() {
+            transaction {
+
+                //Arrange - create and populate tables with three users and three health records
+                populateUserTable()
+                val healthRecordDAO = populateHRTable()
+
+                //Act & Assert
+                assertEquals(3, healthRecordDAO.getAll().size)
+                healthRecordDAO.delete(1)
+                assertEquals(2, healthRecordDAO.getAll().size)
+            }
+        }
+    }
 }
 
