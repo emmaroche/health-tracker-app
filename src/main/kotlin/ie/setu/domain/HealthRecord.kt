@@ -1,10 +1,10 @@
 package ie.setu.domain
 
-import java.io.Serializable
+import org.joda.time.DateTime
 
 data class HealthRecord(
     var id: Int,
-    val timestamp: Serializable,
+//    val timestamp: DateTime,
     val firstName: String,
     val lastName: String,
     val sex: String,
