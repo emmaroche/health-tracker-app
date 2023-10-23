@@ -29,7 +29,7 @@ class JavalinConfig {
         val remotePort = System.getenv("PORT")
         return if (remotePort != null) {
             Integer.parseInt(remotePort)
-        } else 7001
+        } else 7002
     }
 
     fun registerRoutes(app: Javalin) {
@@ -42,10 +42,8 @@ class JavalinConfig {
                     delete(UserController::deleteUser)
                     patch(UserController::updateUser)
                     path("healthRecords") {
-                        get(HealthRecordController::getAllHealthRecords)
                         get(HealthRecordController::getHealthRecordByUserId)
                         post(HealthRecordController::addHealthRecord)
-                        delete(HealthRecordController::deleteHealthRecord)
                     }
                     path("activities") {
                         get(ActivityController::getActivitiesByUserId)
@@ -68,7 +66,6 @@ class JavalinConfig {
             path("/api/healthRecords") {
                 get(HealthRecordController::getAllHealthRecords)
                 post(HealthRecordController::addHealthRecord)
-                delete(HealthRecordController::deleteHealthRecord)
                 path("{health-record-id}") {
                     get(HealthRecordController::getHealthRecordByHealthRecordId)
                     delete(HealthRecordController::deleteHealthRecord)
@@ -77,5 +74,51 @@ class JavalinConfig {
             }
         }
     }
+
+//    fun registerRoutes(app: Javalin) {
+//        app.routes {
+//            path("/api/users") {
+//                get(UserController::getAllUsers)
+//                post(UserController::addUser)
+//                path("{user-id}") {
+//                    get(UserController::getUserByUserId)
+//                    delete(UserController::deleteUser)
+//                    patch(UserController::updateUser)
+//                    path("healthRecords") {
+//                        get(HealthRecordController::getAllHealthRecords)
+//                        get(HealthRecordController::getHealthRecordByUserId)
+//                        post(HealthRecordController::addHealthRecord)
+//                        delete(HealthRecordController::deleteHealthRecord)
+//                    }
+//                    path("activities") {
+//                        get(ActivityController::getActivitiesByUserId)
+//                        delete(ActivityController::deleteAllActivitiesByUserId)
+//                    }
+//                }
+//                path("/email/{email}") {
+//                    get(UserController::getUserByEmail)
+//                }
+//            }
+//            path("/api/activities") {
+//                get(ActivityController::getAllActivities)
+//                post(ActivityController::addActivity)
+//                path("{activity-id}") {
+//                    get(ActivityController::getActivityByActivityId)
+//                    delete(ActivityController::deleteActivity)
+//                    patch(ActivityController::updateActivity)
+//                }
+//            }
+//            path("/api/healthRecords") {
+//                get(HealthRecordController::getAllHealthRecords)
+//                post(HealthRecordController::addHealthRecord)
+//                delete(HealthRecordController::deleteHealthRecord)
+//                path("{health-record-id}") {
+//                    get(HealthRecordController::getHealthRecordByHealthRecordId)
+//                    delete(HealthRecordController::deleteHealthRecord)
+//                    patch(HealthRecordController::updateHealthRecord)
+//                }
+//            }
+//        }
+//    }
 
 }

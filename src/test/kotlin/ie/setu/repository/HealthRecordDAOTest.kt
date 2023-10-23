@@ -1,12 +1,11 @@
 package ie.setu.repository
 
-import ie.setu.domain.Activity
 import ie.setu.domain.HealthRecord
-import ie.setu.domain.db.Activities
 import ie.setu.domain.db.HealthRecords
-import ie.setu.domain.repository.ActivityDAO
 import ie.setu.domain.repository.HealthRecordDAO
-import ie.setu.helpers.*
+import ie.setu.helpers.healthRecords
+import ie.setu.helpers.populateHRTable
+import ie.setu.helpers.populateUserTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
