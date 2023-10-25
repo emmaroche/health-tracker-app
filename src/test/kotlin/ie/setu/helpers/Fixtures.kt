@@ -22,7 +22,20 @@ val updatedEmail = "Updated Email"
 val updatedDescription = "Updated Description"
 val updatedDuration = 30.0
 val updatedCalories = 945
-val updatedStarted = DateTime.parse("2020-06-11T05:59:27.258Z")
+val updatedStarted = DateTime.parse("2023-10-25T14:36:23.915Z")
+
+val updatedTimestamp = DateTime.parse("2023-10-25T15:29:45.225Z")
+val updatedFirstname = "Joe"
+val updatedLastname = "Smith"
+val updatedSex= "Male"
+val updatedDob = DateTime.parse("1987-06-11T05:59:27.258Z")
+val updatedWeight = 90.0
+val updatedHeight = 170
+val updatedbloodType = "O"
+val updatedallergies = "Cats"
+val updatedmedicalConditions = "None"
+val updatedmedications = "None"
+val updatednotes = "None"
 
 val users = arrayListOf(
     User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),

@@ -315,7 +315,7 @@ class ActivityControllerTest {
         return Unirest.delete(origin + "/api/users/$id/activities").asString()
     }
 
-    //Helper function to add a test user to the database
+    //Helper function to update an activity
     private fun updateActivity(id: Int, description: String, duration: Double, calories: Int,
                                started: DateTime, userId: Int): HttpResponse<JsonNode> {
         return Unirest.patch(origin + "/api/activities/$id")

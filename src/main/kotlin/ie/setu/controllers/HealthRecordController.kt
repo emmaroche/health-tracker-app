@@ -1,6 +1,5 @@
 package ie.setu.controllers
 
-import ie.setu.domain.Activity
 import ie.setu.domain.HealthRecord
 import ie.setu.domain.repository.HealthRecordDAO
 import ie.setu.domain.repository.UserDAO
