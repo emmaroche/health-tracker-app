@@ -3,6 +3,7 @@ package ie.setu.config
 //import ie.setu.controllers.HealthTrackerController
 import ie.setu.controllers.UserController
 import ie.setu.controllers.ActivityController
+import ie.setu.controllers.HealthRecordController
 import ie.setu.utils.jsonObjectMapper
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
@@ -28,24 +29,28 @@ class JavalinConfig {
         val remotePort = System.getenv("PORT")
         return if (remotePort != null) {
             Integer.parseInt(remotePort)
-        } else 7001
+        } else 7002
     }
 
-    private fun registerRoutes(app: Javalin) {
+    fun registerRoutes(app: Javalin) {
         app.routes {
             path("/api/users") {
                 get(UserController::getAllUsers)
                 post(UserController::addUser)
-                path("{user-id}"){
+                path("{user-id}") {
                     get(UserController::getUserByUserId)
                     delete(UserController::deleteUser)
                     patch(UserController::updateUser)
-                    path("activities"){
+                    path("healthRecords") {
+                        get(HealthRecordController::getHealthRecordByUserId)
+                        post(HealthRecordController::addHealthRecord)
+                    }
+                    path("activities") {
                         get(ActivityController::getActivitiesByUserId)
                         delete(ActivityController::deleteAllActivitiesByUserId)
                     }
                 }
-                path("/email/{email}"){
+                path("/email/{email}") {
                     get(UserController::getUserByEmail)
                 }
             }
@@ -56,6 +61,15 @@ class JavalinConfig {
                     get(ActivityController::getActivityByActivityId)
                     delete(ActivityController::deleteActivity)
                     patch(ActivityController::updateActivity)
+                }
+            }
+            path("/api/healthRecords") {
+                get(HealthRecordController::getAllHealthRecords)
+                post(HealthRecordController::addHealthRecord)
+                path("{health-record-id}") {
+                    get(HealthRecordController::getHealthRecordByHealthRecordId)
+                    delete(HealthRecordController::deleteHealthRecord)
+                    patch(HealthRecordController::updateHealthRecord)
                 }
             }
         }

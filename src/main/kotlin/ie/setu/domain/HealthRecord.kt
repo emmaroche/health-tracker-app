@@ -1,0 +1,23 @@
+package ie.setu.domain
+
+
+import org.joda.time.DateTime
+import java.security.Timestamp
+import java.util.*
+
+data class HealthRecord(
+    var id: Int,
+    val timestamp: DateTime,
+    val firstName: String,
+    val lastName: String,
+    val sex: String,
+    val dob: DateTime,
+    val weight: Double,
+    val height: Int,
+    val bloodType: String,
+    val allergies: String,
+    val medicalConditions: String,
+    val medications: String,
+    val notes: String,
+    var userId: Int
+)
