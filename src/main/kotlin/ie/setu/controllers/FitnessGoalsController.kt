@@ -21,6 +21,7 @@ object FitnessGoalsController {
         ctx.json(fitnessGoals)
     }
 
+
     fun getFitnessGoalByGoalId(ctx: Context) {
         val fitnessGoal = fitnessGoalsDAO.findByGoalId(ctx.pathParam("fitness-goal-id").toInt())
         if (fitnessGoal != null) {
