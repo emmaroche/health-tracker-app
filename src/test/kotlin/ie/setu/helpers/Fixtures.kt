@@ -1,17 +1,8 @@
 package ie.setu.helpers
 
-import ie.setu.domain.Activity
-import ie.setu.domain.FitnessGoal
-import ie.setu.domain.HealthRecord
-import ie.setu.domain.User
-import ie.setu.domain.db.Activities
-import ie.setu.domain.db.FitnessGoals
-import ie.setu.domain.db.Users
-import ie.setu.domain.db.HealthRecords
-import ie.setu.domain.repository.ActivityDAO
-import ie.setu.domain.repository.FitnessGoalsDAO
-import ie.setu.domain.repository.HealthRecordDAO
-import ie.setu.domain.repository.UserDAO
+import ie.setu.domain.*
+import ie.setu.domain.db.*
+import ie.setu.domain.repository.*
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.joda.time.DateTime
 
@@ -162,6 +153,41 @@ val fitnessGoals = arrayListOf(
     )
 )
 
+val weightGoals = listOf(
+    WeightGoal(
+        id = 1,
+        type = "Weight Gain",
+        startingWeight = 150.0,
+        startingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        currentWeight = 150.0,
+        targetWeight = 160.0,
+        weeklyGoal = 0.5,
+        deadline = DateTime.parse("2023-11-23T10:30:00"),
+        userId = 1
+    ),
+    WeightGoal(
+        id = 2,
+        type = "Weight Loss",
+        startingWeight = 180.0,
+        startingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        currentWeight = 180.0,
+        targetWeight = 170.0,
+        weeklyGoal = 0.3,
+        deadline = DateTime.parse("2023-11-23T10:30:00"),
+        userId = 2
+    ),
+    WeightGoal(
+        id = 3,
+        type = "Maintain Weight",
+        startingWeight = 160.0,
+        startingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        currentWeight = 160.0,
+        targetWeight = 160.0,
+        weeklyGoal = 0.0,
+        deadline = DateTime.parse("2023-11-23T10:30:00"),
+        userId = 3
+    )
+)
 
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
@@ -196,4 +222,13 @@ fun populateFGTable(): FitnessGoalsDAO {
     fgDAO.save(fitnessGoals[1])
     fgDAO.save(fitnessGoals[2])
     return fgDAO
+}
+
+fun populateWGTable(): WeightGoalsDAO {
+    SchemaUtils.create(WeightGoals)
+    val wgDAO = WeightGoalsDAO()
+    wgDAO.save(weightGoals[0])
+    wgDAO.save(weightGoals[1])
+    wgDAO.save(weightGoals[2])
+    return wgDAO
 }
