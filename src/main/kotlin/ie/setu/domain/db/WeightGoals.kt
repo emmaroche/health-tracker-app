@@ -7,7 +7,7 @@ object WeightGoals : Table("weightGoals") {
     val id = integer("id").autoIncrement().primaryKey()
     val type = varchar("type", 50)
     val startingWeight = double("startingWeight")
-    val startingWeightTimestamp = varchar("startingWeightTimestamp", 100)
+    val startingWeightTimestamp = datetime("startingWeightTimestamp")
     val currentWeight = double("currentWeight")
     val targetWeight = double("targetWeight")
     val weeklyGoal = double("weeklyGoal")

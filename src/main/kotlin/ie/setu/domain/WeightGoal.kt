@@ -6,7 +6,7 @@ data class WeightGoal(
     var id: Int,
     val type: String,
     val startingWeight: Double,
-    val startingWeightTimestamp: String,
+    val startingWeightTimestamp: DateTime,
     val currentWeight: Double,
     val targetWeight: Double,
     val weeklyGoal: Double,
