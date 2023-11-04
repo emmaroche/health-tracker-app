@@ -3,7 +3,7 @@ package ie.setu.domain.db
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
-object WeightGoals : Table("weight-goals") {
+object WeightGoals : Table("weightGoals") {
     val id = integer("id").autoIncrement().primaryKey()
     val type = varchar("type", 50)
     val startingWeight = double("starting_value")

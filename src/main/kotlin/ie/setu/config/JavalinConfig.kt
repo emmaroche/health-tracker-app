@@ -1,10 +1,7 @@
 package ie.setu.config
 
 //import ie.setu.controllers.HealthTrackerController
-import ie.setu.controllers.UserController
-import ie.setu.controllers.ActivityController
-import ie.setu.controllers.FitnessGoalsController
-import ie.setu.controllers.HealthRecordController
+import ie.setu.controllers.*
 import ie.setu.utils.jsonObjectMapper
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
@@ -50,6 +47,10 @@ class JavalinConfig {
                         get(FitnessGoalsController::getFitnessGoalsByUserId)
                         post(FitnessGoalsController::addFitnessGoal)
                     }
+                    path("weightGoals") {
+                        get(WeightGoalsController::getWeightGoalsByUserId)
+                        post(WeightGoalsController::addWeightGoal)
+                    }
                     path("activities") {
                         get(ActivityController::getActivitiesByUserId)
                         delete(ActivityController::deleteAllActivitiesByUserId)
@@ -77,6 +78,18 @@ class JavalinConfig {
                     patch(HealthRecordController::updateHealthRecord)
                 }
             }
+            path("/api/weightGoals") {
+                get(WeightGoalsController::getAllWeightGoals)
+                post(WeightGoalsController::addWeightGoal)
+                path("{weight-goal-id}") {
+                    get(WeightGoalsController::getWeightGoalByGoalId)
+                    delete(WeightGoalsController::deleteWeightGoal)
+                    patch(WeightGoalsController::updateWeightGoal)
+                }
+                path("type/{type}") {
+                    get(WeightGoalsController::getWeightGoalByType)
+                }
+            }
             path("/api/fitnessGoals") {
                 get(FitnessGoalsController::getAllFitnessGoals)
                 post(FitnessGoalsController::addFitnessGoal)
@@ -88,6 +101,7 @@ class JavalinConfig {
                 path("type/{type}") {
                     get(FitnessGoalsController::getFitnessGoalByType)
                 }
+
             }
         }
     }
