@@ -20,7 +20,7 @@ object HealthRecordController {
         ctx.json(healthRec)
     }
 
-    // Get activities by activity id
+    // Get health records by health records id
     fun getHealthRecordByHealthRecordId(ctx: Context) {
         val hr = healthRecordDAO.findByHealthRecordId((ctx.pathParam("health-record-id").toInt()))
         if (hr != null) {
@@ -57,18 +57,6 @@ object HealthRecordController {
             ctx.status(404)
         }
     }
-
-//    fun updateHealthRecord(ctx: Context) {
-//        val healthRecordId = ctx.pathParam("health-record-id").toInt()
-//        val foundHealthRecord: HealthRecord = jsonToObject(ctx.body())
-//        val updatedCount = healthRecordDAO.updateHealthRecord(healthRecordId, foundHealthRecord)
-//        if (updatedCount != 0) {
-//            ctx.status(204)
-//        } else {
-//            ctx.status(404)
-//        }
-//    }
-
     fun updateHealthRecord(ctx: Context) {
         val hr: HealthRecord = jsonToObject(ctx.body())
         if (healthRecordDAO.updateHealthRecord(
