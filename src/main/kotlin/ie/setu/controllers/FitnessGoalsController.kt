@@ -46,6 +46,16 @@ object FitnessGoalsController {
         }
     }
 
+    fun getFitnessGoalByType(ctx: Context) {
+        val fitnessGoal = fitnessGoalsDAO.findByType(ctx.pathParam("type"))
+        if (fitnessGoal != null) {
+            ctx.json(fitnessGoal)
+            ctx.status(200)
+        } else {
+            ctx.status(404)
+        }
+    }
+
     fun addFitnessGoal(ctx: Context) {
         val fitnessGoals: FitnessGoal = jsonToObject(ctx.body())
         val user = userDao.findById(fitnessGoals.userId)

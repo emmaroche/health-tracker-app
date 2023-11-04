@@ -85,6 +85,9 @@ class JavalinConfig {
                     delete(FitnessGoalsController::deleteFitnessGoal)
                     patch(FitnessGoalsController::updateFitnessGoal)
                 }
+                path("type/{type}") {
+                    get(FitnessGoalsController::getFitnessGoalByType)
+                }
             }
         }
     }
