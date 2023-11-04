@@ -1,5 +1,6 @@
 package ie.setu.controllers
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import ie.setu.config.DbConfig
 import ie.setu.domain.HealthRecord
 import ie.setu.domain.User
@@ -10,6 +11,7 @@ import kong.unirest.HttpResponse
 import kong.unirest.JsonNode
 import kong.unirest.Unirest
 import org.joda.time.DateTime
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Nested
@@ -22,6 +24,20 @@ class HealthRecordControllerTest {
     private val db = DbConfig().getDbConnection()
     private val app = ServerContainer.instance
     private val origin = "http://localhost:" + app.port()
+
+    @AfterEach
+    fun tearDown() {
+        val emailToDelete = "testuser1@test.com"
+        val userToDeleteResponse = retrieveUserByEmail(emailToDelete)
+        if (userToDeleteResponse.status == 200) {
+            val responseBody = userToDeleteResponse.body.toString()
+            val objectMapper = ObjectMapper()
+            val jsonResponse = objectMapper.readTree(responseBody)
+            val userId = jsonResponse["id"].asInt()
+            deleteUser(userId)
+        }
+    }
+
 
     @Nested
     inner class ReadHealthRecords {

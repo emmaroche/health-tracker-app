@@ -3,6 +3,7 @@ package ie.setu.config
 //import ie.setu.controllers.HealthTrackerController
 import ie.setu.controllers.UserController
 import ie.setu.controllers.ActivityController
+import ie.setu.controllers.FitnessGoalsController
 import ie.setu.controllers.HealthRecordController
 import ie.setu.utils.jsonObjectMapper
 import io.javalin.Javalin
@@ -45,6 +46,10 @@ class JavalinConfig {
                         get(HealthRecordController::getHealthRecordByUserId)
                         post(HealthRecordController::addHealthRecord)
                     }
+                    path("fitnessGoals") {
+                        get(FitnessGoalsController::getFitnessGoalsByUserId)
+                        post(FitnessGoalsController::addFitnessGoal)
+                    }
                     path("activities") {
                         get(ActivityController::getActivitiesByUserId)
                         delete(ActivityController::deleteAllActivitiesByUserId)
@@ -72,7 +77,18 @@ class JavalinConfig {
                     patch(HealthRecordController::updateHealthRecord)
                 }
             }
+            path("/api/fitnessGoals") {
+                get(FitnessGoalsController::getAllFitnessGoals)
+                post(FitnessGoalsController::addFitnessGoal)
+                path("{fitness-goal-id}") {
+                    get(FitnessGoalsController::getFitnessGoalByGoalId)
+                    delete(FitnessGoalsController::deleteFitnessGoal)
+                    patch(FitnessGoalsController::updateFitnessGoal)
+                }
+                path("type/{type}") {
+                    get(FitnessGoalsController::getFitnessGoalByType)
+                }
+            }
         }
     }
-
 }

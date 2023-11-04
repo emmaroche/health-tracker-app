@@ -3,7 +3,7 @@ package ie.setu.domain.db
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
-object FitnessGoals : Table("fitness-goals") {
+object FitnessGoals : Table("fitnessGoals") {
     val id = integer("id").autoIncrement().primaryKey()
     val type = varchar("type", 50)
     val workoutsPerWeek = integer("workouts_per_week")
