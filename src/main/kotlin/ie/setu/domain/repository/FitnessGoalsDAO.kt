@@ -1,13 +1,9 @@
 package ie.setu.domain.repository
 
 import ie.setu.domain.FitnessGoal
-import ie.setu.domain.User
 import ie.setu.domain.db.FitnessGoals
-import ie.setu.domain.db.Users
 import ie.setu.utils.mapToFitnessGoal
-import ie.setu.utils.mapToUser
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class FitnessGoalsDAO {
