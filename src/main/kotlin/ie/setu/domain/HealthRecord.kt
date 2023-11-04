@@ -1,9 +1,6 @@
 package ie.setu.domain
 
-
 import org.joda.time.DateTime
-import java.security.Timestamp
-import java.util.*
 
 data class HealthRecord(
     var id: Int,
