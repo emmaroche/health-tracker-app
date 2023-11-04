@@ -7,6 +7,7 @@ import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
 object HealthRecordController {
+
     private val userDao = UserDAO()
     private val healthRecordDAO = HealthRecordDAO()
 

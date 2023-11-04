@@ -51,7 +51,7 @@ fun mapToFitnessGoal(it: ResultRow): FitnessGoal {
         workoutsPerWeek = it[FitnessGoals.workoutsPerWeek],
         minutesOfWorkouts = it[FitnessGoals.minutesOfWorkouts],
         calorieBurningGoalDuringExercise = it[FitnessGoals.calorieBurningGoalDuringExercise],
-        userId = it[HealthRecords.userId]
+        userId = it[FitnessGoals.userId]
     )
 }
 
