@@ -49,7 +49,6 @@ fun mapToFitnessGoal(it: ResultRow): FitnessGoal {
     )
 }
 
-
 fun mapToWeightGoal(it: ResultRow): WeightGoal {
     return WeightGoal(
         id = it[WeightGoals.id],
