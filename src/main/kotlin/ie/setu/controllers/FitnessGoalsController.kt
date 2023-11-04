@@ -7,6 +7,7 @@ import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
 object FitnessGoalsController {
+
     private val userDao = UserDAO()
     private val fitnessGoalsDAO = FitnessGoalsDAO()
 
