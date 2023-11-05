@@ -371,10 +371,10 @@ class HealthRecordControllerTest {
                 "height": $height,
                 "bloodType": "$bloodType",
                 "allergies": "$allergies",
-                "medicalConditions": "$medicalConditions}",
-                "medications": "$medications}",
-                "notes": "$notes}",
-                "userId": $userId}
+                "medicalConditions": "$medicalConditions",
+                "medications": "$medications",
+                "notes": "$notes",
+                "userId": $userId
             }
             """.trimIndent()
                 )

@@ -45,16 +45,6 @@ object WeightGoalsController {
         }
     }
 
-    fun getWeightGoalByType(ctx: Context) {
-        val weightGoal = weightGoalsDAO.findByType(ctx.pathParam("type"))
-        if (weightGoal != null) {
-            ctx.json(weightGoal)
-            ctx.status(200)
-        } else {
-            ctx.status(404)
-        }
-    }
-
     fun addWeightGoal(ctx: Context) {
         val weightGoal: WeightGoal = jsonToObject(ctx.body())
         val user = userDao.findById(weightGoal.userId)

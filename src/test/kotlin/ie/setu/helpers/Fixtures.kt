@@ -35,6 +35,14 @@ val updatedWorkoutsPerWeek = 4
 val updatedMinutesOfWorkouts = 35
 val updatedCalorieBurningGoalDuringExercise = 550.0
 
+val updatedType2 = "Weight Loss"
+val updatedStartingWeight = 75.0
+val updatedStartingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00")
+val updatedCurrentWeight = 72.5
+val updatedTargetWeight = 70.0
+val updatedWeeklyGoal = 1.5
+val updatedDeadline = DateTime.parse("2023-11-23T10:30:00")
+
 val users = arrayListOf(
     User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),
     User(name = "Bob Cat", email = "bob@cat.ie", id = 2),
@@ -153,7 +161,7 @@ val fitnessGoals = arrayListOf(
     )
 )
 
-val weightGoals = listOf(
+val weightGoals = arrayListOf(
     WeightGoal(
         id = 1,
         type = "Weight Gain",
@@ -186,6 +194,17 @@ val weightGoals = listOf(
         weeklyGoal = 0.0,
         deadline = DateTime.parse("2023-11-23T10:30:00"),
         userId = 3
+    ),
+    WeightGoal(
+        id = 3,
+        type = "Maintain Weight",
+        startingWeight = 120.0,
+        startingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        currentWeight = 12.0,
+        targetWeight = 160.0,
+        weeklyGoal = 0.0,
+        deadline = DateTime.parse("2023-11-23T10:30:00"),
+        userId = 4
     )
 )
 
