@@ -5,6 +5,7 @@ import ie.setu.config.DbConfig
 import ie.setu.domain.HealthRecord
 import ie.setu.domain.User
 import ie.setu.helpers.*
+import ie.setu.utils.TestUtilities
 import ie.setu.utils.jsonNodeToObject
 import ie.setu.utils.jsonToObject
 import kong.unirest.HttpResponse
@@ -24,17 +25,18 @@ class HealthRecordControllerTest {
     private val db = DbConfig().getDbConnection()
     private val app = ServerContainer.instance
     private val origin = "http://localhost:" + app.port()
+    private val testUtilities = TestUtilities()
 
     @AfterEach
     fun tearDown() {
         val emailToDelete = "testuser1@test.com"
-        val userToDeleteResponse = retrieveUserByEmail(emailToDelete)
+        val userToDeleteResponse = testUtilities.retrieveUserByEmail(emailToDelete)
         if (userToDeleteResponse.status == 200) {
             val responseBody = userToDeleteResponse.body.toString()
             val objectMapper = ObjectMapper()
             val jsonResponse = objectMapper.readTree(responseBody)
             val userId = jsonResponse["id"].asInt()
-            deleteUser(userId)
+            testUtilities.deleteUser(userId)
         }
     }
 
@@ -56,7 +58,7 @@ class HealthRecordControllerTest {
         @Test
         fun `get all health records by user id when user and health records  exists returns 200 response`() {
             //Arrange - add a user and 3 associated health records that we plan to retrieve
-            val addedUser: User = jsonToObject(addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
@@ -89,20 +91,20 @@ class HealthRecordControllerTest {
             assertEquals(3, retrievedHr.size)
 
             //After - delete the added user and assert a 204 is returned (health records are cascade deleted)
-            assertEquals(204, deleteUser(addedUser.id).status)
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
 
         @Test
         fun `get all health records by user id when no health records exist returns 404 response`() {
             //Arrange - add a user
-            val addedUser: User = jsonToObject(addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
 
             //Assert and Act - retrieve the health records by user id
             val response = retrieveHrByUserId(addedUser.id)
             assertEquals(404, response.status)
 
             //After - delete the added user and assert a 204 is returned
-            assertEquals(204, deleteUser(addedUser.id).status)
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
 
 
@@ -128,7 +130,7 @@ class HealthRecordControllerTest {
         @Test
         fun `get health record by health record id when health record exists returns 200 response`() {
             //Arrange - add a user and associated health record
-            val addedUser: User = jsonToObject(addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             val addHrResponse = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
@@ -145,222 +147,222 @@ class HealthRecordControllerTest {
             assertEquals(200, response.status)
 
             //After - delete the added user and assert a 204 is returned
-            assertEquals(204, deleteUser(addedUser.id).status)
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
 
     }
-        @Nested
-        inner class CreateHealthRecords {
 
-            @Test
-            fun `add a health record when a user exists for it, returns a 201 response`() {
+    @Nested
+    inner class CreateHealthRecords {
 
-                //Arrange - add a user and an associated health record that we plan to do a delete on
-                val addedUser: User = jsonToObject(addUser(validName, validEmail).body.toString())
+        @Test
+        fun `add a health record when a user exists for it, returns a 201 response`() {
 
-                val addHrResponse = addHealthRecord(
-                    healthRecords[0].timestamp, healthRecords[0].firstName,
-                    healthRecords[0].lastName, healthRecords[0].sex,
-                    healthRecords[0].dob, healthRecords[0].weight,
-                    healthRecords[0].height, healthRecords[0].bloodType,
-                    healthRecords[0].allergies, healthRecords[0].medicalConditions,
-                    healthRecords[0].medications, healthRecords[0].notes, addedUser.id)
-                assertEquals(201, addHrResponse.status)
+            //Arrange - add a user and an associated health record that we plan to do a delete on
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
 
-                //After - delete the user (health record will cascade delete in the database)
-                deleteUser(addedUser.id)
-            }
+            val addHrResponse = addHealthRecord(
+                healthRecords[0].timestamp, healthRecords[0].firstName,
+                healthRecords[0].lastName, healthRecords[0].sex,
+                healthRecords[0].dob, healthRecords[0].weight,
+                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].allergies, healthRecords[0].medicalConditions,
+                healthRecords[0].medications, healthRecords[0].notes, addedUser.id
+            )
+            assertEquals(201, addHrResponse.status)
 
-            @Test
-            fun `add a health record when no user exists for it, returns a 404 response`() {
-
-                //Arrange - check there is no user for -1 id
-                val userId = -1
-                assertEquals(404, retrieveUserById(userId).status)
-
-                val addHrResponse = addHealthRecord(
-                    healthRecords[0].timestamp, healthRecords[0].firstName,
-                    healthRecords[0].lastName, healthRecords[0].sex,
-                    healthRecords[0].dob, healthRecords[0].weight,
-                    healthRecords[0].height, healthRecords[0].bloodType,
-                    healthRecords[0].allergies, healthRecords[0].medicalConditions,
-                    healthRecords[0].medications, healthRecords[0].notes, userId)
-                assertEquals(404, addHrResponse.status)
-            }
+            //After - delete the user (health record will cascade delete in the database)
+            testUtilities.deleteUser(addedUser.id)
         }
 
-        @Nested
-        inner class UpdateHealthRecords {
+        @Test
+        fun `add a health record when no user exists for it, returns a 404 response`() {
 
-            @Test
-            fun `updating a health record by health record id when it doesn't exist, returns a 404 response`() {
-                val userId = -1
-                val hrId = -1
+            //Arrange - check there is no user for -1 id
+            val userId = -1
+            assertEquals(404, testUtilities.retrieveUserById(userId).status)
 
-                //Arrange - check there is no user for -1 id
-                assertEquals(404, retrieveUserById(userId).status)
+            val addHrResponse = addHealthRecord(
+                healthRecords[0].timestamp, healthRecords[0].firstName,
+                healthRecords[0].lastName, healthRecords[0].sex,
+                healthRecords[0].dob, healthRecords[0].weight,
+                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].allergies, healthRecords[0].medicalConditions,
+                healthRecords[0].medications, healthRecords[0].notes, userId
+            )
+            assertEquals(404, addHrResponse.status)
+        }
+    }
 
-                //Act & Assert - attempt to update the details of a health record/user that doesn't exist
-                assertEquals(
-                    404, updateHealthRecord(
-                        hrId, updatedTimestamp, updatedFirstname,
-                        updatedLastname, updatedSex, updatedDob, updatedWeight,
-                        updatedHeight, updatedbloodType, updatedallergies, updatedmedicalConditions,
-                        updatedmedications,updatednotes, userId
-                    ).status
-                )
-            }
+    @Nested
+    inner class UpdateHealthRecords {
 
-            @Test
-            fun `updating a health record by health record id when it exists, returns 204 response`() {
+        @Test
+        fun `updating a health record by health record id when it doesn't exist, returns a 404 response`() {
+            val userId = -1
+            val hrId = -1
 
-                //Arrange - add a user and an associated health record that we plan to do an update on
-                val addedUser : User = jsonToObject(addUser(validName, validEmail).body.toString())
-                val addHrResponse = addHealthRecord(
-                    healthRecords[0].timestamp, healthRecords[0].firstName,
-                    healthRecords[0].lastName, healthRecords[0].sex,
-                    healthRecords[0].dob, healthRecords[0].weight,
-                    healthRecords[0].height, healthRecords[0].bloodType,
-                    healthRecords[0].allergies, healthRecords[0].medicalConditions,
-                    healthRecords[0].medications, healthRecords[0].notes, addedUser.id)
-                assertEquals(201, addHrResponse.status)
-                val addedHr = jsonNodeToObject<HealthRecord>(addHrResponse)
+            //Arrange - check there is no user for -1 id
+            assertEquals(404, testUtilities.retrieveUserById(userId).status)
 
-                //Act & Assert - update the added health record and assert a 204 is returned
-                val updatedHrResponse = updateHealthRecord(
-                    addedHr.id, updatedTimestamp, updatedFirstname,
+            //Act & Assert - attempt to update the details of a health record/user that doesn't exist
+            assertEquals(
+                404, updateHealthRecord(
+                    hrId, updatedTimestamp, updatedFirstname,
                     updatedLastname, updatedSex, updatedDob, updatedWeight,
                     updatedHeight, updatedbloodType, updatedallergies, updatedmedicalConditions,
-                    updatedmedications,updatednotes,addedUser.id)
-                assertEquals(204, updatedHrResponse.status)
+                    updatedmedications, updatednotes, userId
+                ).status
+            )
+        }
 
-                //Assert that the individual fields were all updated as expected
-                val retrievedHrResponse = retrieveHrByHrId(addedHr.id)
-                val updatedHr= jsonNodeToObject<HealthRecord>(retrievedHrResponse)
-                assertEquals(updatedTimestamp,updatedHr.timestamp)
-                assertEquals(updatedFirstname, updatedHr.firstName)
-                assertEquals(updatedLastname, updatedHr.lastName)
-                assertEquals(updatedSex, updatedHr.sex )
-                assertEquals(updatedDob, updatedHr.dob )
-                assertEquals(updatedWeight, updatedHr.weight )
-                assertEquals(updatedHeight, updatedHr.height )
-                assertEquals(updatedbloodType, updatedHr.bloodType )
-                assertEquals(updatedallergies, updatedHr.allergies )
+        @Test
+        fun `updating a health record by health record id when it exists, returns 204 response`() {
+
+            //Arrange - add a user and an associated health record that we plan to do an update on
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addHrResponse = addHealthRecord(
+                healthRecords[0].timestamp, healthRecords[0].firstName,
+                healthRecords[0].lastName, healthRecords[0].sex,
+                healthRecords[0].dob, healthRecords[0].weight,
+                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].allergies, healthRecords[0].medicalConditions,
+                healthRecords[0].medications, healthRecords[0].notes, addedUser.id
+            )
+            assertEquals(201, addHrResponse.status)
+            val addedHr = jsonNodeToObject<HealthRecord>(addHrResponse)
+
+            //Act & Assert - update the added health record and assert a 204 is returned
+            val updatedHrResponse = updateHealthRecord(
+                addedHr.id, updatedTimestamp, updatedFirstname,
+                updatedLastname, updatedSex, updatedDob, updatedWeight,
+                updatedHeight, updatedbloodType, updatedallergies, updatedmedicalConditions,
+                updatedmedications, updatednotes, addedUser.id
+            )
+            assertEquals(204, updatedHrResponse.status)
+
+            //Assert that the individual fields were all updated as expected
+            val retrievedHrResponse = retrieveHrByHrId(addedHr.id)
+            val updatedHr = jsonNodeToObject<HealthRecord>(retrievedHrResponse)
+            assertEquals(updatedTimestamp, updatedHr.timestamp)
+            assertEquals(updatedFirstname, updatedHr.firstName)
+            assertEquals(updatedLastname, updatedHr.lastName)
+            assertEquals(updatedSex, updatedHr.sex)
+            assertEquals(updatedDob, updatedHr.dob)
+            assertEquals(updatedWeight, updatedHr.weight)
+            assertEquals(updatedHeight, updatedHr.height)
+            assertEquals(updatedbloodType, updatedHr.bloodType)
+            assertEquals(updatedallergies, updatedHr.allergies)
 //                println("Expected: $updatedmedicalConditions")
 //                println("Actual: ${updatedHr.medicalConditions}")
 //                assertEquals(updatedmedicalConditions.trim(), updatedHr.medicalConditions.trim())
 //                assertEquals(updatedmedications, updatedHr.medications )
 //                assertEquals(updatednotes, updatedHr.notes )
 
-                //After - delete the user
-                deleteUser(addedUser.id)
-            }
+            //After - delete the user
+            testUtilities.deleteUser(addedUser.id)
+        }
+    }
+
+    @Nested
+    inner class DeleteHealthRecords {
+
+        @Test
+        fun `deleting health records by user id when it doesn't exist, returns a 404 response`() {
+            //Act & Assert - attempt to delete a user that doesn't exist
+            assertEquals(404, deleteHrByUserId(-1).status)
         }
 
-        @Nested
-        inner class DeleteHealthRecords {
+        @Test
+        fun `deleting all health records by userid when it exists, returns a 204 response`() {
 
-            @Test
-            fun `deleting health records by user id when it doesn't exist, returns a 404 response`() {
-                //Act & Assert - attempt to delete a user that doesn't exist
-                assertEquals(404, deleteHrByUserId(-1).status)
-            }
+            //Arrange - add a user and 3 associated health records that we plan to do a cascade delete
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addHrResponse1 = addHealthRecord(
+                healthRecords[0].timestamp, healthRecords[0].firstName,
+                healthRecords[0].lastName, healthRecords[0].sex,
+                healthRecords[0].dob, healthRecords[0].weight,
+                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].allergies, healthRecords[0].medicalConditions,
+                healthRecords[0].medications, healthRecords[0].notes, addedUser.id
+            )
+            assertEquals(201, addHrResponse1.status)
+            val addHrResponse2 = addHealthRecord(
+                healthRecords[0].timestamp, healthRecords[0].firstName,
+                healthRecords[0].lastName, healthRecords[0].sex,
+                healthRecords[0].dob, healthRecords[0].weight,
+                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].allergies, healthRecords[0].medicalConditions,
+                healthRecords[0].medications, healthRecords[0].notes, addedUser.id
+            )
+            assertEquals(201, addHrResponse2.status)
+            val addHrResponse3 = addHealthRecord(
+                healthRecords[0].timestamp, healthRecords[0].firstName,
+                healthRecords[0].lastName, healthRecords[0].sex,
+                healthRecords[0].dob, healthRecords[0].weight,
+                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].allergies, healthRecords[0].medicalConditions,
+                healthRecords[0].medications, healthRecords[0].notes, addedUser.id
+            )
+            assertEquals(201, addHrResponse3.status)
 
-            @Test
-            fun `deleting all health records by userid when it exists, returns a 204 response`() {
+            //Act & Assert - delete the added user and assert a 204 is returned
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
 
-                //Arrange - add a user and 3 associated health records that we plan to do a cascade delete
-                val addedUser : User = jsonToObject(addUser(validName, validEmail).body.toString())
-                val addHrResponse1 = addHealthRecord(
-                    healthRecords[0].timestamp, healthRecords[0].firstName,
-                    healthRecords[0].lastName, healthRecords[0].sex,
-                    healthRecords[0].dob, healthRecords[0].weight,
-                    healthRecords[0].height, healthRecords[0].bloodType,
-                    healthRecords[0].allergies, healthRecords[0].medicalConditions,
-                    healthRecords[0].medications, healthRecords[0].notes, addedUser.id)
-                assertEquals(201, addHrResponse1.status)
-                val addHrResponse2 = addHealthRecord(
-                    healthRecords[0].timestamp, healthRecords[0].firstName,
-                    healthRecords[0].lastName, healthRecords[0].sex,
-                    healthRecords[0].dob, healthRecords[0].weight,
-                    healthRecords[0].height, healthRecords[0].bloodType,
-                    healthRecords[0].allergies, healthRecords[0].medicalConditions,
-                    healthRecords[0].medications, healthRecords[0].notes, addedUser.id)
-                assertEquals(201, addHrResponse2.status)
-                val addHrResponse3 = addHealthRecord(
-                    healthRecords[0].timestamp, healthRecords[0].firstName,
-                    healthRecords[0].lastName, healthRecords[0].sex,
-                    healthRecords[0].dob, healthRecords[0].weight,
-                    healthRecords[0].height, healthRecords[0].bloodType,
-                    healthRecords[0].allergies, healthRecords[0].medicalConditions,
-                    healthRecords[0].medications, healthRecords[0].notes, addedUser.id)
-                assertEquals(201, addHrResponse3.status)
-
-                //Act & Assert - delete the added user and assert a 204 is returned
-                assertEquals(204, deleteUser(addedUser.id).status)
-
-                //Act & Assert - attempt to retrieve the deleted health records
-                val addedHr1 = jsonNodeToObject<HealthRecord>(addHrResponse1)
-                val addedHr2 = jsonNodeToObject<HealthRecord>(addHrResponse2)
-                val addedHr3 = jsonNodeToObject<HealthRecord>(addHrResponse3)
-                assertEquals(404, retrieveHrByHrId(addedHr1.id).status)
-                assertEquals(404, retrieveHrByHrId(addedHr2.id).status)
-                assertEquals(404, retrieveHrByHrId(addedHr3.id).status)
-            }
+            //Act & Assert - attempt to retrieve the deleted health records
+            val addedHr1 = jsonNodeToObject<HealthRecord>(addHrResponse1)
+            val addedHr2 = jsonNodeToObject<HealthRecord>(addHrResponse2)
+            val addedHr3 = jsonNodeToObject<HealthRecord>(addHrResponse3)
+            assertEquals(404, retrieveHrByHrId(addedHr1.id).status)
+            assertEquals(404, retrieveHrByHrId(addedHr2.id).status)
+            assertEquals(404, retrieveHrByHrId(addedHr3.id).status)
         }
+    }
 
-        //--------------------------------------------------------------------------------------
-        // HELPER METHODS - could move them into a test utility class when submitting assignment
-        //--------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------
+    // HELPER METHODS
+    //--------------------------------------------------------------------------------------
 
-        //helper function to add a test user to the database
-        private fun addUser(name: String, email: String): HttpResponse<JsonNode> {
-            return Unirest.post(origin + "/api/users")
-                .body("{\"name\":\"$name\", \"email\":\"$email\"}")
-                .asJson()
-        }
+    //Helper function to retrieve all health records
+    private fun retrieveAllHr(): HttpResponse<JsonNode> {
+        return Unirest.get(origin + "/api/healthRecords").asJson()
+    }
 
-        //helper function to delete a test user from the database
-        private fun deleteUser(id: Int): HttpResponse<String> {
-            return Unirest.delete(origin + "/api/users/$id").asString()
-        }
+    //Helper function to retrieve a health record by user id
+    private fun retrieveHrByUserId(id: Int): HttpResponse<JsonNode> {
+        return Unirest.get(origin + "/api/users/${id}/healthRecords").asJson()
+    }
 
-        //helper function to retrieve a test user from the database by email
-        private fun retrieveUserByEmail(email: String): HttpResponse<String> {
-            return Unirest.get(origin + "/api/users/email/${email}").asString()
-        }
+    //Helper function to retrieve a health record by health record id
+    private fun retrieveHrByHrId(id: Int): HttpResponse<JsonNode> {
+        return Unirest.get(origin + "/api/healthRecords/${id}").asJson()
+    }
 
-        //Helper function to retrieve a test user from the database by id
-        private fun retrieveUserById(id: Int): HttpResponse<String> {
-            return Unirest.get(origin + "/api/users/${id}").asString()
-        }
+    //Helper function to delete a health record
+    private fun deleteHrByUserId(id: Int): HttpResponse<String> {
+        return Unirest.delete(origin + "/api/healthRecords/$id").asString()
+    }
 
-        //Helper function to retrieve all health records
-        private fun retrieveAllHr(): HttpResponse<JsonNode> {
-            return Unirest.get(origin + "/api/healthRecords").asJson()
-        }
-
-        //Helper function to retrieve a health record by user id
-        private fun retrieveHrByUserId(id: Int): HttpResponse<JsonNode> {
-            return Unirest.get(origin + "/api/users/${id}/healthRecords").asJson()
-        }
-
-        //Helper function to retrieve a health record by health record id
-        private fun retrieveHrByHrId(id: Int): HttpResponse<JsonNode> {
-            return Unirest.get(origin + "/api/healthRecords/${id}").asJson()
-        }
-
-        //Helper function to delete a health record
-        private fun deleteHrByUserId(id: Int): HttpResponse<String> {
-            return Unirest.delete(origin + "/api/healthRecords/$id").asString()
-        }
-
-        //Helper function to update a health record
-        private fun updateHealthRecord(id: Int, timestamp: DateTime, firstName: String, lastName: String, sex: String, dob: DateTime, weight: Double, height: Int,
-                                       bloodType: String, allergies: String, medicalConditions: String, medications: String, notes: String,  userId: Int): HttpResponse<JsonNode> {
-            return Unirest.patch(origin + "/api/healthRecords/$id")
-                .body(
-                    """
+    //Helper function to update a health record
+    private fun updateHealthRecord(
+        id: Int,
+        timestamp: DateTime,
+        firstName: String,
+        lastName: String,
+        sex: String,
+        dob: DateTime,
+        weight: Double,
+        height: Int,
+        bloodType: String,
+        allergies: String,
+        medicalConditions: String,
+        medications: String,
+        notes: String,
+        userId: Int
+    ): HttpResponse<JsonNode> {
+        return Unirest.patch(origin + "/api/healthRecords/$id")
+            .body(
+                """
             {
                 "timestamp": "$timestamp",
                 "firstName": "$firstName",
@@ -377,16 +379,29 @@ class HealthRecordControllerTest {
                 "userId": $userId
             }
             """.trimIndent()
-                )
-                .asJson()
-        }
+            )
+            .asJson()
+    }
 
-        //Helper function to add a health record
-        private fun addHealthRecord(timestamp: DateTime, firstName: String, lastName: String, sex: String, dob: DateTime, weight: Double, height: Int,
-                                    bloodType: String, allergies: String, medicalConditions: String, medications: String, notes: String,  userId: Int): HttpResponse<JsonNode> {
-            return Unirest.post(origin + "/api/healthRecords")
-                .body(
-                    """
+    //Helper function to add a health record
+    private fun addHealthRecord(
+        timestamp: DateTime,
+        firstName: String,
+        lastName: String,
+        sex: String,
+        dob: DateTime,
+        weight: Double,
+        height: Int,
+        bloodType: String,
+        allergies: String,
+        medicalConditions: String,
+        medications: String,
+        notes: String,
+        userId: Int
+    ): HttpResponse<JsonNode> {
+        return Unirest.post(origin + "/api/healthRecords")
+            .body(
+                """
             {
                 "timestamp": "$timestamp",
                 "firstName": "$firstName",
@@ -403,10 +418,10 @@ class HealthRecordControllerTest {
                 "userId": $userId}
             }
             """.trimIndent()
-                )
-                .asJson()
-        }
-
+            )
+            .asJson()
     }
+
+}
 
 

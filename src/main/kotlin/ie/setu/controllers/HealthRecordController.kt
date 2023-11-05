@@ -58,6 +58,7 @@ object HealthRecordController {
             ctx.status(404)
         }
     }
+
     fun updateHealthRecord(ctx: Context) {
         val hr: HealthRecord = jsonToObject(ctx.body())
         if (healthRecordDAO.updateHealthRecord(

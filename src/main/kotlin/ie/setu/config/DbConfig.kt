@@ -2,9 +2,9 @@ package ie.setu.config
 
 import org.jetbrains.exposed.sql.Database
 
-class DbConfig{
+class DbConfig {
 
-    fun getDbConnection() :Database{
+    fun getDbConnection(): Database {
 
         val PGHOST = "flora.db.elephantsql.com"
         val PGPORT = "5432"
@@ -17,7 +17,7 @@ class DbConfig{
 
         val dbConfig = Database.connect(
             url = dbUrl,
-            driver="org.postgresql.Driver",
+            driver = "org.postgresql.Driver",
             user = PGUSER,
             password = PGPASSWORD
         )

@@ -13,8 +13,7 @@ object UserController {
         val users = userDao.getAll()
         if (users.size != 0) {
             ctx.status(200)
-        }
-        else{
+        } else {
             ctx.status(404)
         }
         ctx.json(users)
@@ -25,14 +24,13 @@ object UserController {
         if (user != null) {
             ctx.json(user)
             ctx.status(200)
-        }
-        else{
+        } else {
             ctx.status(404)
         }
     }
 
     fun addUser(ctx: Context) {
-        val user : User = jsonToObject(ctx.body())
+        val user: User = jsonToObject(ctx.body())
         val userId = userDao.save(user)
         user.id = userId
         ctx.json(user)
@@ -44,22 +42,21 @@ object UserController {
         if (user != null) {
             ctx.json(user)
             ctx.status(200)
-        }
-        else{
+        } else {
             ctx.status(404)
         }
     }
 
-    fun deleteUser(ctx: Context){
+    fun deleteUser(ctx: Context) {
         if (userDao.delete(ctx.pathParam("user-id").toInt()) != 0)
             ctx.status(204)
         else
             ctx.status(404)
     }
 
-    fun updateUser(ctx: Context){
-        val foundUser : User = jsonToObject(ctx.body())
-        if ((userDao.update(id = ctx.pathParam("user-id").toInt(), user=foundUser)) != 0)
+    fun updateUser(ctx: Context) {
+        val foundUser: User = jsonToObject(ctx.body())
+        if ((userDao.update(id = ctx.pathParam("user-id").toInt(), user = foundUser)) != 0)
             ctx.status(204)
         else
             ctx.status(404)

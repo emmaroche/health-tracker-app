@@ -18,6 +18,7 @@ import kotlin.test.assertEquals
 private val hr1 = healthRecords[0]
 private val hr2 = healthRecords[1]
 private val hr3 = healthRecords[2]
+
 class HealthRecordDAOTest {
 
     companion object {

@@ -1,4 +1,5 @@
 package ie.setu.domain
+
 data class FitnessGoal(
     var id: Int,
     val type: String,
