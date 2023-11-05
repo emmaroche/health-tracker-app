@@ -11,7 +11,7 @@ class JavalinConfig {
 
     fun startJavalinService(): Javalin {
 
-        val app = Javalin.create{
+        val app = Javalin.create {
             //added this jsonMapper for our integration tests - serialise objects to json
             it.jsonMapper(JavalinJackson(jsonObjectMapper()))
         }.apply {

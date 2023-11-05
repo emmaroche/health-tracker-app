@@ -10,7 +10,7 @@ val nonExistingEmail = "112233445566778testUser@xxxxx.xx"
 val validName = "Test User 1"
 val validEmail = "testuser1@test.com"
 val updatedName = "Updated Name"
-val updatedEmail = "Updated Email"
+val updatedEmail = "Updated Email 2"
 
 val updatedDescription = "Updated Description"
 val updatedDuration = 30.0
@@ -20,7 +20,7 @@ val updatedStarted = DateTime.parse("2023-10-25T14:36:23.915Z")
 val updatedTimestamp = DateTime.parse("2023-10-25T15:29:45.225Z")
 val updatedFirstname = "Joe"
 val updatedLastname = "Smith"
-val updatedSex= "Male"
+val updatedSex = "Male"
 val updatedDob = DateTime.parse("1987-06-11T05:59:27.258Z")
 val updatedWeight = 90.0
 val updatedHeight = 170
@@ -216,6 +216,7 @@ fun populateUserTable(): UserDAO {
     userDAO.save(users[2])
     return userDAO
 }
+
 fun populateActivityTable(): ActivityDAO {
     SchemaUtils.create(Activities)
     val activityDAO = ActivityDAO()

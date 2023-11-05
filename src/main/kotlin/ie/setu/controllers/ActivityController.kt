@@ -11,6 +11,7 @@ object ActivityController {
     val userDao = UserDAO()
     private val activityDAO = ActivityDAO()
 
+    // Get all activities
     fun getAllActivities(ctx: Context) {
         val activities = activityDAO.getAll()
         if (activities.size != 0) {
@@ -21,6 +22,7 @@ object ActivityController {
         ctx.json(activities)
     }
 
+    // Get activities by user ID
     fun getActivitiesByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val activities = activityDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -35,6 +37,7 @@ object ActivityController {
         }
     }
 
+    // Add a new activity
     fun addActivity(ctx: Context) {
         val activity: Activity = jsonToObject(ctx.body())
         val userId = userDao.findById(activity.userId)
@@ -56,7 +59,7 @@ object ActivityController {
             ctx.status(404)
     }
 
-    // Delete a specific activity by activity id
+    // Delete a specific activity by activity ID
     fun deleteActivity(ctx: Context) {
         if (activityDAO.deleteByActivityId(ctx.pathParam("activity-id").toInt()) != 0)
             ctx.status(204)
@@ -64,7 +67,7 @@ object ActivityController {
             ctx.status(404)
     }
 
-    // Update a specific activity by activity id
+    // Update a specific activity by activity ID
     fun updateActivity(ctx: Context) {
         val activity: Activity = jsonToObject(ctx.body())
         if (activityDAO.updateByActivityId(
@@ -77,7 +80,7 @@ object ActivityController {
             ctx.status(404)
     }
 
-    // Get activities by activity id
+    // Get activities by activity ID
     fun getActivityByActivityId(ctx: Context) {
         val activity = activityDAO.findByActivityId((ctx.pathParam("activity-id").toInt()))
         if (activity != null) {

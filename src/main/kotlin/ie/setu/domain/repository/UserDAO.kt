@@ -8,6 +8,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class UserDAO {
 
+    // Get all users
     fun getAll(): ArrayList<User> {
         val userList: ArrayList<User> = arrayListOf()
         transaction {
@@ -17,6 +18,7 @@ class UserDAO {
         return userList
     }
 
+    // Find by user ID
     fun findById(id: Int): User?{
         return transaction {
             Users.select {
@@ -26,6 +28,7 @@ class UserDAO {
         }
     }
 
+    // Save user
     fun save(user: User) : Int {
         return transaction {
             Users.insert {
@@ -35,6 +38,7 @@ class UserDAO {
         }
     }
 
+    // Find user by email
     fun findByEmail(email: String) :User?{
         return transaction {
             Users.select {
@@ -44,13 +48,16 @@ class UserDAO {
         }
     }
 
-    fun delete(id: Int):Int{
-        return transaction{ Users.deleteWhere{
-            Users.id eq id
-        }
+    // Delete user
+    fun delete(id: Int): Int {
+        return transaction {
+            Users.deleteWhere {
+                Users.id eq id
+            }
         }
     }
 
+    // Update user
     fun update(id: Int, user: User): Int {
         return transaction {
             Users.update({
