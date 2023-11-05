@@ -11,6 +11,7 @@ object FitnessGoalsController {
     private val userDao = UserDAO()
     private val fitnessGoalsDAO = FitnessGoalsDAO()
 
+    // Get all fitness goals
     fun getAllFitnessGoals(ctx: Context) {
         val fitnessGoals = fitnessGoalsDAO.getAll()
         if (fitnessGoals.isNotEmpty()) {
@@ -21,7 +22,7 @@ object FitnessGoalsController {
         ctx.json(fitnessGoals)
     }
 
-
+    // Get fitness goals by goal ID
     fun getFitnessGoalByGoalId(ctx: Context) {
         val fitnessGoal = fitnessGoalsDAO.findByGoalId(ctx.pathParam("fitness-goal-id").toInt())
         if (fitnessGoal != null) {
@@ -32,6 +33,7 @@ object FitnessGoalsController {
         }
     }
 
+    // Get all fitness goals for a specific user
     fun getFitnessGoalsByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val fitnessGoals = fitnessGoalsDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -46,6 +48,7 @@ object FitnessGoalsController {
         }
     }
 
+    // Get a fitness goal by type
     fun getFitnessGoalByType(ctx: Context) {
         val fitnessGoal = fitnessGoalsDAO.findByType(ctx.pathParam("type"))
         if (fitnessGoal != null) {
@@ -56,6 +59,7 @@ object FitnessGoalsController {
         }
     }
 
+    // Add a fitness goal
     fun addFitnessGoal(ctx: Context) {
         val fitnessGoals: FitnessGoal = jsonToObject(ctx.body())
         val user = userDao.findById(fitnessGoals.userId)
@@ -69,6 +73,7 @@ object FitnessGoalsController {
         }
     }
 
+    // Update a fitness goal
     fun updateFitnessGoal(ctx: Context) {
         val fitnessGoal: FitnessGoal = jsonToObject(ctx.body())
         if (fitnessGoalsDAO.updateFitnessGoal(
@@ -82,6 +87,7 @@ object FitnessGoalsController {
         }
     }
 
+    // Delete a fitness goal by goal ID
     fun deleteFitnessGoal(ctx: Context) {
         val goalId = ctx.pathParam("fitness-goal-id").toInt()
         val deletedCount = fitnessGoalsDAO.delete(goalId)

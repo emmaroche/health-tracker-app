@@ -11,6 +11,7 @@ object HealthRecordController {
     private val userDao = UserDAO()
     private val healthRecordDAO = HealthRecordDAO()
 
+    // Get all health records
     fun getAllHealthRecords(ctx: Context) {
         val healthRec = healthRecordDAO.getAll()
         if (healthRec.size != 0) {
@@ -21,7 +22,7 @@ object HealthRecordController {
         ctx.json(healthRec)
     }
 
-    // Get health records by health records id
+    // Get health records by health records ID
     fun getHealthRecordByHealthRecordId(ctx: Context) {
         val hr = healthRecordDAO.findByHealthRecordId((ctx.pathParam("health-record-id").toInt()))
         if (hr != null) {
@@ -32,6 +33,7 @@ object HealthRecordController {
         }
     }
 
+    // Get health records by user ID
     fun getHealthRecordByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val healthRec = healthRecordDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -46,6 +48,7 @@ object HealthRecordController {
         }
     }
 
+    // Add a new health record
     fun addHealthRecord(ctx: Context) {
         val healthRecord: HealthRecord = jsonToObject(ctx.body())
         val user = userDao.findById(healthRecord.userId)
@@ -59,6 +62,7 @@ object HealthRecordController {
         }
     }
 
+    // Update a health record
     fun updateHealthRecord(ctx: Context) {
         val hr: HealthRecord = jsonToObject(ctx.body())
         if (healthRecordDAO.updateHealthRecord(
@@ -71,6 +75,7 @@ object HealthRecordController {
             ctx.status(404)
     }
 
+    // Delete a health record by health record ID
     fun deleteHealthRecord(ctx: Context) {
         val healthRecordId = ctx.pathParam("health-record-id").toInt()
         val deletedCount = healthRecordDAO.delete(healthRecordId)

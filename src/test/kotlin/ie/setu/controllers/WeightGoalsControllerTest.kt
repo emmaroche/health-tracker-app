@@ -309,30 +309,8 @@ class WeightGoalsControllerTest {
     }
 
     //--------------------------------------------------------------------------------------
-    // HELPER METHODS - could move them into a test utility class when submitting assignment
+    // HELPER METHODS
     //--------------------------------------------------------------------------------------
-
-    // Helper function to add a test user to the database
-//    private fun testUtilities.addUser(name: String, email: String): HttpResponse<JsonNode> {
-//        return Unirest.post(origin + "/api/users")
-//            .body("{\"name\":\"$name\", \"email\":\"$email\"}")
-//            .asJson()
-//    }
-//
-//    // Helper function to delete a test user from the database
-//    private fun testUtilities.deleteUser(id: Int): HttpResponse<String> {
-//        return Unirest.delete(origin + "/api/users/$id").asString()
-//    }
-//
-//    // Helper function to retrieve a test user from the database by email
-//    private fun retrieveUserByEmail(email: String): HttpResponse<String> {
-//        return Unirest.get(origin + "/api/users/email/${email}").asString()
-//    }
-//
-//    // Helper function to retrieve a test user from the database by id
-//    private fun retrieveUserById(id: Int): HttpResponse<String> {
-//        return Unirest.get(origin + "/api/users/${id}").asString()
-//    }
 
     // Helper function to retrieve all weight goals
     private fun retrieveAllWeightGoals(): HttpResponse<JsonNode> {

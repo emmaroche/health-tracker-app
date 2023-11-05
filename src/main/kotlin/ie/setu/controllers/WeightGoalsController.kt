@@ -11,6 +11,7 @@ object WeightGoalsController {
     private val userDao = UserDAO()
     private val weightGoalsDAO = WeightGoalsDAO()
 
+    // Get all weight goals
     fun getAllWeightGoals(ctx: Context) {
         val weightGoals = weightGoalsDAO.getAll()
         if (weightGoals.isNotEmpty()) {
@@ -21,6 +22,7 @@ object WeightGoalsController {
         ctx.json(weightGoals)
     }
 
+    // Get weight goal by goal ID
     fun getWeightGoalByGoalId(ctx: Context) {
         val weightGoal = weightGoalsDAO.findByGoalId(ctx.pathParam("weight-goal-id").toInt())
         if (weightGoal != null) {
@@ -31,6 +33,7 @@ object WeightGoalsController {
         }
     }
 
+    // Get weight goal by user ID
     fun getWeightGoalsByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val weightGoals = weightGoalsDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -45,6 +48,7 @@ object WeightGoalsController {
         }
     }
 
+    // Add weight goal
     fun addWeightGoal(ctx: Context) {
         val weightGoal: WeightGoal = jsonToObject(ctx.body())
         val user = userDao.findById(weightGoal.userId)
@@ -58,6 +62,7 @@ object WeightGoalsController {
         }
     }
 
+    //Update weight goal
     fun updateWeightGoal(ctx: Context) {
         val weightGoal: WeightGoal = jsonToObject(ctx.body())
         if (weightGoalsDAO.updateWeightGoal(
@@ -71,6 +76,7 @@ object WeightGoalsController {
         }
     }
 
+    // Delete weight goal
     fun deleteWeightGoal(ctx: Context) {
         val goalId = ctx.pathParam("weight-goal-id").toInt()
         val deletedCount = weightGoalsDAO.delete(goalId)

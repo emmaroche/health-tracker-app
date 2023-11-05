@@ -2,6 +2,7 @@ package ie.setu.domain.db
 
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
+
 object SleepTracking : Table("sleep-entries") {
     val id = integer("id").autoIncrement().primaryKey()
     val date = datetime("date")

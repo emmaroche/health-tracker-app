@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class ActivityDAO {
 
-    //Get all the activities in the database regardless of user id
+    // Get all the activities in the database regardless of user id
     fun getAll(): ArrayList<Activity> {
         val activitiesList: ArrayList<Activity> = arrayListOf()
         transaction {
@@ -18,7 +18,7 @@ class ActivityDAO {
         return activitiesList
     }
 
-    //Find a specific activity by activity id
+    // Find a specific activity by activity id
     fun findByActivityId(id: Int): Activity?{
         return transaction {
             Activities
@@ -28,7 +28,7 @@ class ActivityDAO {
         }
     }
 
-    //Find all activities for a specific user id
+    // Find all activities for a specific user id
     fun findByUserId(userId: Int): List<Activity>{
         return transaction {
             Activities
@@ -37,7 +37,7 @@ class ActivityDAO {
         }
     }
 
-    //Save an activity to the database
+    // Save an activity to the database
     fun save(activity: Activity): Int {
         return transaction {
             Activities.insert {

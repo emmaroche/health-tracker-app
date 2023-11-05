@@ -60,8 +60,6 @@ class HealthRecordDAO {
         }
     }
 
-
-
     // Find health records by user first name
     fun findByFirstName(firstName: String) : User?{
         return transaction {
@@ -73,7 +71,6 @@ class HealthRecordDAO {
     }
 
     // Delete health record
-
     fun delete(id: Int):Int{
         return transaction{ HealthRecords.deleteWhere{
             HealthRecords.id eq id
@@ -82,7 +79,6 @@ class HealthRecordDAO {
     }
 
     // Update health record
-
     fun updateHealthRecord(healthId: Int, healthRecordToUpdate: HealthRecord): Int {
         return transaction {
             HealthRecords.update({
