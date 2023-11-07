@@ -111,10 +111,12 @@ class JavalinConfig {
             get("/activities", VueComponent("<activity-overview></activity-overview>"))
             get("/fitnessGoals", VueComponent("<fitness-goals-overview></fitness-goals-overview>"))
             get("/weightGoals", VueComponent("<weight-goals-overview></weight-goals-overview>"))
+            get("/healthRecords", VueComponent("<health-record-overview></health-record-overview>"))
             get("/users/{user-id}", VueComponent("<user-profile></user-profile>"))
             get("/activities/{activity-id}", VueComponent("<activity-profile></activity-profile>"))
             get("/fitnessGoals/{fitness-goal-id}", VueComponent("<fitness-goals-profile></fitness-goals-profile>"))
             get("/weightGoals/{weight-goal-id}", VueComponent("<weight-goals-profile></weight-goals-profile>"))
+            get("/healthRecords/{health-record-id}", VueComponent("<health-record-profile></health-record-profile>"))
             get("/users/{user-id}/activities", VueComponent("<user-activity-overview></user-activity-overview>"))
         }
     }
