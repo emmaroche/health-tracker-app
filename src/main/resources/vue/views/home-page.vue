@@ -29,6 +29,15 @@
           </div>
         </div>
       </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Total Weight Goals</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{weightGoals.length}} weight goals</h5>
+            <a href="/weightGoals" class="btn btn-primary">More Details...</a>
+          </div>
+        </div>
+      </div>
     </div>
   </app-layout>
 </template>
@@ -40,7 +49,8 @@ app.component('home-page',
       data: () => ({
         users: [],
         activities: [],
-        fitnessGoals: []
+        fitnessGoals: [],
+        weightGoals: []
       }),
       created() {
         axios.get("/api/users")
@@ -52,6 +62,9 @@ app.component('home-page',
         axios.get("/api/fitnessGoals")
             .then(res => this.fitnessGoals = res.data)
             .catch(() => alert("Error while fetching fitness goals"));
+        axios.get("/api/weightGoals")
+            .then(res => this.weightGoals = res.data)
+            .catch(() => alert("Error while fetching weight goals"));
       }
     });
 </script>
