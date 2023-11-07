@@ -118,6 +118,9 @@ class JavalinConfig {
             get("/weightGoals/{weight-goal-id}", VueComponent("<weight-goals-profile></weight-goals-profile>"))
             get("/healthRecords/{health-record-id}", VueComponent("<health-record-profile></health-record-profile>"))
             get("/users/{user-id}/activities", VueComponent("<user-activity-overview></user-activity-overview>"))
+            get("/users/{user-id}/fitnessGoals", VueComponent("<user-fitness-goals-overview></user-fitness-goals-overview>"))
+            get("/users/{user-id}/weightGoals", VueComponent("<user-weight-goals-overview></user-weight-goals-overview>"))
+            get("/users/{user-id}/healthRecords", VueComponent("<user-health-record-overview></user-health-record-overview>"))
         }
     }
 }
