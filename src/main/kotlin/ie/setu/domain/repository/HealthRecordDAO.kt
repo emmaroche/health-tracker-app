@@ -70,7 +70,7 @@ class HealthRecordDAO {
         }
     }
 
-    // Delete health record
+    // Delete health record by hr ID
     fun delete(id: Int):Int{
         return transaction{ HealthRecords.deleteWhere{
             HealthRecords.id eq id

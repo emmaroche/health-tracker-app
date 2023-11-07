@@ -1,5 +1,6 @@
 package ie.setu.controllers
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import ie.setu.config.DbConfig
 import ie.setu.domain.Activity
 import ie.setu.domain.User
@@ -12,6 +13,7 @@ import kong.unirest.HttpResponse
 import kong.unirest.JsonNode
 import kong.unirest.Unirest
 import org.joda.time.DateTime
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
