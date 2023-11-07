@@ -18,7 +18,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/api/activities">
+              <a class="nav-link" href="/activities">
                 Activities <span class="sr-only">(current)</span>
               </a>
             </li>
