@@ -18,7 +18,7 @@
         <input class="form-control" v-model="activity.started" name="started" type="text"/><br>
 
         <label class="col-form-label">User ID:</label>
-        <input class="form-control" v-model="activity.Id" name="Id" type="number" readonly/><br>
+        <input class="form-control" v-model="activity.userId" name="userId" type="number"/><br>
       </form>
     </div>
   </app-layout>

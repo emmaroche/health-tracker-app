@@ -22,6 +22,21 @@
                 Activities <span class="sr-only">(current)</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/fitnessGoals">
+                Fitness Goals <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/weightGoals">
+                Weight Goals <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/healthRecords">
+                Health Records <span class="sr-only">(current)</span>
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

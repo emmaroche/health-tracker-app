@@ -12,6 +12,13 @@
     <dt v-if="user">
       <br>
       <a :href="`/users/${user.id}/activities`">View User Activities</a>
+      <br>
+      <a :href="`/users/${user.id}/healthRecords`">View Health Record</a>
+      <br>
+      <a :href="`/users/${user.id}/fitnessGoals`">View Fitness Goals</a>
+      <br>
+      <a :href="`/users/${user.id}/weightGoals`">View Weight Goals</a>
+      <br>
     </dt>
   </div>
     </app-layout>

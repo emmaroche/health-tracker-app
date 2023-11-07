@@ -109,9 +109,18 @@ class JavalinConfig {
             get("/", VueComponent("<home-page></home-page>"))
             get("/users", VueComponent("<user-overview></user-overview>"))
             get("/activities", VueComponent("<activity-overview></activity-overview>"))
+            get("/fitnessGoals", VueComponent("<fitness-goals-overview></fitness-goals-overview>"))
+            get("/weightGoals", VueComponent("<weight-goals-overview></weight-goals-overview>"))
+            get("/healthRecords", VueComponent("<health-record-overview></health-record-overview>"))
             get("/users/{user-id}", VueComponent("<user-profile></user-profile>"))
             get("/activities/{activity-id}", VueComponent("<activity-profile></activity-profile>"))
+            get("/fitnessGoals/{fitness-goal-id}", VueComponent("<fitness-goals-profile></fitness-goals-profile>"))
+            get("/weightGoals/{weight-goal-id}", VueComponent("<weight-goals-profile></weight-goals-profile>"))
+            get("/healthRecords/{health-record-id}", VueComponent("<health-record-profile></health-record-profile>"))
             get("/users/{user-id}/activities", VueComponent("<user-activity-overview></user-activity-overview>"))
+            get("/users/{user-id}/fitnessGoals", VueComponent("<user-fitness-goals-overview></user-fitness-goals-overview>"))
+            get("/users/{user-id}/weightGoals", VueComponent("<user-weight-goals-overview></user-weight-goals-overview>"))
+            get("/users/{user-id}/healthRecords", VueComponent("<user-health-record-overview></user-health-record-overview>"))
         }
     }
 }

@@ -20,6 +20,33 @@
           </div>
         </div>
       </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Total Fitness Goals</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{fitnessGoals.length}} fitness goals</h5>
+            <a href="/fitnessGoals" class="btn btn-primary">More Details...</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Total Weight Goals</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{weightGoals.length}} weight goals</h5>
+            <a href="/weightGoals" class="btn btn-primary">More Details...</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Health Records</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{healthRecords.length}} health records</h5>
+            <a href="/healthRecords" class="btn btn-primary">More Details...</a>
+          </div>
+        </div>
+      </div>
     </div>
   </app-layout>
 </template>
@@ -30,7 +57,10 @@ app.component('home-page',
       template: "#home-page",
       data: () => ({
         users: [],
-        activities: []
+        activities: [],
+        fitnessGoals: [],
+        weightGoals: [],
+        healthRecords: []
       }),
       created() {
         axios.get("/api/users")
@@ -39,6 +69,15 @@ app.component('home-page',
         axios.get("/api/activities")
             .then(res => this.activities = res.data)
             .catch(() => alert("Error while fetching activities"));
+        axios.get("/api/fitnessGoals")
+            .then(res => this.fitnessGoals = res.data)
+            .catch(() => alert("Error while fetching fitness goals"));
+        axios.get("/api/weightGoals")
+            .then(res => this.weightGoals = res.data)
+            .catch(() => alert("Error while fetching weight goals"));
+        axios.get("/api/healthRecords")
+            .then(res => this.healthRecords = res.data)
+            .catch(() => alert("Error while fetching health records"));
       }
     });
 </script>
