@@ -54,7 +54,6 @@ class NutritionGoalsDAO {
         return transaction {
             NutritionGoals.insert {
                 it[type] = nutritionGoal.type
-                it[weeklyGoal] = nutritionGoal.weeklyGoal
                 it[proteinGoal] = nutritionGoal.proteinGoal
                 it[fibreGoal] = nutritionGoal.fibreGoal
                 it[calorieGoal] = nutritionGoal.calorieGoal
@@ -81,7 +80,6 @@ class NutritionGoalsDAO {
                 NutritionGoals.id eq goalId
             }) {
                 it[type] = nutritionGoalToUpdate.type
-                it[weeklyGoal] = nutritionGoalToUpdate.weeklyGoal
                 it[proteinGoal] = nutritionGoalToUpdate.proteinGoal
                 it[fibreGoal] = nutritionGoalToUpdate.fibreGoal
                 it[calorieGoal] = nutritionGoalToUpdate.calorieGoal

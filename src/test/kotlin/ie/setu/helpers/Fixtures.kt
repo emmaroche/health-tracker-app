@@ -43,6 +43,14 @@ val updatedTargetWeight = 70.0
 val updatedWeeklyGoal = 1.5
 val updatedDeadline = DateTime.parse("2023-11-23T10:30:00")
 
+val updatedType3 = "Weight Loss"
+val updatedProteinGoal = 120.0
+val updatedFibreGoal = 30.0
+val updatedCalorieGoal = 1500.0
+val updatedCarbsGoal = 200.0
+val updatedFatGoal = 50.0
+
+
 val users = arrayListOf(
     User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),
     User(name = "Bob Cat", email = "bob@cat.ie", id = 2),
@@ -208,6 +216,49 @@ val weightGoals = arrayListOf(
     )
 )
 
+val nutritionGoals = arrayListOf(
+    NutritionGoal(
+        id = 1,
+        type = "Type1",
+        proteinGoal = 30.0,
+        fibreGoal = 10.0,
+        calorieGoal = 500.0,
+        carbsGoal = 40.0,
+        fatGoal = 20.0,
+        userId = 1
+    ),
+    NutritionGoal(
+        id = 2,
+        type = "Type2",
+        proteinGoal = 40.0,
+        fibreGoal = 15.0,
+        calorieGoal = 600.0,
+        carbsGoal = 45.0,
+        fatGoal = 25.0,
+        userId = 2
+    ),
+    NutritionGoal(
+        id = 3,
+        type = "Type3",
+        proteinGoal = 20.0,
+        fibreGoal = 5.0,
+        calorieGoal = 300.0,
+        carbsGoal = 30.0,
+        fatGoal = 15.0,
+        userId = 3
+    ),
+    NutritionGoal(
+        id = 4,
+        type = "Type4",
+        proteinGoal = 50.0,
+        fibreGoal = 20.0,
+        calorieGoal = 700.0,
+        carbsGoal = 50.0,
+        fatGoal = 30.0,
+        userId = 1
+    )
+)
+
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
     val userDAO = UserDAO()
@@ -251,4 +302,13 @@ fun populateWGTable(): WeightGoalsDAO {
     wgDAO.save(weightGoals[1])
     wgDAO.save(weightGoals[2])
     return wgDAO
+}
+
+fun populateNGTable(): NutritionGoalsDAO {
+    SchemaUtils.create(NutritionGoals)
+    val ngDAO = NutritionGoalsDAO()
+    ngDAO.save(nutritionGoals[0])
+    ngDAO.save(nutritionGoals[1])
+    ngDAO.save(nutritionGoals[2])
+    return ngDAO
 }
