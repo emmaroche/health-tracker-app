@@ -50,6 +50,10 @@ val updatedCalorieGoal = 1500.0
 val updatedCarbsGoal = 200.0
 val updatedFatGoal = 50.0
 
+val updatedDate = DateTime.parse("2023-10-25T14:36:23.915Z")
+val updatedDuration2 = 30
+val updatedQuality = "Updated Quality"
+val updatedNotes = "Updated Notes"
 
 val users = arrayListOf(
     User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),
@@ -259,6 +263,41 @@ val nutritionGoals = arrayListOf(
     )
 )
 
+val sleepTracking = arrayListOf(
+    SleepEntry(
+        id = 1,
+        date = DateTime.parse("2023-12-12T22:30:00"),
+        duration = 480,
+        quality = "Deep",
+        notes = "A restful night of sleep",
+        userId = 1
+    ),
+    SleepEntry(
+        id = 2,
+        date = DateTime.parse("2023-12-13T00:45:00"),
+        duration = 420,
+        quality = "Moderate",
+        notes = "Woke up once during the night",
+        userId = 2
+    ),
+    SleepEntry(
+        id = 3,
+        date = DateTime.parse("2023-12-14T23:15:00"),
+        duration = 510,
+        quality = "Light",
+        notes = "Interrupted sleep due to noise",
+        userId = 3
+    ),
+    SleepEntry(
+        id = 4,
+        date = DateTime.parse("2023-12-15T21:00:00"),
+        duration = 540,
+        quality = "Deep",
+        notes = "Long and undisturbed sleep",
+        userId = 1
+    )
+)
+
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
     val userDAO = UserDAO()
@@ -311,4 +350,13 @@ fun populateNGTable(): NutritionGoalsDAO {
     ngDAO.save(nutritionGoals[1])
     ngDAO.save(nutritionGoals[2])
     return ngDAO
+}
+
+fun populateSTTable(): SleepTrackingDAO {
+    SchemaUtils.create(SleepTracking)
+    val stDAO = SleepTrackingDAO()
+    stDAO.save(sleepTracking[0])
+    stDAO.save(sleepTracking[1])
+    stDAO.save(sleepTracking[2])
+    return stDAO
 }
