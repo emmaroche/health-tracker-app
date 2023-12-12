@@ -62,6 +62,10 @@ class JavalinConfig {
                         get(ActivityController::getActivitiesByUserId)
                         delete(ActivityController::deleteAllActivitiesByUserId)
                     }
+                    path("sleepTracking") {
+                        get(SleepTrackingController::getSleepTrackingByUserId)
+                        post(SleepTrackingController::addSleepTracking)
+                    }
                 }
                 path("/email/{email}") {
                     get(UserController::getUserByEmail)
@@ -106,13 +110,22 @@ class JavalinConfig {
                     get(FitnessGoalsController::getFitnessGoalByType)
                 }
             }
-            path("/api/nutritionGoals") { // Added nutrition goals
+            path("/api/nutritionGoals") {
                 get(NutritionGoalsController::getAllNutritionGoals)
                 post(NutritionGoalsController::addNutritionGoal)
                 path("{nutrition-goal-id}") {
                     get(NutritionGoalsController::getNutritionGoalByGoalId)
                     delete(NutritionGoalsController::deleteNutritionGoal)
                     patch(NutritionGoalsController::updateNutritionGoal)
+                }
+            }
+            path("/api/sleepTracking") {
+                get(SleepTrackingController::getAllSleepTracking)
+                post(SleepTrackingController::addSleepTracking)
+                path("{sleep-tracking-id}") {
+                    get(SleepTrackingController::getSleepTrackingById)
+                    delete(SleepTrackingController::deleteSleepTracking)
+                    patch(SleepTrackingController::updateSleepTracking)
                 }
             }
             // The @routeComponent that we added in layout.html earlier will be replaced

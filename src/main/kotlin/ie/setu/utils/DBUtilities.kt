@@ -76,3 +76,13 @@ fun mapToNutritionGoal(it: ResultRow): NutritionGoal {
     )
 }
 
+fun mapToSleepTracking(it: ResultRow): SleepEntry {
+    return SleepEntry(
+        id = it[SleepTracking.id],
+        date = it[SleepTracking.date],
+        duration = it[SleepTracking.duration],
+        quality = it[SleepTracking.quality],
+        notes = it[SleepTracking.notes],
+        userId = it[SleepTracking.userId]
+    )
+}
