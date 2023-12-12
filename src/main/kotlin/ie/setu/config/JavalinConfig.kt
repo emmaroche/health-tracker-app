@@ -54,6 +54,10 @@ class JavalinConfig {
                         get(WeightGoalsController::getWeightGoalsByUserId)
                         post(WeightGoalsController::addWeightGoal)
                     }
+                    path("nutritionGoals") {
+                        get(NutritionGoalsController::getNutritionGoalsByUserId)
+                        post(NutritionGoalsController::addNutritionGoal)
+                    }
                     path("activities") {
                         get(ActivityController::getActivitiesByUserId)
                         delete(ActivityController::deleteAllActivitiesByUserId)
@@ -101,7 +105,15 @@ class JavalinConfig {
                 path("type/{type}") {
                     get(FitnessGoalsController::getFitnessGoalByType)
                 }
-
+            }
+            path("/api/nutritionGoals") { // Added nutrition goals
+                get(NutritionGoalsController::getAllNutritionGoals)
+                post(NutritionGoalsController::addNutritionGoal)
+                path("{nutrition-goal-id}") {
+                    get(NutritionGoalsController::getNutritionGoalByGoalId)
+                    delete(NutritionGoalsController::deleteNutritionGoal)
+                    patch(NutritionGoalsController::updateNutritionGoal)
+                }
             }
             // The @routeComponent that we added in layout.html earlier will be replaced
             // by the String inside the VueComponent. This means a call to / will load

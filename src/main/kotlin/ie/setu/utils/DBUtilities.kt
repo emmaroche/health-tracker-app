@@ -62,3 +62,18 @@ fun mapToWeightGoal(it: ResultRow): WeightGoal {
         userId = it[WeightGoals.userId]
     )
 }
+
+fun mapToNutritionGoal(it: ResultRow): NutritionGoal {
+    return NutritionGoal(
+        id = it[NutritionGoals.id],
+        type = it[NutritionGoals.type],
+        weeklyGoal = it[NutritionGoals.weeklyGoal],
+        proteinGoal = it[NutritionGoals.proteinGoal],
+        fibreGoal = it[NutritionGoals.fibreGoal],
+        calorieGoal = it[NutritionGoals.calorieGoal],
+        carbsGoal = it[NutritionGoals.carbsGoal],
+        fatGoal = it[NutritionGoals.fatGoal],
+        userId = it[NutritionGoals.userId]
+    )
+}
+
