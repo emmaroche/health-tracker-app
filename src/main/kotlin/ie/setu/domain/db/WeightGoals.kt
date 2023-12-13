@@ -8,7 +8,7 @@ object WeightGoals : Table("weightGoals") {
     val type = varchar("type", 50)
     val startingWeight = double("starting_weight")
     val startingWeightTimestamp = datetime("start_timestamp")
-    val currentWeight = double("current_weight") // data redundancy - table that goes in middle of user and weight goals
+//    val currentWeight = double("current_weight") // data redundancy - table that goes in middle of user and weight goals
     val targetWeight = double("target_value")
     val weeklyGoal = double("weekly_goal")
     val deadline = datetime("deadline")
