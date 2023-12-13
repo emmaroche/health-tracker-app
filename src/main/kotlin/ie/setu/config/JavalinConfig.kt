@@ -66,6 +66,10 @@ class JavalinConfig {
                         get(SleepTrackingController::getSleepTrackingByUserId)
                         post(SleepTrackingController::addSleepTracking)
                     }
+                    path("moodTracking") {
+                        get(MoodTrackingController::getMoodTrackingByUserId)
+                        post(MoodTrackingController::addMoodTracking)
+                    }
                 }
                 path("/email/{email}") {
                     get(UserController::getUserByEmail)
@@ -126,6 +130,15 @@ class JavalinConfig {
                     get(SleepTrackingController::getSleepTrackingById)
                     delete(SleepTrackingController::deleteSleepTracking)
                     patch(SleepTrackingController::updateSleepTracking)
+                }
+            }
+            path("/api/moodTracking") {
+                get(MoodTrackingController::getAllMoodTracking)
+                post(MoodTrackingController::addMoodTracking)
+                path("{mood-tracking-id}") {
+                    get(MoodTrackingController::getMoodTrackingById)
+                    delete(MoodTrackingController::deleteMoodTracking)
+                    patch(MoodTrackingController::updateMoodTracking)
                 }
             }
             // The @routeComponent that we added in layout.html earlier will be replaced
