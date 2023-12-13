@@ -86,3 +86,14 @@ fun mapToSleepTracking(it: ResultRow): SleepEntry {
         userId = it[SleepTracking.userId]
     )
 }
+
+fun mapToMoodTracking(it: ResultRow): MoodEntry {
+    return MoodEntry(
+        id = it[MoodTracking.id],
+        date = it[MoodTracking.date],
+        mood = it[MoodTracking.mood],
+        rating = it[MoodTracking.rating],
+        notes = it[MoodTracking.notes],
+        userId = it[MoodTracking.userId]
+    )
+}

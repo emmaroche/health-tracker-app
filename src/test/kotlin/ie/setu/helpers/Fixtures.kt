@@ -55,6 +55,12 @@ val updatedDuration2 = 30
 val updatedQuality = "Updated Quality"
 val updatedNotes = "Updated Notes"
 
+val updatedDate2 = DateTime.parse("2023-10-25T14:36:23.915Z")
+val updatedMood = "Sad"
+val updatedRating = 1
+val updatedNotes2 = "Updated Notes"
+
+
 val users = arrayListOf(
     User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),
     User(name = "Bob Cat", email = "bob@cat.ie", id = 2),
@@ -298,6 +304,49 @@ val sleepTracking = arrayListOf(
     )
 )
 
+val moodTracking = arrayListOf(
+    MoodEntry(
+        id = 1,
+        date = DateTime.parse("2023-12-12T12:30:00"),
+        mood = "Happy",
+        rating = 5,
+        notes = "Feeling great today!",
+        userId = 1
+    ),
+    MoodEntry(
+        id = 2,
+        date = DateTime.parse("2023-12-13T09:45:00"),
+        mood = "Neutral",
+        rating = 3,
+        notes = "Not much happening.",
+        userId = 2
+    ),
+    MoodEntry(
+        id = 3,
+        date = DateTime.parse("2023-12-14T20:15:00"),
+        mood = "Sad",
+        rating = 2,
+        notes = "Feeling a bit down.",
+        userId = 3
+    ),
+    MoodEntry(
+        id = 4,
+        date = DateTime.parse("2023-12-15T18:00:00"),
+        mood = "Excited",
+        rating = 4,
+        notes = "Looking forward to an event.",
+        userId = 1
+    ),
+    MoodEntry(
+        id = 5,
+        date = DateTime.parse("2023-12-16T14:00:00"),
+        mood = "Content",
+        rating = 4,
+        notes = "Everything is going smoothly.",
+        userId = 2
+    )
+)
+
 fun populateUserTable(): UserDAO {
     SchemaUtils.create(Users)
     val userDAO = UserDAO()
@@ -359,4 +408,13 @@ fun populateSTTable(): SleepTrackingDAO {
     stDAO.save(sleepTracking[1])
     stDAO.save(sleepTracking[2])
     return stDAO
+}
+
+fun populateMTTable(): MoodTrackingDAO {
+    SchemaUtils.create(MoodTracking)
+    val mtDAO = MoodTrackingDAO()
+    mtDAO.save(moodTracking[0])
+    mtDAO.save(moodTracking[1])
+    mtDAO.save(moodTracking[2])
+    return mtDAO
 }
