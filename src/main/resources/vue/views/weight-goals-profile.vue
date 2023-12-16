@@ -120,7 +120,7 @@ app.component("weight-goals-profile", {
             .then(() => {
               alert("Weight Goal deleted");
               // Redirect to the weight goals endpoint
-              window.location.href = '/weight-goals';
+              window.location.href = '/weightGoals';
             })
             .catch(error => {
               console.log(error);

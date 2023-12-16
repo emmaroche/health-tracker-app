@@ -120,7 +120,7 @@ app.component("nutrition-goals-profile", {
             .then(() => {
               alert("Nutrition Goal deleted");
               // Redirect to the nutrition goals endpoint
-              window.location.href = '/nutrition-goals';
+              window.location.href = '/nutritionGoals';
             })
             .catch(error => {
               console.log(error);

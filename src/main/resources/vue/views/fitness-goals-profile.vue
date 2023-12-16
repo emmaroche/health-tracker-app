@@ -114,7 +114,7 @@ app.component("fitness-goals-profile", {
             .then(() => {
               alert("Fitness Goal deleted");
               // Redirect to the fitness goals endpoint
-              window.location.href = '/fitness-goals';
+              window.location.href = '/fitnessGoals';
             })
             .catch(error => {
               console.log(error);

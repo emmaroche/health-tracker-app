@@ -42,6 +42,11 @@
                 Health Records
               </a>
             </li>
+            <li class="nav-item" :class="{ 'active': activeLink === '/sleepTracking' }">
+              <a @click="setActiveLink('/sleepTracking')" class="nav-link">
+                Sleep Tracking
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

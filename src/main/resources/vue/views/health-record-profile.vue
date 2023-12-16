@@ -151,7 +151,7 @@ app.component("health-record-profile", {
             .then(() => {
               alert("Health Record deleted");
               // Redirect to the health records endpoint
-              window.location.href = '/health-records';
+              window.location.href = '/healthRecords';
             })
             .catch(error => {
               console.log(error);
