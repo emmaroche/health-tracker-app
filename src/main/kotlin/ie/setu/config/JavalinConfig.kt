@@ -54,10 +54,6 @@ class JavalinConfig {
                         get(WeightGoalsController::getWeightGoalsByUserId)
                         post(WeightGoalsController::addWeightGoal)
                     }
-                    path("userWeight") {
-                        get(UserWeightController::getUserWeightsByUserId)
-                        post(UserWeightController::addUserWeight)
-                    }
                     path("nutritionGoals") {
                         get(NutritionGoalsController::getNutritionGoalsByUserId)
                         post(NutritionGoalsController::addNutritionGoal)
@@ -104,6 +100,10 @@ class JavalinConfig {
                     get(WeightGoalsController::getWeightGoalByGoalId)
                     delete(WeightGoalsController::deleteWeightGoal)
                     patch(WeightGoalsController::updateWeightGoal)
+                    path("userWeight") {
+                        get(UserWeightController::getAllUserWeights)
+                        post(UserWeightController::addUserWeight)
+                    }
                 }
             }
             path("/api/fitnessGoals") {
@@ -181,6 +181,7 @@ class JavalinConfig {
             get("/users/{user-id}/healthRecords", VueComponent("<user-health-record-overview></user-health-record-overview>"))
             get("/users/{user-id}/sleepTracking", VueComponent("<user-sleep-tracking-overview></user-sleep-tracking-overview>"))
             get("/users/{user-id}/moodTracking", VueComponent("<user-mood-tracking-overview></mood-health-tracking-overview>"))
+            get("/weightGoals/{weight-goal-id}/userWeight", VueComponent("<weight-goals-user-weight-overview></weight-goals-user-weight-overview>"))
         }
     }
 }

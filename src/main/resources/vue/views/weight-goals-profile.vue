@@ -64,6 +64,14 @@
           </div>
         </form>
       </div>
+      <div class="card-footer text-center">
+        <div v-if="weightGoal">
+          <br>
+          <a :href="`/weightGoals/${weightGoal.id}/userWeight`">View Current Weight</a>
+          <br>
+          <br>
+        </div>
+      </div>
     </div>
   </app-layout>
 </template>
