@@ -26,8 +26,8 @@ object UserWeightController {
     fun getUserWeightById(ctx: Context) {
         val userWeight = userWeightDAO.findByWeightId(ctx.pathParam("user-weight-id").toInt())
         if (userWeight != null) {
-            ctx.json(userWeight)
             ctx.status(200)
+            ctx.json(userWeight)
         } else {
             ctx.status(404)
         }

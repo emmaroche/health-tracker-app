@@ -61,17 +61,17 @@ class WeightGoalsControllerTest {
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
+                weightGoals[0].targetWeight,
                 weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
             )
             addWeightGoal(
                 weightGoals[1].type, weightGoals[1].startingWeight, weightGoals[1].startingWeightTimestamp,
-                weightGoals[1].currentWeight, weightGoals[1].targetWeight,
+                weightGoals[1].targetWeight,
                 weightGoals[1].weeklyGoal, weightGoals[1].deadline, addedUser.id
             )
             addWeightGoal(
                 weightGoals[2].type, weightGoals[2].startingWeight, weightGoals[2].startingWeightTimestamp,
-                weightGoals[2].currentWeight, weightGoals[2].targetWeight,
+                weightGoals[2].targetWeight,
                 weightGoals[2].weeklyGoal, weightGoals[2].deadline, addedUser.id
             )
 
@@ -124,7 +124,7 @@ class WeightGoalsControllerTest {
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
+                weightGoals[0].targetWeight,
                 weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
             )
             assertEquals(201, addGoalResponse.status)
@@ -151,7 +151,7 @@ class WeightGoalsControllerTest {
 
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
+                weightGoals[0].targetWeight,
                 weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
             )
             assertEquals(201, addGoalResponse.status)
@@ -169,7 +169,7 @@ class WeightGoalsControllerTest {
 
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
+                weightGoals[0].targetWeight,
                 weightGoals[0].weeklyGoal, weightGoals[0].deadline, userId
             )
 
@@ -192,7 +192,7 @@ class WeightGoalsControllerTest {
             assertEquals(
                 404, updateWeightGoal(
                     goalId, updatedType2, updatedStartingWeight, updatedStartingWeightTimestamp,
-                    updatedCurrentWeight, updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, userId
+                    updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, userId
                 ).status
             )
         }
@@ -203,7 +203,7 @@ class WeightGoalsControllerTest {
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
+                weightGoals[0].targetWeight,
                 weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
             )
             assertEquals(201, addGoalResponse.status)
@@ -212,7 +212,7 @@ class WeightGoalsControllerTest {
             // Act & Assert - update the added goal and assert a 204 is returned
             val updatedGoalResponse = updateWeightGoal(
                 addedGoal.id, updatedType2, updatedStartingWeight, updatedStartingWeightTimestamp,
-                updatedCurrentWeight, updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, addedUser.id
+                updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, addedUser.id
             )
 
             if (updatedGoalResponse.body != null) {
@@ -278,19 +278,19 @@ class WeightGoalsControllerTest {
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             val addGoalResponse1 = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
+                weightGoals[0].targetWeight,
                 weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
             )
             assertEquals(201, addGoalResponse1.status)
             val addGoalResponse2 = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
+                weightGoals[0].targetWeight,
                 weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
             )
             assertEquals(201, addGoalResponse2.status)
             val addGoalResponse3 = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
+                weightGoals[0].targetWeight,
                 weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
             )
             assertEquals(201, addGoalResponse3.status)
@@ -334,7 +334,7 @@ class WeightGoalsControllerTest {
 
     // Helper function to update a weight goal
     private fun updateWeightGoal(
-        id: Int, type: String, startingWeight: Double, startingWeightTimestamp: DateTime, currentWeight: Double,
+        id: Int, type: String, startingWeight: Double, startingWeightTimestamp: DateTime,
         targetWeight: Double, weeklyGoal: Double, deadline: DateTime, userId: Int
     ): HttpResponse<JsonNode> {
         val startingWeightTimestampStr =
@@ -348,7 +348,6 @@ class WeightGoalsControllerTest {
         "type": "$type",
         "startingWeight": $startingWeight,
         "startingWeightTimestamp": "$startingWeightTimestampStr",
-        "currentWeight": $currentWeight,
         "targetWeight": $targetWeight,
         "weeklyGoal": $weeklyGoal,
         "deadline": "$deadlineStr",
@@ -364,7 +363,6 @@ class WeightGoalsControllerTest {
         type: String,
         startingWeight: Double,
         startingWeightTimestamp: DateTime,
-        currentWeight: Double,
         targetWeight: Double,
         weeklyGoal: Double,
         deadline: DateTime,
@@ -382,7 +380,6 @@ class WeightGoalsControllerTest {
             "type": "$type",
             "startingWeight": $startingWeight,
             "startingWeightTimestamp": "$startingWeightTimestampStr",
-            "currentWeight": $currentWeight,
             "targetWeight": $targetWeight,
             "weeklyGoal": $weeklyGoal,
             "deadline": "$deadlineStr",

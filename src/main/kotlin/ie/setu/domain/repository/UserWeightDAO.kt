@@ -50,10 +50,11 @@ class UserWeightDAO {
     // Delete user weight
     fun delete(id: Int): Int {
         return transaction {
-            UserWeight.deleteWhere { UserWeight.id eq id }
+            UserWeight.deleteWhere {
+                UserWeight.id eq id
+            }
         }
     }
-
     // Update user weight
     fun updateCurrentWeight(weightId: Int, currentWeightToUpdate: CurrentWeight): Int {
         return transaction {
