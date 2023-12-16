@@ -65,6 +65,15 @@
           </div>
         </div>
       </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Mood Tracking</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{moodTracking.length}} mood entries</h5>
+            <a href="/moodTracking" class="btn btn-primary">More Details...</a>
+          </div>
+        </div>
+      </div>
     </div>
 
   </app-layout>
@@ -81,7 +90,8 @@ app.component('home-page',
         weightGoals: [],
         nutritionGoals: [],
         healthRecords: [],
-        sleepTracking: []
+        sleepTracking: [],
+        moodTracking: []
       }),
       created() {
         axios.get("/api/users")
@@ -105,6 +115,9 @@ app.component('home-page',
         axios.get("/api/sleepTracking")
             .then(res => this.sleepTracking = res.data)
             .catch(() => alert("Error while fetching sleep tracking entries"));
+        axios.get("/api/moodTracking")
+            .then(res => this.moodTracking = res.data)
+            .catch(() => alert("Error while fetching mood tracking entries"));
       }
     });
 </script>

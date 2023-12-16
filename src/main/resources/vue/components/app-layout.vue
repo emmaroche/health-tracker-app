@@ -47,6 +47,11 @@
                 Sleep Tracking
               </a>
             </li>
+            <li class="nav-item" :class="{ 'active': activeLink === '/moodTracking' }">
+              <a @click="setActiveLink('/moodTracking')" class="nav-link">
+                Mood Tracking
+              </a>
+            </li>
           </ul>
         </div>
       </nav>

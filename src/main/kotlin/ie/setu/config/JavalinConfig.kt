@@ -165,6 +165,7 @@ class JavalinConfig {
             get("/nutritionGoals", VueComponent("<nutrition-goals-overview></nutrition-goals-overview>"))
             get("/healthRecords", VueComponent("<health-record-overview></health-record-overview>"))
             get("/sleepTracking", VueComponent("<sleep-tracking-overview></sleep-tracking-overview>"))
+            get("/moodTracking", VueComponent("<mood-tracking-overview></mood-tracking-overview>"))
             get("/users/{user-id}", VueComponent("<user-profile></user-profile>"))
             get("/activities/{activity-id}", VueComponent("<activity-profile></activity-profile>"))
             get("/fitnessGoals/{fitness-goal-id}", VueComponent("<fitness-goals-profile></fitness-goals-profile>"))
@@ -172,11 +173,14 @@ class JavalinConfig {
             get("/nutritionGoals/{nutrition-goal-id}", VueComponent("<nutrition-goals-profile></nutrition-goals-profile>"))
             get("/healthRecords/{health-record-id}", VueComponent("<health-record-profile></health-record-profile>"))
             get("/sleepTracking/{sleep-tracking-id}", VueComponent("<sleep-tracking-profile></sleep-tracking-profile>"))
+            get("/moodTracking/{mood-tracking-id}", VueComponent("<mood-tracking-profile></mood-tracking-profile>"))
             get("/users/{user-id}/activities", VueComponent("<user-activity-overview></user-activity-overview>"))
             get("/users/{user-id}/fitnessGoals", VueComponent("<user-fitness-goals-overview></user-fitness-goals-overview>"))
             get("/users/{user-id}/weightGoals", VueComponent("<user-weight-goals-overview></user-weight-goals-overview>"))
             get("/users/{user-id}/nutritionGoals", VueComponent("<user-nutrition-goals-overview></user-nutrition-goals-overview>"))
             get("/users/{user-id}/healthRecords", VueComponent("<user-health-record-overview></user-health-record-overview>"))
+            get("/users/{user-id}/sleepTracking", VueComponent("<user-sleep-tracking-overview></user-sleep-tracking-overview>"))
+            get("/users/{user-id}/moodTracking", VueComponent("<user-mood-tracking-overview></mood-health-tracking-overview>"))
         }
     }
 }
