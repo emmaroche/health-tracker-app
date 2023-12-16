@@ -54,6 +54,10 @@ class JavalinConfig {
                         get(WeightGoalsController::getWeightGoalsByUserId)
                         post(WeightGoalsController::addWeightGoal)
                     }
+                    path("userWeight") {
+                        get(UserWeightController::getUserWeightsByUserId)
+                        post(UserWeightController::addUserWeight)
+                    }
                     path("nutritionGoals") {
                         get(NutritionGoalsController::getNutritionGoalsByUserId)
                         post(NutritionGoalsController::addNutritionGoal)
@@ -139,6 +143,15 @@ class JavalinConfig {
                     get(MoodTrackingController::getMoodTrackingById)
                     delete(MoodTrackingController::deleteMoodTracking)
                     patch(MoodTrackingController::updateMoodTracking)
+                }
+            }
+            path("/api/userWeight") {
+                get(UserWeightController::getAllUserWeights)
+                post(UserWeightController::addUserWeight)
+                path("{user-weight-id}") {
+                    get(UserWeightController::getUserWeightById)
+                    delete(UserWeightController::deleteUserWeight)
+                    patch(UserWeightController::updateUserWeight)
                 }
             }
             // The @routeComponent that we added in layout.html earlier will be replaced

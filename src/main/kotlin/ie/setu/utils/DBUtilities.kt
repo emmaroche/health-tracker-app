@@ -55,13 +55,24 @@ fun mapToWeightGoal(it: ResultRow): WeightGoal {
         type = it[WeightGoals.type],
         startingWeight = it[WeightGoals.startingWeight],
         startingWeightTimestamp = it[WeightGoals.startingWeightTimestamp],
-        currentWeight = it[WeightGoals.currentWeight],
+//        currentWeight = it[WeightGoals.currentWeight],
         targetWeight = it[WeightGoals.targetWeight],
         weeklyGoal = it[WeightGoals.weeklyGoal],
         deadline = it[WeightGoals.deadline],
         userId = it[WeightGoals.userId]
     )
 }
+
+fun mapToCurrentWeight(it: ResultRow): CurrentWeight {
+    return CurrentWeight(
+        id = it[UserWeight.id],
+        currentWeight = it[UserWeight.currentWeight],
+        currentWeightTimestamp = it[UserWeight.currentWeightTimestamp],
+        weightGoalId = it[UserWeight.wgId],
+        userId = it[UserWeight.userId]
+    )
+}
+
 
 fun mapToNutritionGoal(it: ResultRow): NutritionGoal {
     return NutritionGoal(

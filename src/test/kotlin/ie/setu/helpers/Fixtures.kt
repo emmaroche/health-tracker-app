@@ -60,6 +60,8 @@ val updatedMood = "Sad"
 val updatedRating = 1
 val updatedNotes2 = "Updated Notes"
 
+val updatedCurrentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00")
+val updatedWeightId = 1
 
 val users = arrayListOf(
     User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),
@@ -185,7 +187,6 @@ val weightGoals = arrayListOf(
         type = "Weight Gain",
         startingWeight = 150.0,
         startingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
-        currentWeight = 150.0,
         targetWeight = 160.0,
         weeklyGoal = 0.5,
         deadline = DateTime.parse("2023-11-23T10:30:00"),
@@ -196,7 +197,6 @@ val weightGoals = arrayListOf(
         type = "Weight Loss",
         startingWeight = 180.0,
         startingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
-        currentWeight = 180.0,
         targetWeight = 170.0,
         weeklyGoal = 0.3,
         deadline = DateTime.parse("2023-11-23T10:30:00"),
@@ -207,24 +207,71 @@ val weightGoals = arrayListOf(
         type = "Maintain Weight",
         startingWeight = 160.0,
         startingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
-        currentWeight = 160.0,
         targetWeight = 160.0,
         weeklyGoal = 0.0,
         deadline = DateTime.parse("2023-11-23T10:30:00"),
         userId = 3
     ),
     WeightGoal(
-        id = 3,
+        id = 284,
         type = "Maintain Weight",
         startingWeight = 120.0,
         startingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
-        currentWeight = 12.0,
         targetWeight = 160.0,
         weeklyGoal = 0.0,
         deadline = DateTime.parse("2023-11-23T10:30:00"),
         userId = 4
     )
 )
+
+val userWeight = arrayListOf(
+    CurrentWeight(
+        id = 1,
+        currentWeight = 80.0,
+        currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        weightGoalId = 2,
+        userId = 2
+    ),
+    CurrentWeight(
+        id = 2,
+        currentWeight = 75.0,
+        currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        weightGoalId = 2,
+        userId = 2
+    ),
+    CurrentWeight(
+        id = 3,
+        currentWeight = 160.0,
+        currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        weightGoalId = 2,
+        userId = 3
+    )
+)
+
+val userWeight2 = arrayListOf(
+    CurrentWeight(
+        id = 1,
+        currentWeight = 80.0,
+        currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        weightGoalId = 284,
+        userId = 2
+    ),
+    CurrentWeight(
+        id = 2,
+        currentWeight = 75.0,
+        currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        weightGoalId = 284,
+        userId = 2
+    ),
+    CurrentWeight(
+        id = 3,
+        currentWeight = 160.0,
+        currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
+        weightGoalId = 284,
+        userId = 3
+    )
+)
+
 
 val nutritionGoals = arrayListOf(
     NutritionGoal(
@@ -418,3 +465,19 @@ fun populateMTTable(): MoodTrackingDAO {
     mtDAO.save(moodTracking[2])
     return mtDAO
 }
+
+fun populateUWTable(): UserWeightDAO {
+    SchemaUtils.create(UserWeight, WeightGoals)
+
+    // Populate WEIGHTGOALS table first as this was causing errors
+    populateWGTable()
+
+    val uwDAO = UserWeightDAO()
+    uwDAO.save(userWeight[0])
+    uwDAO.save(userWeight[1])
+    uwDAO.save(userWeight[2])
+
+    return uwDAO
+}
+
+
