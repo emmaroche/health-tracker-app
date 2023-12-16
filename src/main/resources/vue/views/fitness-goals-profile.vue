@@ -1,10 +1,10 @@
 <template id="fitness-goals-profile">
   <app-layout>
-    <div v-if="!fitnessGoal">
+    <div v-if="noFitnessGoal">
       <p>We're sorry, we were not able to retrieve this fitness goal.</p>
-      <p>View <a :href="'/fitness-goals'">all fitness goals</a>.</p>
+      <p>View <a :href="'/fitnessGoals'">all fitness goals</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="fitnessGoal">
+    <div class="card bg-light mb-3" v-if="!noFitnessGoal">
       <div class="card-header">
         <div class="row">
           <div class="col-6"> Fitness Goal Profile</div>
@@ -64,7 +64,8 @@
 app.component("fitness-goals-profile", {
   template: "#fitness-goals-profile",
   data: () => ({
-    fitnessGoal: null
+    fitnessGoal: null,
+    noFitnessGoal: false
   }),
   created: function () {
     const fgId = this.$javalin.pathParams["fitness-goal-id"];
@@ -73,16 +74,31 @@ app.component("fitness-goals-profile", {
         .then(res => this.fitnessGoal = res.data)
         .catch(() => {
           console.error("Error while fetching fitness goal: " + fgId);
-          this.fitnessGoal = null;
+          this.noFitnessGoal = true;
         });
   },
   methods: {
     updateFitnessGoal: function () {
       const fgId = this.$javalin.pathParams["fitness-goal-id"];
       const url = `/api/fitnessGoals/${fgId}`;
-      axios.patch(url, this.fitnessGoal)
+
+      const updatedFitnessGoal = {
+        id: this.fitnessGoal.id,
+        type: this.fitnessGoal.type,
+        workoutsPerWeek: this.fitnessGoal.workoutsPerWeek,
+        minutesOfWorkouts: this.fitnessGoal.minutesOfWorkouts,
+        calorieBurningGoalDuringExercise: this.fitnessGoal.calorieBurningGoalDuringExercise,
+        userId: this.fitnessGoal.userId
+      };
+
+      axios.patch(url, updatedFitnessGoal)
           .then(response => {
-            this.fitnessGoal = response.data;
+            // Extract the data from the response
+            const responseData = response.data;
+
+            // Update the fitnessGoal with the extracted data
+            Object.assign(this.fitnessGoal, responseData);
+
             alert("Fitness Goal updated!");
           })
           .catch(error => {

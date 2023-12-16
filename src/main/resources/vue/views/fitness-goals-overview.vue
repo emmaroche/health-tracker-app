@@ -120,7 +120,6 @@ app.component("fitness-goals-overview", {
               duration: null,
               targetWeight: null,
               targetFatPercentage: null,
-              // Add more properties as needed
             };
           })
           .catch(error => {

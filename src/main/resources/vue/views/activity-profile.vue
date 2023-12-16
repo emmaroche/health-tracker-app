@@ -1,10 +1,10 @@
 <template id="activity-profile">
   <app-layout>
-    <div v-if="!activity">
+    <div v-if="noActivity">
       <p> We're sorry, we were not able to retrieve this activity.</p>
       <p> View <a :href="'/activities'">all activities</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="activity">
+    <div class="card bg-light mb-3" v-if="!noActivity">
       <div class="card-header">
         <div class="row">
           <div class="col-6"> Activity Profile</div>
@@ -58,7 +58,8 @@
 app.component("activity-profile", {
   template: "#activity-profile",
   data: () => ({
-    activity: null
+    activity: null,
+    noActivity: false
   }),
   created: function () {
     const actId = this.$javalin.pathParams["activity-id"];
@@ -66,11 +67,32 @@ app.component("activity-profile", {
     axios.get(url)
         .then(res => this.activity = res.data)
         .catch(() => alert("Error while fetching activity" + actId));
+         this.activity = true;
   },
   methods: {
     updateActivity: function () {
-      // Add your logic to update the activity here
-      alert("Activity updated!");
+      const actId = this.$javalin.pathParams["activity-id"];
+      const url = `/api/activities/${actId}`;
+      // Modify the data structure to match your activity properties
+      const updatedActivity = {
+        id: this.activity.id,
+        description: this.activity.description,
+        duration: this.activity.duration,
+        calories: this.activity.calories,
+        started: this.activity.started,
+        userId: this.activity.userId
+      };
+
+      axios.patch(url, updatedActivity)
+          .then(response => {
+            const responseData = response.data;
+            Object.assign(this.activity, responseData);
+            alert("Activity updated!");
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error updating Activity");
+          });
     },
     deleteActivity: function () {
       if (confirm("Do you really want to delete this activity?")) {

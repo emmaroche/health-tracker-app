@@ -1,10 +1,10 @@
 <template id="health-record-profile">
   <app-layout>
-    <div v-if="!healthRecord">
+    <div v-if="noHealthRecord">
       <p>We're sorry, we were not able to retrieve this health record.</p>
-      <p>View <a :href="'/health-records'">all health records</a>.</p>
+      <p>View <a :href="'/healthRecords'">all health records</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="healthRecord">
+    <div class="card bg-light mb-3" v-if="!noHealthRecord">
       <div class="card-header">
         <div class="row">
           <div class="col-6"> Health Record Profile</div>
@@ -96,7 +96,8 @@
 app.component("health-record-profile", {
   template: "#health-record-profile",
   data: () => ({
-    healthRecord: null
+    healthRecord: null,
+    noHealthRecord: false
   }),
   created: function () {
     const hrId = this.$javalin.pathParams["health-record-id"];
@@ -105,20 +106,57 @@ app.component("health-record-profile", {
         .then(res => this.healthRecord = res.data)
         .catch(() => {
           console.error("Error while fetching health record: " + hrId);
-          this.healthRecord = null;
+          this.noHealthRecord = true;
         });
   },
   methods: {
     updateHealthRecord: function () {
-      // Add your logic to update the health record here
-      alert("Health Record updated!");
+      const hrId = this.$javalin.pathParams["health-record-id"];
+      const url = `/api/healthRecords/${hrId}`;
+      // Modify the data structure to match your health record properties
+      const updatedHealthRecord = {
+        id: this.healthRecord.id,
+        timestamp: this.healthRecord.timestamp,
+        firstName: this.healthRecord.firstName,
+        lastName: this.healthRecord.lastName,
+        sex: this.healthRecord.sex,
+        dob: this.healthRecord.dob,
+        weight: this.healthRecord.weight,
+        height: this.healthRecord.height,
+        bloodType: this.healthRecord.bloodType,
+        allergies: this.healthRecord.allergies,
+        medicalConditions: this.healthRecord.medicalConditions,
+        medications: this.healthRecord.medications,
+        notes: this.healthRecord.notes,
+        userId: this.healthRecord.userId
+      };
+
+      axios.patch(url, updatedHealthRecord)
+          .then(response => {
+            const responseData = response.data;
+            Object.assign(this.healthRecord, responseData);
+            alert("Health Record updated!");
+          })
+          .catch(error => {
+            console.log(error);
+            alert("Error updating Health Record");
+          });
     },
     deleteHealthRecord: function () {
       if (confirm("Do you really want to delete this health record?")) {
-        // Add your logic to delete the health record here
-        alert("Health Record deleted");
-        // Redirect to the health records endpoint
-        window.location.href = '/health-records';
+        const hrId = this.$javalin.pathParams["health-record-id"];
+        const url = `/api/healthRecords/${hrId}`;
+
+        axios.delete(url)
+            .then(() => {
+              alert("Health Record deleted");
+              // Redirect to the health records endpoint
+              window.location.href = '/health-records';
+            })
+            .catch(error => {
+              console.log(error);
+              alert("Error deleting Health Record");
+            });
       }
     }
   }
