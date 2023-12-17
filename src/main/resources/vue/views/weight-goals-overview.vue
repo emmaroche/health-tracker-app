@@ -1,4 +1,4 @@
-<template id="weight-goals-overview">
+ <template id="weight-goals-overview">
   <app-layout>
     <div>
       <div class="card bg-light mb-3">
@@ -29,12 +29,6 @@
                 <span class="input-group-text" id="input-weight-goal-startingWeight">Starting Weight</span>
               </div>
               <input type="text" class="form-control" v-model="formData.startingWeight" name="startingWeight" placeholder="Starting Weight"/>
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="input-weight-goal-currentWeight">Current Weight</span>
-              </div>
-              <input type="text" class="form-control" v-model="formData.currentWeight" name="currentWeight" placeholder="Current Weight"/>
             </div>
 
             <div class="input-group mb-3">
@@ -72,7 +66,7 @@
         <div class="list-group-item d-flex align-items-start"
              v-for="(weightGoal,index) in weightGoals" :key="index">
           <div class="mr-auto p-2">
-            <span><a :href="`/weightGoals/${weightGoal.id}`"> {{ weightGoal.type }} (Starting Weight: {{ weightGoal.startingWeight }}, Current Weight: {{ weightGoal.currentWeight }}, Target Weight: {{ weightGoal.targetWeight }}, Weekly Goal: {{ weightGoal.weeklyGoal }}, Deadline: {{ weightGoal.deadline }}, User ID: {{ weightGoal.userId }})</a></span>
+            <span><a :href="`/weightGoals/${weightGoal.id}`"> {{ weightGoal.type }} (Starting Weight: {{ weightGoal.startingWeight }}, Target Weight: {{ weightGoal.targetWeight }}, Weekly Goal: {{ weightGoal.weeklyGoal }}, Deadline: {{ weightGoal.deadline }}, User ID: {{ weightGoal.userId }})</a></span>
           </div>
           <div class="p2">
             <a :href="`/weightGoals/${weightGoal.id}`">

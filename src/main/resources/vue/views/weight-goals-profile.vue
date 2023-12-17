@@ -1,10 +1,10 @@
 <template id="weight-goals-profile">
   <app-layout>
-    <div v-if="!weightGoal">
+    <div v-if="noWeightGoal">
       <p>We're sorry, we were not able to retrieve this weight goal.</p>
-      <p>View <a :href="'/weight-goals'">all weight goals</a>.</p>
+      <p>View <a :href="'/weightGoals'">all weight goals</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="weightGoal">
+    <div class="card bg-light mb-3" v-if="!noWeightGoal">
       <div class="card-header">
         <div class="row">
           <div class="col-6"> Weight Goal Profile</div>
@@ -47,10 +47,6 @@
             <input class="form-control" v-model="weightGoal.startingWeightTimestamp" name="startingWeightTimestamp" type="datetime-local" />
           </div>
           <div class="form-group">
-            <label class="col-form-label">Current Weight:</label>
-            <input class="form-control" v-model="weightGoal.currentWeight" name="currentWeight" type="number" />
-          </div>
-          <div class="form-group">
             <label class="col-form-label">Target Weight:</label>
             <input class="form-control" v-model="weightGoal.targetWeight" name="targetWeight" type="number" />
           </div>
@@ -68,6 +64,14 @@
           </div>
         </form>
       </div>
+      <div class="card-footer text-center">
+        <div v-if="weightGoal">
+          <br>
+          <a :href="`/weightGoals/${weightGoal.id}/userWeight`">View Current Weight</a>
+          <br>
+          <br>
+        </div>
+      </div>
     </div>
   </app-layout>
 </template>
@@ -76,7 +80,8 @@
 app.component("weight-goals-profile", {
   template: "#weight-goals-profile",
   data: () => ({
-    weightGoal: null
+    weightGoal: null,
+    noWeightGoal: false
   }),
   created: function () {
     const wgId = this.$javalin.pathParams["weight-goal-id"];
@@ -85,16 +90,29 @@ app.component("weight-goals-profile", {
         .then(res => this.weightGoal = res.data)
         .catch(() => {
           console.error("Error while fetching weight goal: " + wgId);
-          this.weightGoal = null;
+          this.noWeightGoal = true;
         });
   },
   methods: {
     updateWeightGoal: function () {
       const wgId = this.$javalin.pathParams["weight-goal-id"];
       const url = `/api/weightGoals/${wgId}`;
-      axios.patch(url, this.weightGoal)
+      // Modify the data structure to match your weight goal properties
+      const updatedWeightGoal = {
+        id: this.weightGoal.id,
+        type: this.weightGoal.type,
+        startingWeight: this.weightGoal.startingWeight,
+        startingWeightTimestamp: this.weightGoal.startingWeightTimestamp,
+        targetWeight: this.weightGoal.targetWeight,
+        weeklyGoal: this.weightGoal.weeklyGoal,
+        deadline: this.weightGoal.deadline,
+        userId: this.weightGoal.userId
+      };
+
+      axios.patch(url, updatedWeightGoal)
           .then(response => {
-            this.weightGoal = response.data;
+            const responseData = response.data;
+            Object.assign(this.weightGoal, responseData);
             alert("Weight Goal updated!");
           })
           .catch(error => {
@@ -110,7 +128,7 @@ app.component("weight-goals-profile", {
             .then(() => {
               alert("Weight Goal deleted");
               // Redirect to the weight goals endpoint
-              window.location.href = '/weight-goals';
+              window.location.href = '/weightGoals';
             })
             .catch(error => {
               console.log(error);

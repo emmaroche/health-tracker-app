@@ -38,7 +38,7 @@ class UserWeightDAO {
     // Save user weight
     fun save(currentWeight: CurrentWeight): Int {
         return transaction {
-            UserWeight.insert {
+             UserWeight.insert {
                 it[this.currentWeight] = currentWeight.currentWeight
                 it[this.currentWeightTimestamp] = currentWeight.currentWeightTimestamp
                 it[this.wgId] = currentWeight.weightGoalId

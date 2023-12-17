@@ -54,10 +54,6 @@ class JavalinConfig {
                         get(WeightGoalsController::getWeightGoalsByUserId)
                         post(WeightGoalsController::addWeightGoal)
                     }
-                    path("userWeight") {
-                        get(UserWeightController::getUserWeightsByUserId)
-                        post(UserWeightController::addUserWeight)
-                    }
                     path("nutritionGoals") {
                         get(NutritionGoalsController::getNutritionGoalsByUserId)
                         post(NutritionGoalsController::addNutritionGoal)
@@ -104,6 +100,11 @@ class JavalinConfig {
                     get(WeightGoalsController::getWeightGoalByGoalId)
                     delete(WeightGoalsController::deleteWeightGoal)
                     patch(WeightGoalsController::updateWeightGoal)
+                    path("userWeight") {
+                        get(UserWeightController::getAllUserWeights)
+                        post(UserWeightController::addUserWeight)
+                        patch(UserWeightController::updateUserWeight)
+                    }
                 }
             }
             path("/api/fitnessGoals") {
@@ -162,16 +163,27 @@ class JavalinConfig {
             get("/activities", VueComponent("<activity-overview></activity-overview>"))
             get("/fitnessGoals", VueComponent("<fitness-goals-overview></fitness-goals-overview>"))
             get("/weightGoals", VueComponent("<weight-goals-overview></weight-goals-overview>"))
+            get("/nutritionGoals", VueComponent("<nutrition-goals-overview></nutrition-goals-overview>"))
             get("/healthRecords", VueComponent("<health-record-overview></health-record-overview>"))
+            get("/sleepTracking", VueComponent("<sleep-tracking-overview></sleep-tracking-overview>"))
+            get("/moodTracking", VueComponent("<mood-tracking-overview></mood-tracking-overview>"))
             get("/users/{user-id}", VueComponent("<user-profile></user-profile>"))
             get("/activities/{activity-id}", VueComponent("<activity-profile></activity-profile>"))
             get("/fitnessGoals/{fitness-goal-id}", VueComponent("<fitness-goals-profile></fitness-goals-profile>"))
             get("/weightGoals/{weight-goal-id}", VueComponent("<weight-goals-profile></weight-goals-profile>"))
+            get("/nutritionGoals/{nutrition-goal-id}", VueComponent("<nutrition-goals-profile></nutrition-goals-profile>"))
             get("/healthRecords/{health-record-id}", VueComponent("<health-record-profile></health-record-profile>"))
+            get("/sleepTracking/{sleep-tracking-id}", VueComponent("<sleep-tracking-profile></sleep-tracking-profile>"))
+            get("/userWeight/{user-weight-id}", VueComponent("<user-weight-profile></user-weight-profile>"))
+            get("/moodTracking/{mood-tracking-id}", VueComponent("<mood-tracking-profile></mood-tracking-profile>"))
             get("/users/{user-id}/activities", VueComponent("<user-activity-overview></user-activity-overview>"))
             get("/users/{user-id}/fitnessGoals", VueComponent("<user-fitness-goals-overview></user-fitness-goals-overview>"))
             get("/users/{user-id}/weightGoals", VueComponent("<user-weight-goals-overview></user-weight-goals-overview>"))
+            get("/users/{user-id}/nutritionGoals", VueComponent("<user-nutrition-goals-overview></user-nutrition-goals-overview>"))
             get("/users/{user-id}/healthRecords", VueComponent("<user-health-record-overview></user-health-record-overview>"))
+            get("/users/{user-id}/sleepTracking", VueComponent("<user-sleep-tracking-overview></user-sleep-tracking-overview>"))
+            get("/users/{user-id}/moodTracking", VueComponent("<user-mood-tracking-overview></mood-health-tracking-overview>"))
+            get("/weightGoals/{weight-goal-id}/userWeight", VueComponent("<weight-goals-user-weight-overview></weight-goals-user-weight-overview>"))
         }
     }
 }

@@ -32,9 +32,24 @@
                 Weight Goals
               </a>
             </li>
+            <li class="nav-item" :class="{ 'active': activeLink === '/nutritionGoals' }">
+              <a @click="setActiveLink('/nutritionGoals')" class="nav-link">
+                Nutrition Goals
+              </a>
+            </li>
             <li class="nav-item" :class="{ 'active': activeLink === '/healthRecords' }">
               <a @click="setActiveLink('/healthRecords')" class="nav-link">
                 Health Records
+              </a>
+            </li>
+            <li class="nav-item" :class="{ 'active': activeLink === '/sleepTracking' }">
+              <a @click="setActiveLink('/sleepTracking')" class="nav-link">
+                Sleep Tracking
+              </a>
+            </li>
+            <li class="nav-item" :class="{ 'active': activeLink === '/moodTracking' }">
+              <a @click="setActiveLink('/moodTracking')" class="nav-link">
+                Mood Tracking
               </a>
             </li>
           </ul>
@@ -82,6 +97,6 @@ app.component("app-layout", {
 }
 
 .nav-item.active {
-  color: #bbdefb; /* Highlight color for active link */
+  color: #bbdefb;
 }
 </style>

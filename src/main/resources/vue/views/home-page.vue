@@ -40,6 +40,15 @@
       </div>
       <div class="col">
         <div class="card">
+          <h5 class="card-header">Total Nutrition Goals</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{nutritionGoals.length}} nutrition goals</h5>
+            <a href="/nutritionGoals" class="btn btn-primary">More Details...</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
           <h5 class="card-header">Health Records</h5>
           <div class="card-body">
             <h5 class="card-title">{{healthRecords.length}} health records</h5>
@@ -47,7 +56,26 @@
           </div>
         </div>
       </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Sleep Tracking</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{sleepTracking.length}} sleep entries</h5>
+            <a href="/sleepTracking" class="btn btn-primary">More Details...</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Mood Tracking</h5>
+          <div class="card-body">
+            <h5 class="card-title">{{moodTracking.length}} mood entries</h5>
+            <a href="/moodTracking" class="btn btn-primary">More Details...</a>
+          </div>
+        </div>
+      </div>
     </div>
+
   </app-layout>
 </template>
 
@@ -60,7 +88,10 @@ app.component('home-page',
         activities: [],
         fitnessGoals: [],
         weightGoals: [],
-        healthRecords: []
+        nutritionGoals: [],
+        healthRecords: [],
+        sleepTracking: [],
+        moodTracking: []
       }),
       created() {
         axios.get("/api/users")
@@ -75,9 +106,18 @@ app.component('home-page',
         axios.get("/api/weightGoals")
             .then(res => this.weightGoals = res.data)
             .catch(() => alert("Error while fetching weight goals"));
+        axios.get("/api/nutritionGoals")
+            .then(res => this.nutritionGoals = res.data)
+            .catch(() => alert("Error while fetching nutrition goals"));
         axios.get("/api/healthRecords")
             .then(res => this.healthRecords = res.data)
             .catch(() => alert("Error while fetching health records"));
+        axios.get("/api/sleepTracking")
+            .then(res => this.sleepTracking = res.data)
+            .catch(() => alert("Error while fetching sleep tracking entries"));
+        axios.get("/api/moodTracking")
+            .then(res => this.moodTracking = res.data)
+            .catch(() => alert("Error while fetching mood tracking entries"));
       }
     });
 </script>
