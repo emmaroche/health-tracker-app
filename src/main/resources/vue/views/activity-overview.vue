@@ -3,7 +3,7 @@
     <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-6">
+          <div class="col-6" style="font-weight: 600;">
             Activities
           </div>
           <div class="col" align="right">

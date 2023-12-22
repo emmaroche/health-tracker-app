@@ -1,9 +1,9 @@
 <template id="sleep-tracking-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-6">Sleep Tracking</div>
+          <div class="col-6" style="font-weight: 600;">Sleep Tracking</div>
           <div class="col" align="right">
             <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm =!hideForm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-plus" aria-hidden="true"></i> Add
@@ -15,19 +15,36 @@
         <form id="addSleepTracking">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-sleep-type">Quality</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-type">Quality</span>
             </div>
             <input type="text" class="form-control" v-model="formData.quality" name="quality" placeholder="Quality"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-sleep-duration">Duration</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-duration">Duration in hours</span>
             </div>
-            <input type="number" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration"/>
+            <input type="number" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration in hours"/>
           </div>
-          <!-- Add other form fields as needed -->
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-notes">Notes</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.notes" name="notes" placeholder="Notes"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-date">Date</span>
+            </div>
+            <input type="date" class="form-control" v-model="formData.date" name="date"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-userId">User ID</span>
+            </div>
+            <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
+          </div>
         </form>
-        <button rel="tooltip" title="Add Sleep Entry" class="btn btn-info btn-sm" @click="addSleepEntry" style="background-color: #08a29e; border-color: #08a29e;">
+        <button rel="tooltip" title="Add Sleep Entry" class="btn btn-info btn-sm mt-3" @click="addSleepEntry" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add Sleep Entry
         </button>
       </div>
@@ -51,6 +68,12 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 180px;
+}
+</style>
 
 <script>
 app.component("sleep-tracking-overview", {

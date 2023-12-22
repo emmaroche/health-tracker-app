@@ -4,16 +4,16 @@
       <p>We're sorry, we were not able to retrieve this mood entry.</p>
       <p>View <a :href="'/moodTracking'">all mood entries</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="!noMoodEntry">
+    <div class="card bg-light mt-4 mb-3" v-if="!noMoodEntry">
       <div class="card-header">
         <div class="row">
-          <div class="col-6"> Mood Entry Profile</div>
+          <div class="col-6" style="font-weight: 600;"> Mood Entry Profile</div>
           <div class="col" align="right">
             <button
                 rel="tooltip"
                 title="Update"
                 class="btn btn-info btn-simple btn-link mr-2"
-                @click="updateMoodEntry()"
+                @click="updateMoodEntry"
             >
               <i class="fas fa-edit" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
@@ -21,7 +21,7 @@
                 rel="tooltip"
                 title="Delete"
                 class="btn btn-info btn-simple btn-link"
-                @click="deleteMoodEntry()"
+                @click="deleteMoodEntry"
             >
               <i class="fas fa-trash" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
@@ -30,28 +30,38 @@
       </div>
       <div class="card-body">
         <form>
-          <div class="form-group">
-            <label class="col-form-label">Entry ID:</label>
-            <input class="form-control" v-model="moodEntry.id" name="id" type="number" readonly />
-          </div>
-          <div class="form-group">
-            <label class="col-form-label">Mood:</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Mood</span>
+            </div>
             <input class="form-control" v-model="moodEntry.mood" name="mood" type="text" />
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Rating:</label>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Rating</span>
+            </div>
             <input class="form-control" v-model="moodEntry.rating" name="rating" type="number" />
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Notes:</label>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Notes</span>
+            </div>
             <input class="form-control" v-model="moodEntry.notes" name="notes" type="text" />
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Date:</label>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date</span>
+            </div>
             <input class="form-control" v-model="moodEntry.date" name="date" type="date" />
           </div>
-          <div class="form-group">
-            <label class="col-form-label">User ID:</label>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-userId">User ID</span>
+            </div>
             <input class="form-control" v-model="moodEntry.userId" name="userId" type="number" />
           </div>
         </form>
@@ -59,6 +69,12 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 150px;
+}
+</style>
 
 <script>
 app.component("mood-tracking-profile", {

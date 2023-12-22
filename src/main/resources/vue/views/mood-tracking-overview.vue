@@ -1,9 +1,9 @@
 <template id="mood-tracking-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-6">Mood Tracking</div>
+          <div class="col-6" style="font-weight: 600;">Mood Tracking</div>
           <div class="col" align="right">
             <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm =!hideForm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-plus" aria-hidden="true"></i> Add
@@ -15,19 +15,36 @@
         <form id="addMoodTracking">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-quality">Mood</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-quality">Mood</span>
             </div>
             <input type="text" class="form-control" v-model="formData.mood" name="mood" placeholder="Mood"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-rating">Rating</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-rating">Rating</span>
             </div>
             <input type="number" class="form-control" v-model="formData.rating" name="rating" placeholder="Rating"/>
           </div>
-          <!-- Add other form fields as needed -->
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-notes">Notes</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.notes" name="notes" placeholder="Notes"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-date">Date</span>
+            </div>
+            <input type="date" class="form-control" v-model="formData.date" name="date"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-userId">User ID</span>
+            </div>
+            <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
+          </div>
         </form>
-        <button rel="tooltip" title="Add Mood Entry" class="btn btn-info btn-sm" @click="addMoodEntry" style="background-color: #08a29e; border-color: #08a29e;">
+        <button rel="tooltip" title="Add Mood Entry" class="btn btn-info btn-sm mt-3" @click="addMoodEntry" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add Mood Entry
         </button>
       </div>
@@ -51,6 +68,12 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 150px;
+}
+</style>
 
 <script>
 app.component("mood-tracking-overview", {

@@ -3,7 +3,7 @@
     <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-6">Nutrition Goals</div>
+          <div class="col-6" style="font-weight: 600;">Nutrition Goals</div>
           <div class="col" align="right">
             <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-plus" aria-hidden="true"></i> Add
