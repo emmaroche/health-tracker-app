@@ -1,6 +1,6 @@
 <template id="weight-goals-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
           <div class="col-6">Weight Goals</div>
@@ -15,49 +15,49 @@
         <form id="addWeightGoal">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-weight-goal-type">Type</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-type">Type</span>
             </div>
             <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>
           </div>
+
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-weight-goal-startingWeight">Starting Weight</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-startingWeight">Starting Weight</span>
             </div>
             <input type="text" class="form-control" v-model="formData.startingWeight" name="startingWeight" placeholder="Starting Weight"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-weight-goal-targetWeight">Target Weight</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-targetWeight">Target Weight</span>
             </div>
             <input type="text" class="form-control" v-model="formData.targetWeight" name="targetWeight" placeholder="Target Weight"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-weight-goal-weeklyGoal">Weekly Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-weeklyGoal">Weekly Goal</span>
             </div>
             <input type="text" class="form-control" v-model="formData.weeklyGoal" name="weeklyGoal" placeholder="Weekly Goal"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-weight-goal-deadline">Deadline</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-deadline">Deadline</span>
             </div>
             <input type="text" class="form-control" v-model="formData.deadline" name="deadline" placeholder="Deadline"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-weight-goal-userId">User ID</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-userId">User ID</span>
             </div>
             <input type="text" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
         </form>
-        <button rel="tooltip" title="Add Weight Goal" class="btn btn-info btn-sm" @click="addWeightGoal" style="background-color: #08a29e; border-color: #08a29e;">
+        <button rel="tooltip" title="Add Weight Goal" class="btn btn-info btn-sm mt-3" @click="addWeightGoal" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add Weight Goal
         </button>
-
       </div>
     </div>
     <div class="list-group list-group-flush">
@@ -81,6 +81,12 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 200px;
+}
+</style>
 
 <script>
 app.component("weight-goals-overview", {

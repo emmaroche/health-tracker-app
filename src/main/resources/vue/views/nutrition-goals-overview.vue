@@ -1,6 +1,6 @@
 <template id="nutrition-goals-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
           <div class="col-6">Nutrition Goals</div>
@@ -15,49 +15,49 @@
         <form id="addNutritionGoal">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-nutrition-goal-type">Type</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-type">Type</span>
             </div>
             <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-nutrition-goal-protein">Protein Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-protein">Protein Goal</span>
             </div>
             <input type="number" class="form-control" v-model="formData.proteinGoal" name="proteinGoal" placeholder="Protein Goal"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-nutrition-goal-fibre">Fibre Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-fibre">Fibre Goal</span>
             </div>
             <input type="number" class="form-control" v-model="formData.fibreGoal" name="fibreGoal" placeholder="Fibre Goal"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-nutrition-goal-calorie">Calorie Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-calorie">Calorie Goal</span>
             </div>
             <input type="number" class="form-control" v-model="formData.calorieGoal" name="calorieGoal" placeholder="Calorie Goal"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-nutrition-goal-carbs">Carbs Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-carbs">Carbs Goal</span>
             </div>
             <input type="number" class="form-control" v-model="formData.carbsGoal" name="carbsGoal" placeholder="Carbs Goal"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-nutrition-goal-fat">Fat Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-fat">Fat Goal</span>
             </div>
             <input type="number" class="form-control" v-model="formData.fatGoal" name="fatGoal" placeholder="Fat Goal"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-nutrition-goal-userId">User ID</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-userId">User ID</span>
             </div>
             <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
         </form>
-        <button rel="tooltip" title="Add Nutrition Goal" class="btn btn-info btn-sm" @click="addNutritionGoal" style="background-color: #08a29e; border-color: #08a29e;">
+        <button rel="tooltip" title="Add Nutrition Goal" class="btn btn-info btn-sm mt-3" @click="addNutritionGoal" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add Nutrition Goal
         </button>
       </div>
@@ -83,6 +83,12 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 150px;
+}
+</style>
 
 <script>
 app.component("nutrition-goals-overview", {

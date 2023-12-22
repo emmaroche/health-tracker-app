@@ -4,16 +4,16 @@
       <p>We're sorry, we were not able to retrieve this weight goal.</p>
       <p>View <a :href="'/weightGoals'">all weight goals</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="!noWeightGoal">
+    <div class="card bg-light mt-4 mb-3" v-if="!noWeightGoal">
       <div class="card-header">
         <div class="row">
-          <div class="col-6"> Weight Goal Profile</div>
+          <div class="col-6" style="font-weight: 600;">Weight Goal Profile</div>
           <div class="col" align="right">
             <button
                 rel="tooltip"
                 title="Update"
                 class="btn btn-info btn-simple btn-link mr-2"
-                @click="updateWeightGoal()"
+                @click="updateWeightGoal"
             >
               <i class="fas fa-edit" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
@@ -21,7 +21,7 @@
                 rel="tooltip"
                 title="Delete"
                 class="btn btn-info btn-simple btn-link"
-                @click="deleteWeightGoal()"
+                @click="deleteWeightGoal"
             >
               <i class="fas fa-trash" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
@@ -29,52 +29,72 @@
         </div>
       </div>
       <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label class="col-form-label">Goal ID:</label>
-            <input class="form-control" v-model="weightGoal.id" name="id" type="number" readonly />
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Type</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Type:</label>
-            <input class="form-control" v-model="weightGoal.type" name="type" type="text" />
+          <input class="form-control" v-model="weightGoal.type" name="type" type="text" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Starting Weight</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Starting Weight:</label>
-            <input class="form-control" v-model="weightGoal.startingWeight" name="startingWeight" type="number" />
+          <input class="form-control" v-model="weightGoal.startingWeight" name="startingWeight" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Starting Weight Timestamp</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Starting Weight Timestamp:</label>
-            <input class="form-control" v-model="weightGoal.startingWeightTimestamp" name="startingWeightTimestamp" type="datetime-local" />
+          <input class="form-control" v-model="weightGoal.startingWeightTimestamp" name="startingWeightTimestamp" type="datetime-local" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Target Weight</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Target Weight:</label>
-            <input class="form-control" v-model="weightGoal.targetWeight" name="targetWeight" type="number" />
+          <input class="form-control" v-model="weightGoal.targetWeight" name="targetWeight" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Weekly Goal</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Weekly Goal:</label>
-            <input class="form-control" v-model="weightGoal.weeklyGoal" name="weeklyGoal" type="number" />
+          <input class="form-control" v-model="weightGoal.weeklyGoal" name="weeklyGoal" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-deadline">Deadline</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Deadline:</label>
-            <input class="form-control" v-model="weightGoal.deadline" name="deadline" type="datetime-local" />
+          <input class="form-control" v-model="weightGoal.deadline" name="deadline" type="datetime-local" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-userId">User ID</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">User ID:</label>
-            <input class="form-control" v-model="weightGoal.userId" name="userId" type="number" />
-          </div>
-        </form>
+          <input class="form-control" v-model="weightGoal.userId" name="userId" type="number" />
+        </div>
       </div>
       <div class="card-footer text-center">
         <div v-if="weightGoal">
-          <br>
+          <br />
           <a :href="`/weightGoals/${weightGoal.id}/userWeight`">View Current Weight</a>
-          <br>
-          <br>
+          <br />
+          <br />
         </div>
       </div>
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 230px;
+}
+</style>
 
 <script>
 app.component("weight-goals-profile", {
@@ -97,7 +117,7 @@ app.component("weight-goals-profile", {
     updateWeightGoal: function () {
       const wgId = this.$javalin.pathParams["weight-goal-id"];
       const url = `/api/weightGoals/${wgId}`;
-      // Modify the data structure to match your weight goal properties
+
       const updatedWeightGoal = {
         id: this.weightGoal.id,
         type: this.weightGoal.type,

@@ -1,6 +1,6 @@
 <template id="fitness-goals-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
           <div class="col-6">Fitness Goals</div>
@@ -15,38 +15,40 @@
         <form id="addFitnessGoal">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-fitness-goal-type">Type</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-type">Type</span>
             </div>
             <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>
           </div>
+
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-fitness-goal-workouts">Workouts per week</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-workouts">Workouts per week</span>
             </div>
             <input type="number" class="form-control" v-model="formData.workoutsPerWeek" name="workoutsPerWeek" placeholder="Workouts per week"/>
           </div>
+
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-fitness-goal-minutes">Minutes of Workouts</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-minutes">Workout Duration (minutes)</span>
             </div>
             <input type="number" class="form-control" v-model="formData.minutesOfWorkouts" name="minutesOfWorkouts" placeholder="Minutes of Workouts"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-fitness-goal-calories">Calorie Burning Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-calories">Calorie Burning Goal</span>
             </div>
             <input type="number" class="form-control" v-model="formData.calorieBurningGoalDuringExercise" name="calorieBurningGoalDuringExercise" placeholder="Calorie Burning Goal"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-fitness-goal-userId">User ID</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-userId">User ID</span>
             </div>
             <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
         </form>
-        <button rel="tooltip" title="Add Fitness Goal" class="btn btn-info btn-sm" @click="addFitnessGoal" style="background-color: #08a29e; border-color: #08a29e;">
+        <button rel="tooltip" title="Add Fitness Goal" class="btn btn-info btn-sm mt-3" @click="addFitnessGoal" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add Fitness Goal
         </button>
       </div>
@@ -56,7 +58,7 @@
         <div class="mr-auto p-2">
           <span>
             <a :href="`/fitnessGoals/${fitnessGoal.id}`" style="color: #08a29e;">
-              {{ fitnessGoal.type }} (Workouts per week: {{ fitnessGoal.workoutsPerWeek }}, Minutes of Workouts: {{ fitnessGoal.minutesOfWorkouts }}, Calorie Burning Goal: {{ fitnessGoal.calorieBurningGoalDuringExercise }}, User ID: {{ fitnessGoal.userId }})
+              {{ fitnessGoal.type }} (Workouts per week: {{ fitnessGoal.workoutsPerWeek }}, Workout Duration in minutes: {{ fitnessGoal.minutesOfWorkouts }}, Calorie Burning Goal: {{ fitnessGoal.calorieBurningGoalDuringExercise }}, User ID: {{ fitnessGoal.userId }})
             </a>
           </span>
         </div>
@@ -72,6 +74,12 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 230px;
+}
+</style>
 
 <script>
 app.component("fitness-goals-overview", {

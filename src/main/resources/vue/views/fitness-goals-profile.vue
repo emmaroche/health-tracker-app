@@ -4,10 +4,10 @@
       <p>We're sorry, we were not able to retrieve this fitness goal.</p>
       <p>View <a :href="'/fitnessGoals'">all fitness goals</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="!noFitnessGoal">
+    <div class="card bg-light mt-4 mb-3" v-if="!noFitnessGoal">
       <div class="card-header">
         <div class="row">
-          <div class="col-6"> Fitness Goal Profile</div>
+          <div class="col-6" style="font-weight: 600;"> Fitness Goal Profile</div>
           <div class="col" align="right">
             <button
                 rel="tooltip"
@@ -29,36 +29,50 @@
         </div>
       </div>
       <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label class="col-form-label">Goal ID:</label>
-            <input class="form-control" v-model="fitnessGoal.id" name="id" type="number" readonly />
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Type</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Type:</label>
-            <input class="form-control" v-model="fitnessGoal.type" name="type" type="text" />
+          <input class="form-control" v-model="fitnessGoal.type" name="type" type="text" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Workouts Per Week</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Workouts Per Week:</label>
-            <input class="form-control" v-model="fitnessGoal.workoutsPerWeek" name="workoutsPerWeek" type="number" />
+          <input class="form-control" v-model="fitnessGoal.workoutsPerWeek" name="workoutsPerWeek" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Workout Duration (minutes)</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Minutes of Workouts:</label>
-            <input class="form-control" v-model="fitnessGoal.minutesOfWorkouts" name="minutesOfWorkouts" type="number" />
+          <input class="form-control" v-model="fitnessGoal.minutesOfWorkouts" name="minutesOfWorkouts" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Calorie Burning Goal</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Calorie Burning Goal:</label>
-            <input class="form-control" v-model="fitnessGoal.calorieBurningGoalDuringExercise" name="calorieBurningGoalDuringExercise" type="number" />
+          <input class="form-control" v-model="fitnessGoal.calorieBurningGoalDuringExercise" name="calorieBurningGoalDuringExercise" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-userId">User ID</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">User ID:</label>
-            <input class="form-control" v-model="fitnessGoal.userId" name="userId" type="number" />
-          </div>
-        </form>
+          <input class="form-control" v-model="fitnessGoal.userId" name="userId" type="number" />
+        </div>
       </div>
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 230px;
+}
+</style>
 
 <script>
 app.component("fitness-goals-profile", {
