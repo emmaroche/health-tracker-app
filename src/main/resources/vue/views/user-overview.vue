@@ -1,6 +1,6 @@
 <template id="user-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-5 mb-3">
       <div class="card-header">
         <div class="row">
           <div class="col-6">

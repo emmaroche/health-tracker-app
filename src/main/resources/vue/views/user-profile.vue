@@ -4,10 +4,10 @@
       <p>We're sorry, we were not able to retrieve this user.</p>
       <p>View <a :href="'/users'">all users</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="!noUserFound">
+    <div class="card bg-light mt-5 mb-3" v-if="!noUserFound">
       <div class="card-header">
         <div class="row">
-          <div class="col-6"> User Profile</div>
+          <div class="col-6" style="font-weight: 600;">User Profile</div>
           <div class="col" align="right">
             <button rel="tooltip" title="Update"
                     class="btn btn-info btn-simple btn-link mr-2"
@@ -26,36 +26,23 @@
         <form>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-user-id">User ID</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-id">User ID</span>
             </div>
             <input type="number" class="form-control" v-model="user.id" name="id" readonly placeholder="Id"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-user-name">Name</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-name">Name</span>
             </div>
             <input type="text" class="form-control" v-model="user.name" name="name" placeholder="Name"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-user-email">Email</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-email">Email</span>
             </div>
             <input type="email" class="form-control" v-model="user.email" name="email" placeholder="Email"/>
           </div>
         </form>
-      </div>
-      <div class="card-footer text-center">
-        <div v-if="user">
-          <br>
-          <a :href="`/users/${user.id}/activities`">View User Activities</a>
-          <br>
-          <a :href="`/users/${user.id}/healthRecords`">View Health Record</a>
-          <br>
-          <a :href="`/users/${user.id}/fitnessGoals`">View Fitness Goals</a>
-          <br>
-          <a :href="`/users/${user.id}/weightGoals`">View Weight Goals</a>
-          <br>
-        </div>
       </div>
 
       <div class="card-footer text-left">
@@ -63,38 +50,46 @@
           No activities, health records, or goals yet...
         </p>
         <p v-else>
-          Data so far...
+         View the following health related data for this user:
         </p>
-
-        <ul v-if="activities.length > 0">
-          <li v-for="activity in activities">
-            {{ activity.description }} for {{ activity.duration }} minutes
-          </li>
-        </ul>
-
-        <ul v-if="healthRecords.length > 0">
-          <li v-for="record in healthRecords">
-            Health Record: {{ record.lastName }} - {{ record.firstName }}
-          </li>
-        </ul>
-
-        <ul v-if="fitnessGoals.length > 0">
-          <li v-for="goal in fitnessGoals">
-            Fitness Goal: {{ goal.type }} - {{ goal.workoutsPerWeek }}
-          </li>
-        </ul>
-
-        <ul v-if="weightGoals.length > 0">
-          <li v-for="goal in weightGoals">
-            Weight Goal: {{ goal.type }} - {{ goal.startingWeight }}
-          </li>
-        </ul>
+        <div class="card-footer text-center">
+          <div v-if="user">
+            <div class="btn-group-vertical" role="group" aria-label="User Actions">
+              <a :href="`/users/${user.id}/activities`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-running"></i> View User Activities
+              </a>
+              <a :href="`/users/${user.id}/healthRecords`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-heartbeat"></i> View Health Record
+              </a>
+              <a :href="`/users/${user.id}/fitnessGoals`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-dumbbell"></i> View Fitness Goals
+              </a>
+              <a :href="`/users/${user.id}/weightGoals`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-weight"></i> View Weight Goals
+              </a>
+              <a :href="`/users/${user.id}/nutritionGoals`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-apple-alt"></i> View Nutrition Goals
+              </a>
+              <a :href="`/users/${user.id}/sleepTracking`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-moon"></i> View Sleep Entries
+              </a>
+              <a :href="`/users/${user.id}/moodTracking`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-smile"></i> View Mood Entries
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-
 
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 100px;
+}
+</style>
 
 <script>
 app.component("user-profile", {
