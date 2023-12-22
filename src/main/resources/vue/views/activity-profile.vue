@@ -4,10 +4,10 @@
       <p>We're sorry, we were not able to retrieve this activity.</p>
       <p>View <a :href="'/activities'">all activities</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="!noActivity">
+    <div class="card bg-light mt-4 mb-3" v-if="!noActivity">
       <div class="card-header">
         <div class="row">
-          <div class="col-6"> Activity Profile</div>
+          <div class="col-6" style="font-weight: 600;"> Activity Profile</div>
           <div class="col" align="right">
             <button rel="tooltip" title="Update"
                     class="btn btn-info btn-simple btn-link mr-2"
@@ -24,35 +24,53 @@
       </div>
       <div class="card-body">
         <form>
-          <div class="form-group">
-            <label class="col-form-label">Activity ID:</label>
-            <input class="form-control" v-model="activity.id" name="id" type="number" readonly/>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-id">Activity ID</span>
+            </div>
+            <input type="number" class="form-control" v-model="activity.id" name="id" readonly placeholder="Id"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Description:</label>
-            <input class="form-control" v-model="activity.description" name="description" type="text"/>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Description</span>
+            </div>
+            <input type="text" class="form-control" v-model="activity.description" name="description" placeholder="Description"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Duration (in hours):</label>
-            <input class="form-control" v-model="activity.duration" name="duration" type="number"/>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Duration (hours)</span>
+            </div>
+            <input type="number" class="form-control" v-model="activity.duration" name="duration"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Calories:</label>
-            <input class="form-control" v-model="activity.calories" name="calories" type="number"/>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Calories Burnt</span>
+            </div>
+            <input type="number" class="form-control" v-model="activity.calories" name="calories"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Start Time:</label>
-            <input class="form-control" v-model="activity.started" name="started" type="text"/>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date & Time</span>
+            </div>
+            <input type="text" class="form-control" v-model="activity.started" name="started"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">User ID:</label>
-            <input class="form-control" v-model="activity.userId" name="userId" type="number"/>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-userId">User ID</span>
+            </div>
+            <input type="number" class="form-control" v-model="activity.userId" name="userId"/>
           </div>
         </form>
       </div>
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 150px;
+}
+</style>
 
 <script>
 app.component("activity-profile", {

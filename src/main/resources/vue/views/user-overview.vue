@@ -1,6 +1,6 @@
 <template id="user-overview">
   <app-layout>
-    <div class="card bg-light mt-5 mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
           <div class="col-6">
@@ -17,18 +17,18 @@
         <form id="addUser">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-user-name">Name</span>
+              <span class="input-group-text" style="font-weight: 600;" id="input-user-name">Name</span>
             </div>
             <input type="text" class="form-control" v-model="formData.name" name="name" placeholder="Name"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-user-email">Email</span>
+              <span class="input-group-text" style="font-weight: 600;" id="input-user-email">Email</span>
             </div>
             <input type="email" class="form-control" v-model="formData.email" name="email" placeholder="Email"/>
           </div>
         </form>
-        <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+        <button rel="tooltip" title="Add" class="btn btn-info btn-sm mt-3" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add
         </button>
       </div>

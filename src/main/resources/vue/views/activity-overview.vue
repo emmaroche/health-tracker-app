@@ -1,6 +1,6 @@
 <template id="activity-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
           <div class="col-6">
@@ -17,40 +17,45 @@
         <form id="addActivity">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-description">Description</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Description</span>
             </div>
             <input type="text" class="form-control" v-model="formData.description" name="description" placeholder="Description"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-duration">Duration</span>
-            </div>
-            <input type="text" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-calories">Calories</span>
-            </div>
-            <input type="text" class="form-control" v-model="formData.calories" name="calories" placeholder="Calories"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-started">Started</span>
-            </div>
-            <input type="text" class="form-control" v-model="formData.started" name="started" placeholder="Started"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-userId">User ID</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Duration</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Calories Burnt</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.calories" name="calories" placeholder="Calories Burnt"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date & Time</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.started" name="started" placeholder="Date & Time"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-userId">User ID</span>
             </div>
             <input type="text" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
+
+          <button rel="tooltip" title="Add Activity" class="btn btn-info btn-sm mt-3" @click="addActivity" style="background-color: #08a29e; border-color: #08a29e;">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add Activity
+          </button>
         </form>
-        <button rel="tooltip" title="Add Activity" class="btn btn-info btn-sm" @click="addActivity" style="background-color: #08a29e; border-color: #08a29e;">
-          <i class="fa fa-plus" aria-hidden="true"></i> Add Activity
-        </button>
       </div>
+
     </div>
     <div class="list-group list-group-flush">
       <div class="list-group-item d-flex align-items-start"
@@ -58,7 +63,7 @@
         <div class="mr-auto p-2">
           <span>
             <a :href="`/activities/${activity.id}`" style="color: #08a29e;">
-              {{ activity.description }} (Duration: {{ activity.duration }}, Calories: {{ activity.calories }}, Started: {{ activity.started }}, User ID: {{ activity.userId }})
+              {{ activity.description }} (Duration: {{ activity.duration }}, Calories Burnt: {{ activity.calories }}, Date & Time of Activity: {{ activity.started }}, User ID: {{ activity.userId }})
             </a>
           </span>
         </div>
@@ -74,6 +79,12 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 150px;
+}
+</style>
 
 <script>
 app.component("activity-overview", {

@@ -93,16 +93,11 @@ app.component("app-layout", {
   },
   methods: {
     setActiveLink(link) {
-      if (this.activeLink === link) {
-        // If the clicked link is already active, unhighlight it
-        this.activeLink = null;
-      } else {
         this.activeLink = link;
         // Save active link to local storage
         localStorage.setItem('activeLink', link);
         // Manual redirect
         window.location.href = link;
-      }
     }
   }
 });

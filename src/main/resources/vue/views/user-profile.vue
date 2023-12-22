@@ -4,7 +4,7 @@
       <p>We're sorry, we were not able to retrieve this user.</p>
       <p>View <a :href="'/users'">all users</a>.</p>
     </div>
-    <div class="card bg-light mt-5 mb-3" v-if="!noUserFound">
+    <div class="card bg-light mt-4 mb-3" v-if="!noUserFound">
       <div class="card-header">
         <div class="row">
           <div class="col-6" style="font-weight: 600;">User Profile</div>
