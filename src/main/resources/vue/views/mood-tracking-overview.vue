@@ -5,10 +5,8 @@
         <div class="row">
           <div class="col-6">Mood Tracking</div>
           <div class="col" align="right">
-            <button rel="tooltip" title="Add"
-                    class="btn btn-info btn-simple btn-link"
-                    @click="hideForm =!hideForm">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm =!hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
             </button>
           </div>
         </div>
@@ -27,44 +25,25 @@
             </div>
             <input type="number" class="form-control" v-model="formData.rating" name="rating" placeholder="Rating"/>
           </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-notes">Notes</span>
-            </div>
-            <input type="text" class="form-control" v-model="formData.notes" name="notes" placeholder="Notes"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-date">Date</span>
-            </div>
-            <input type="date" class="form-control" v-model="formData.date" name="date"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-userId">User ID</span>
-            </div>
-            <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
-          </div>
+          <!-- Add other form fields as needed -->
         </form>
-        <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addMoodEntry()">Add Mood Entry</button>
+        <button rel="tooltip" title="Add Mood Entry" class="btn btn-info btn-sm" @click="addMoodEntry" style="background-color: #08a29e; border-color: #08a29e;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Mood Entry
+        </button>
       </div>
     </div>
     <div class="list-group list-group-flush">
       <div class="list-group-item d-flex align-items-start" v-for="(moodEntry, index) in moodTracking" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/moodTracking/${moodEntry.id}`">
-              {{ moodEntry.mood }} (Rating: {{ moodEntry.rating }}, Notes: {{ moodEntry.notes }}, Date: {{ moodEntry.date }}, User ID: {{ moodEntry.userId }})
-            </a>
-          </span>
+          <span><a :href="`/moodTracking/${moodEntry.id}`" style="color: #08a29e;">
+            {{ moodEntry.mood }} (Rating: {{ moodEntry.rating }}, Notes: {{ moodEntry.notes }}, Date: {{ moodEntry.date }}, User ID: {{ moodEntry.userId }})
+          </a></span>
         </div>
         <div class="p-2">
-          <a :href="`/moodTracking/${moodEntry.id}`">
-            <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
+          <a :href="`/moodTracking/${moodEntry.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
-          <button rel="tooltip" title="Delete" class="btn btn-info btn-simple btn-link" @click="deleteMoodEntry(moodEntry, index)">
+          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm ml-2" @click="deleteMoodEntry(moodEntry, index)">
             <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </div>

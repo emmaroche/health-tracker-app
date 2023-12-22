@@ -1,8 +1,8 @@
 <template id="user-profile">
   <app-layout>
     <div v-if="noUserFound">
-      <p> We're sorry, we were not able to retrieve this user.</p>
-      <p> View <a :href="'/users'">all users</a>.</p>
+      <p>We're sorry, we were not able to retrieve this user.</p>
+      <p>View <a :href="'/users'">all users</a>.</p>
     </div>
     <div class="card bg-light mb-3" v-if="!noUserFound">
       <div class="card-header">
@@ -10,14 +10,14 @@
           <div class="col-6"> User Profile</div>
           <div class="col" align="right">
             <button rel="tooltip" title="Update"
-                    class="btn btn-info btn-simple btn-link"
+                    class="btn btn-info btn-simple btn-link mr-2"
                     @click="updateUser()">
-              <i class="far fa-save" aria-hidden="true"></i>
+              <i class="fas fa-edit" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
             <button rel="tooltip" title="Delete"
                     class="btn btn-info btn-simple btn-link"
                     @click="deleteUser()">
-              <i class="fas fa-trash" aria-hidden="true"></i>
+              <i class="fas fa-trash" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
           </div>
         </div>

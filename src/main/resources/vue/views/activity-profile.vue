@@ -1,8 +1,8 @@
 <template id="activity-profile">
   <app-layout>
     <div v-if="noActivity">
-      <p> We're sorry, we were not able to retrieve this activity.</p>
-      <p> View <a :href="'/activities'">all activities</a>.</p>
+      <p>We're sorry, we were not able to retrieve this activity.</p>
+      <p>View <a :href="'/activities'">all activities</a>.</p>
     </div>
     <div class="card bg-light mb-3" v-if="!noActivity">
       <div class="card-header">
@@ -10,14 +10,14 @@
           <div class="col-6"> Activity Profile</div>
           <div class="col" align="right">
             <button rel="tooltip" title="Update"
-                    class="btn btn-info btn-simple btn-link"
+                    class="btn btn-info btn-simple btn-link mr-2"
                     @click="updateActivity()">
-              <i class="far fa-save" aria-hidden="true"></i>
+              <i class="fas fa-edit" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
             <button rel="tooltip" title="Delete"
                     class="btn btn-info btn-simple btn-link"
                     @click="deleteActivity()">
-              <i class="fas fa-trash" aria-hidden="true"></i>
+              <i class="fas fa-trash" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
           </div>
         </div>

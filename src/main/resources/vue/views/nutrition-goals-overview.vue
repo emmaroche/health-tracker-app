@@ -5,10 +5,8 @@
         <div class="row">
           <div class="col-6">Nutrition Goals</div>
           <div class="col" align="right">
-            <button rel="tooltip" title="Add"
-                    class="btn btn-info btn-simple btn-link"
-                    @click="hideForm = !hideForm">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
             </button>
           </div>
         </div>
@@ -59,25 +57,25 @@
             <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
         </form>
-        <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addNutritionGoal()">Add Nutrition Goal</button>
+        <button rel="tooltip" title="Add Nutrition Goal" class="btn btn-info btn-sm" @click="addNutritionGoal" style="background-color: #08a29e; border-color: #08a29e;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Nutrition Goal
+        </button>
       </div>
     </div>
     <div class="list-group list-group-flush">
       <div class="list-group-item d-flex align-items-start" v-for="(nutritionGoal, index) in nutritionGoals" :key="index">
         <div class="mr-auto p-2">
           <span>
-            <a :href="`/nutritionGoals/${nutritionGoal.id}`">
+            <a :href="`/nutritionGoals/${nutritionGoal.id}`" style="color: #08a29e;">
               {{ nutritionGoal.type }} (Protein Goal: {{ nutritionGoal.proteinGoal }}, Fibre Goal: {{ nutritionGoal.fibreGoal }}, Calorie Goal: {{ nutritionGoal.calorieGoal }}, Carbs Goal: {{ nutritionGoal.carbsGoal }}, Fat Goal: {{ nutritionGoal.fatGoal }}, User ID: {{ nutritionGoal.userId }})
             </a>
           </span>
         </div>
         <div class="p-2">
-          <a :href="`/nutritionGoals/${nutritionGoal.id}`">
-            <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
+          <a :href="`/nutritionGoals/${nutritionGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
-          <button rel="tooltip" title="Delete" class="btn btn-info btn-simple btn-link" @click="deleteNutritionGoal(nutritionGoal, index)">
+          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm ml-2" @click="deleteNutritionGoal(nutritionGoal, index)">
             <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </div>
@@ -111,7 +109,7 @@ app.component("nutrition-goals-overview", {
             .then(response =>
                 this.nutritionGoals.splice(index, 1).push(response.data))
             .catch(function (error) {
-              console.log(error)
+              console.log(error);
             });
       }
     },

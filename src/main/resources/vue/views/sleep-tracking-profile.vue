@@ -12,10 +12,10 @@
             <button
                 rel="tooltip"
                 title="Update"
-                class="btn btn-info btn-simple btn-link"
+                class="btn btn-info btn-simple btn-link mr-2"
                 @click="updateSleepEntry()"
             >
-              <i class="far fa-save" aria-hidden="true"></i>
+              <i class="fas fa-edit" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
             <button
                 rel="tooltip"
@@ -23,7 +23,7 @@
                 class="btn btn-info btn-simple btn-link"
                 @click="deleteSleepEntry()"
             >
-              <i class="fas fa-trash" aria-hidden="true"></i>
+              <i class="fas fa-trash" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
           </div>
         </div>

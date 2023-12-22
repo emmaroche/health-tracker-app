@@ -5,10 +5,8 @@
         <div class="row">
           <div class="col-6">Fitness Goals</div>
           <div class="col" align="right">
-            <button rel="tooltip" title="Add"
-                    class="btn btn-info btn-simple btn-link"
-                    @click="hideForm =!hideForm">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
             </button>
           </div>
         </div>
@@ -48,25 +46,25 @@
             <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
         </form>
-        <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addFitnessGoal()">Add Fitness Goal</button>
+        <button rel="tooltip" title="Add Fitness Goal" class="btn btn-info btn-sm" @click="addFitnessGoal" style="background-color: #08a29e; border-color: #08a29e;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Fitness Goal
+        </button>
       </div>
     </div>
     <div class="list-group list-group-flush">
       <div class="list-group-item d-flex align-items-start" v-for="(fitnessGoal, index) in fitnessGoals" :key="index">
         <div class="mr-auto p-2">
-      <span>
-        <a :href="`/fitnessGoals/${fitnessGoal.id}`">
-          {{ fitnessGoal.type }} (Workouts per week: {{ fitnessGoal.workoutsPerWeek }}, Minutes of Workouts: {{ fitnessGoal.minutesOfWorkouts }}, Calorie Burning Goal: {{ fitnessGoal.calorieBurningGoalDuringExercise }}, User ID: {{ fitnessGoal.userId }})
-        </a>
-      </span>
+          <span>
+            <a :href="`/fitnessGoals/${fitnessGoal.id}`" style="color: #08a29e;">
+              {{ fitnessGoal.type }} (Workouts per week: {{ fitnessGoal.workoutsPerWeek }}, Minutes of Workouts: {{ fitnessGoal.minutesOfWorkouts }}, Calorie Burning Goal: {{ fitnessGoal.calorieBurningGoalDuringExercise }}, User ID: {{ fitnessGoal.userId }})
+            </a>
+          </span>
         </div>
         <div class="p-2">
-          <a :href="`/fitnessGoals/${fitnessGoal.id}`">
-            <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
+          <a :href="`/fitnessGoals/${fitnessGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
-          <button rel="tooltip" title="Delete" class="btn btn-info btn-simple btn-link" @click="deleteFitnessGoal(fitnessGoal, index)">
+          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm ml-2" @click="deleteFitnessGoal(fitnessGoal, index)">
             <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </div>

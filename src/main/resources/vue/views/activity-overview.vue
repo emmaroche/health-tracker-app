@@ -7,10 +7,8 @@
             Activities
           </div>
           <div class="col" align="right">
-            <button rel="tooltip" title="Add"
-                    class="btn btn-info btn-simple btn-link"
-                    @click="hideForm =!hideForm">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
             </button>
           </div>
         </div>
@@ -49,7 +47,9 @@
             <input type="text" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
         </form>
-        <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addActivity()">Add Activity</button>
+        <button rel="tooltip" title="Add Activity" class="btn btn-info btn-sm" @click="addActivity" style="background-color: #08a29e; border-color: #08a29e;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Activity
+        </button>
       </div>
     </div>
     <div class="list-group list-group-flush">
@@ -57,19 +57,16 @@
            v-for="(activity, index) in activities" :key="index">
         <div class="mr-auto p-2">
           <span>
-            <a :href="`/activities/${activity.id}`">
+            <a :href="`/activities/${activity.id}`" style="color: #08a29e;">
               {{ activity.description }} (Duration: {{ activity.duration }}, Calories: {{ activity.calories }}, Started: {{ activity.started }}, User ID: {{ activity.userId }})
             </a>
           </span>
         </div>
-        <div class="p2">
-          <a :href="`/activities/${activity.id}`">
-            <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
+        <div class="p-2">
+          <a :href="`/activities/${activity.id}`" class="btn btn-info btn-sm mr-2" style="background-color: #08a29e; border-color: #08a29e;">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
-          <button rel="tooltip" title="Delete" class="btn btn-info btn-simple btn-link"
-                  @click="deleteActivity(activity, index)">
+          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteActivity(activity, index)">
             <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </div>
@@ -77,6 +74,7 @@
     </div>
   </app-layout>
 </template>
+
 <script>
 app.component("activity-overview", {
   template: "#activity-overview",

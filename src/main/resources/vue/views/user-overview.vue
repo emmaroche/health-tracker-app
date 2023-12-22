@@ -7,10 +7,8 @@
             Users
           </div>
           <div class="col" align="right">
-            <button rel="tooltip" title="Add"
-                    class="btn btn-info btn-simple btn-link"
-                    @click="hideForm =!hideForm">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
             </button>
           </div>
         </div>
@@ -30,24 +28,21 @@
             <input type="email" class="form-control" v-model="formData.email" name="email" placeholder="Email"/>
           </div>
         </form>
-        <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addUser()">Add User
+        <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add
         </button>
       </div>
     </div>
     <div class="list-group list-group-flush">
-      <div class="list-group-item d-flex align-items-start"
-           v-for="(user,index) in users" v-bind:key="index">
+      <div class="list-group-item d-flex align-items-start" v-for="(user, index) in users" :key="index">
         <div class="mr-auto p-2">
-          <span><a :href="`/users/${user.id}`"> {{ user.name }} ({{ user.email }})</a></span>
+          <span><a :href="`/users/${user.id}`" style="color: #08a29e;">{{ user.name }} ({{ user.email }})</a></span>
         </div>
-        <div class="p2">
-          <a :href="`/users/${user.id}`">
-            <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
+        <div class="p-2">
+          <a :href="`/users/${user.id}`" class="btn btn-info btn-sm mr-2" style="background-color: #08a29e; border-color: #08a29e;">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
-          <button rel="tooltip" title="Delete" class="btn btn-info btn-simple btn-link"
-                  @click="deleteUser(user, index)">
+          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteUser(user, index)">
             <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </div>
@@ -55,6 +50,7 @@
     </div>
   </app-layout>
 </template>
+
 <script>
 app.component("user-overview", {
   template: "#user-overview",
@@ -74,33 +70,26 @@ app.component("user-overview", {
     },
     deleteUser: function (user, index) {
       if (confirm('Are you sure you want to delete this user? This action cannot be undone.', 'Warning')) {
-        //user confirmed delete
         const userId = user.id;
         const url = `/api/users/${userId}`;
         axios.delete(url)
-            .then(response =>
-                //delete from the local state so Vue will reload list automatically
-                this.users.splice(index, 1).push(response.data))
-            .catch(function (error) {
-              console.log(error)
-            });
+            .then(response => this.users.splice(index, 1).push(response.data))
+            .catch(error => console.log(error));
       }
     },
     addUser: function () {
       const url = `/api/users`;
-      axios.post(url,
-          {
-            name: this.formData.name,
-            email: this.formData.email
-          })
+      axios.post(url, {
+        name: this.formData.name,
+        email: this.formData.email
+      })
           .then(response => {
-            this.users.push(response.data)
+            this.users.push(response.data);
             this.hideForm = true;
           })
-          .catch(error => {
-            console.log(error)
-          })
+          .catch(error => console.log(error));
     }
   }
 });
 </script>
+
