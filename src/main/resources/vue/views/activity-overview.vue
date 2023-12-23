@@ -13,6 +13,8 @@
           </div>
         </div>
       </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;"> Elevate your fitness journey with our Activities feature.
+        Stay motivated and keep moving forward! </div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addActivity">
           <div class="input-group mb-3">
@@ -58,6 +60,7 @@
 
     </div>
     <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Activities Goals</div>
       <div class="list-group-item d-flex align-items-start"
            v-for="(activity, index) in activities" :key="index">
         <div class="mr-auto p-2">
@@ -68,6 +71,7 @@
           </span>
         </div>
         <div class="p-2">
+        <div class="btn-group d-flex" role="group">
           <a :href="`/activities/${activity.id}`" class="btn btn-info btn-sm mr-2" style="background-color: #08a29e; border-color: #08a29e;">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>

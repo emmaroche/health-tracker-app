@@ -11,6 +11,8 @@
           </div>
         </div>
       </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;"> Easily monitor your sleep
+        patterns by tracking sleep quality, duration, and more with our Sleep Tracking feature.</div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addSleepTracking">
           <div class="input-group mb-3">
@@ -50,6 +52,7 @@
       </div>
     </div>
     <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Sleep Entries</div>
       <div class="list-group-item d-flex align-items-start" v-for="(sleepEntry, index) in sleepTracking" :key="index">
         <div class="mr-auto p-2">
           <span><a :href="`/sleepTracking/${sleepEntry.id}`" style="color: #08a29e;">
@@ -57,15 +60,17 @@
           </a></span>
         </div>
         <div class="p-2">
-          <a :href="`/sleepTracking/${sleepEntry.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </a>
-          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm ml-2" @click="deleteSleepEntry(sleepEntry, index)">
-            <i class="fas fa-trash" aria-hidden="true"></i>
-          </button>
+          <div class="btn-group d-flex" role="group">
+            <a :href="`/sleepTracking/${sleepEntry.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <div class="mr-2"></div>
+            <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteSleepEntry(sleepEntry, index)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
   </app-layout>
 </template>
 

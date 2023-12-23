@@ -11,6 +11,7 @@
           </div>
         </div>
       </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;"> Set and track your fitness goals effortlessly with our Fitness Goals feature. Stay motivated on your fitness journey! </div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addFitnessGoal">
           <div class="input-group mb-3">
@@ -54,6 +55,7 @@
       </div>
     </div>
     <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Fitness Goals</div>
       <div class="list-group-item d-flex align-items-start" v-for="(fitnessGoal, index) in fitnessGoals" :key="index">
         <div class="mr-auto p-2">
           <span>
@@ -63,12 +65,15 @@
           </span>
         </div>
         <div class="p-2">
-          <a :href="`/fitnessGoals/${fitnessGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </a>
-          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm ml-2" @click="deleteFitnessGoal(fitnessGoal, index)">
-            <i class="fas fa-trash" aria-hidden="true"></i>
-          </button>
+          <div class="btn-group d-flex" role="group">
+            <a :href="`/fitnessGoals/${fitnessGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <div class="mr-2"></div> <!-- Added margin-right for spacing -->
+            <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteFitnessGoal(fitnessGoal, index)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>

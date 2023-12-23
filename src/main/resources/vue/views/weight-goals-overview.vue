@@ -11,6 +11,8 @@
           </div>
         </div>
       </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;">  Work towards your target weight with our Weight Goals feature.
+        Easily manage your objectives, and witness positive changes in your health!</div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addWeightGoal">
           <div class="input-group mb-3">
@@ -61,6 +63,7 @@
       </div>
     </div>
     <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Weight Goals</div>
       <div class="list-group-item d-flex align-items-start" v-for="(weightGoal, index) in weightGoals" :key="index">
         <div class="mr-auto p-2">
           <span>
@@ -70,12 +73,15 @@
           </span>
         </div>
         <div class="p-2">
-          <a :href="`/weightGoals/${weightGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </a>
-          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm ml-2" @click="deleteWeightGoal(weightGoal, index)">
-            <i class="fas fa-trash" aria-hidden="true"></i>
-          </button>
+          <div class="btn-group d-flex" role="group">
+            <a :href="`/weightGoals/${weightGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <div class="mr-2"></div>
+            <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteWeightGoal(weightGoal, index)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -85,6 +91,10 @@
 <style>
 .custom-label {
   width: 200px;
+}
+.description-text {
+  font-size: 16px;
+  color: #495057;
 }
 </style>
 

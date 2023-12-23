@@ -85,7 +85,7 @@ app.component("app-layout", {
     };
   },
 
-  //ChatGPT generated active link code
+  // ChatGPT generated active VUE code
 
   mounted() {
     // Retrieve active link from local storage on component mount

@@ -11,6 +11,7 @@
           </div>
         </div>
       </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;">Effortlessly manage your nutrition goals with our Nutrition Goals feature. Stay on track with your nutritional journey!  </div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addNutritionGoal">
           <div class="input-group mb-3">
@@ -63,6 +64,7 @@
       </div>
     </div>
     <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Nutrition Goals</div>
       <div class="list-group-item d-flex align-items-start" v-for="(nutritionGoal, index) in nutritionGoals" :key="index">
         <div class="mr-auto p-2">
           <span>
@@ -72,12 +74,15 @@
           </span>
         </div>
         <div class="p-2">
-          <a :href="`/nutritionGoals/${nutritionGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </a>
-          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm ml-2" @click="deleteNutritionGoal(nutritionGoal, index)">
-            <i class="fas fa-trash" aria-hidden="true"></i>
-          </button>
+          <div class="btn-group d-flex" role="group">
+            <a :href="`/nutritionGoals/${nutritionGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <div class="mr-2"></div> <!-- Added margin-right for spacing -->
+            <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteNutritionGoal(nutritionGoal, index)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
