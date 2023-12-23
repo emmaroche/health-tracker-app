@@ -22,6 +22,8 @@
             <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>
           </div>
 
+
+
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-startingWeight">Starting Weight (kg)</span>
