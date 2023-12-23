@@ -2,6 +2,7 @@ package ie.setu.controllers
 
 import ie.setu.domain.MoodEntry
 import ie.setu.domain.repository.MoodTrackingDAO
+import ie.setu.domain.repository.SleepTrackingDAO
 import ie.setu.domain.repository.UserDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
@@ -9,6 +10,7 @@ import io.javalin.http.Context
 object MoodTrackingController {
 
     private val userDao = UserDAO()
+    private val sleepDao =  SleepTrackingDAO()
     private val moodTrackingDAO = MoodTrackingDAO()
 
     // Get all mood tracking entries
@@ -37,6 +39,22 @@ object MoodTrackingController {
     fun getMoodTrackingByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val moodTrackingEntries = moodTrackingDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (moodTrackingEntries.isNotEmpty()) {
+                ctx.json(moodTrackingEntries)
+                ctx.status(200)
+            } else {
+                ctx.status(404)
+            }
+        } else {
+            ctx.status(404)
+        }
+    }
+
+    // Get all mood tracking entries for a specific sleep
+    fun getMoodTrackingBySleepId(ctx: Context) {
+        if (sleepDao.findById(ctx.pathParam("sleep-tracking-id").toInt()) != null) {
+            val sleepId = ctx.pathParam("sleep-tracking-id").toInt()
+            val moodTrackingEntries = moodTrackingDAO.findBySleepId(sleepId)
             if (moodTrackingEntries.isNotEmpty()) {
                 ctx.json(moodTrackingEntries)
                 ctx.status(200)

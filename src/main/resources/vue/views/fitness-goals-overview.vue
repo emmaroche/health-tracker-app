@@ -14,12 +14,12 @@
       <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;"> Set and track your fitness goals effortlessly with our Fitness Goals feature. Stay motivated on your fitness journey! </div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addFitnessGoal">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-type">Type</span>
-            </div>
-            <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>
-          </div>
+<!--          <div class="input-group mb-3">-->
+<!--            <div class="input-group-prepend">-->
+<!--              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-type">Type</span>-->
+<!--            </div>-->
+<!--            <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>-->
+<!--          </div>-->
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -60,7 +60,7 @@
         <div class="mr-auto p-2">
           <span>
             <a :href="`/fitnessGoals/${fitnessGoal.id}`" style="color: #08a29e;">
-              {{ fitnessGoal.type }} (Workouts per week: {{ fitnessGoal.workoutsPerWeek }}, Workout Duration in minutes: {{ fitnessGoal.minutesOfWorkouts }}, Calorie Burning Goal: {{ fitnessGoal.calorieBurningGoalDuringExercise }}, User ID: {{ fitnessGoal.userId }})
+              {{ fitnessGoal.type }} (Workouts per week: {{ fitnessGoal.workoutsPerWeek }}, Workout Duration: {{ fitnessGoal.minutesOfWorkouts }} minutes, Calorie Burning Goal: {{ fitnessGoal.calorieBurningGoalDuringExercise }} calories per workout, User ID: {{ fitnessGoal.userId }})
             </a>
           </span>
         </div>

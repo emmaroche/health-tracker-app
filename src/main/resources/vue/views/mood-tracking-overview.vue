@@ -45,6 +45,12 @@
             </div>
             <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-sleepId">Sleep ID</span>
+            </div>
+            <input class="form-control" v-model="formData.sleepId" name="sleepId" type="number"placeholder="Sleep ID" />
+          </div>
         </form>
         <button rel="tooltip" title="Add Mood Entry" class="btn btn-info btn-sm mt-3" @click="addMoodEntry" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add Mood Entry

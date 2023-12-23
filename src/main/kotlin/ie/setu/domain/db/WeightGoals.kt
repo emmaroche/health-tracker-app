@@ -1,5 +1,7 @@
 package ie.setu.domain.db
 
+import ie.setu.domain.db.Activities.references
+import ie.setu.domain.db.FitnessGoals.references
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
@@ -13,4 +15,5 @@ object WeightGoals : Table("weightGoals") {
     val weeklyGoal = double("weekly_goal")
     val deadline = datetime("deadline")
     val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
+    val actId= integer("activity_id").references(Activities.id, onDelete = ReferenceOption.CASCADE)
 }

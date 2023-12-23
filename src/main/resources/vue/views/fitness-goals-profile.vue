@@ -28,7 +28,9 @@
           </div>
         </div>
       </div>
+
       <div class="card-body">
+        <form>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Type</span>
@@ -63,6 +65,27 @@
           </div>
           <input class="form-control" v-model="fitnessGoal.userId" name="userId" type="number" />
         </div>
+      </form>
+      </div>
+      <div class="card-footer text-left">
+        <p v-if="activities.length === 0">
+          No activities or goals associated yet
+        </p>
+        <p v-else>
+          View associated activities and nutrition goals you have set to assist in achieving your fitness goal:
+        </p>
+        <div class="card-footer text-center">
+          <div v-if="fitnessGoal">
+            <div class="btn-group-vertical" role="group" aria-label="Fitness Actions">
+              <a :href="`/fitnessGoals/${fitnessGoal.id}/activities`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-running"></i> View User Activities
+              </a>
+              <a :href="`/fitnessGoals/${fitnessGoal.id}/nutritionGoals`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-apple-alt"></i> View Nutrition Goals
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </app-layout>
@@ -79,18 +102,40 @@ app.component("fitness-goals-profile", {
   template: "#fitness-goals-profile",
   data: () => ({
     fitnessGoal: null,
-    noFitnessGoal: false
+    noFitnessGoal: false,
+    activities: [],
+    nutritionGoals: [],
   }),
   created: function () {
     const fgId = this.$javalin.pathParams["fitness-goal-id"];
     const url = `/api/fitnessGoals/${fgId}`;
+
+    console.log("Fitness Goal ID:", fgId);
+
+// Fetch the fitness goal
     axios.get(url)
-        .then(res => this.fitnessGoal = res.data)
-        .catch(() => {
-          console.error("Error while fetching fitness goal: " + fgId);
+        .then(res => {
+          console.log("Fitness Goal Response:", res.data);
+          this.fitnessGoal = res.data;
+        })
+        .catch(error => {
+          console.error("Error while fetching fitness goal:", error);
           this.noFitnessGoal = true;
         });
+
+    axios.get(url + `/activities`)
+        .then(res => this.activities = res.data)
+        .catch(error => {
+          console.log("No activities added yet: " + error)
+        })
+
+    axios.get(url + `/nutritionGoals`)
+        .then(res => this.nutritionGoals = res.data)
+        .catch(error => {
+          console.log("No nutrition goals added yet: " + error)
+        })
   },
+
   methods: {
     updateFitnessGoal: function () {
       const fgId = this.$javalin.pathParams["fitness-goal-id"];

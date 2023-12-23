@@ -24,12 +24,12 @@
       </div>
       <div class="card-body">
         <form>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-id">Activity ID</span>
-            </div>
-            <input type="number" class="form-control" v-model="activity.id" name="id" readonly placeholder="Id"/>
-          </div>
+<!--          <div class="input-group mb-3">-->
+<!--            <div class="input-group-prepend">-->
+<!--              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-id">Activity ID</span>-->
+<!--            </div>-->
+<!--            <input type="number" class="form-control" v-model="activity.id" name="id" readonly placeholder="Id"/>-->
+<!--          </div>-->
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Description</span>
@@ -60,7 +60,30 @@
             </div>
             <input type="number" class="form-control" v-model="activity.userId" name="userId"/>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-fitnessGoalId">Fitness Goal ID</span>
+            </div>
+            <input type="number" class="form-control" v-model="activity.fitnessId" name="fitnessGoalId" readonly placeholder="Fitness Goal ID"/>
+          </div>
         </form>
+      </div>
+      <div class="card-footer text-left">
+        <p v-if="weightGoals.length === 0">
+          No goals associated yet
+        </p>
+        <p v-else>
+          View the weight goal associated with this activity to help enhance your goal progress:
+        </p>
+        <div class="card-footer text-center">
+          <div v-if="activity">
+            <div class="btn-group-vertical" role="group" aria-label="Fitness Actions">
+              <a :href="`/activities/${activity.id}/weightGoals`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-weight"></i> View Weight Goals
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </app-layout>
@@ -77,15 +100,28 @@ app.component("activity-profile", {
   template: "#activity-profile",
   data: () => ({
     activity: null,
-    noActivity: false
+    noActivity: false,
+    weightGoals: [],
   }),
   created: function () {
     const actId = this.$javalin.pathParams["activity-id"];
     const url = `/api/activities/${actId}`
+
     axios.get(url)
-        .then(res => this.activity = res.data)
-        .catch(() => alert("Error while fetching activity" + actId));
-         this.activity = true;
+        .then(res => {
+          console.log("Activity Response:", res.data);
+          this.activity = res.data;
+        })
+        .catch(error => {
+          console.error("Error while fetching activity:", error);
+          this.noActivity = true;
+        });
+
+    axios.get(url + `/weightGoals`)
+        .then(res => this.weightGoals = res.data)
+        .catch(error => {
+          console.log("No weight goals added yet: " + error)
+        })
   },
   methods: {
     updateActivity: function () {
@@ -98,7 +134,9 @@ app.component("activity-profile", {
         duration: this.activity.duration,
         calories: this.activity.calories,
         started: this.activity.started,
-        userId: this.activity.userId
+        userId: this.activity.userId,
+        fitnessId: this.activity.fitnessId,
+        actId: this.activity.actId
       };
 
       axios.patch(url, updatedActivity)

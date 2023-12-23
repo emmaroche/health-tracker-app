@@ -57,6 +57,18 @@
             </div>
             <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-fitnessId">Fitness ID</span>
+            </div>
+            <input class="form-control" v-model="formData.fitnessId" name="fitnessId" type="number" placeholder="Fitness ID" />
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-weightId">Weight ID</span>
+            </div>
+            <input class="form-control" v-model="formData.weightId" name="weightId" type="number" placeholder="Weight ID" />
+          </div>
         </form>
         <button rel="tooltip" title="Add Nutrition Goal" class="btn btn-info btn-sm mt-3" @click="addNutritionGoal" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add Nutrition Goal
@@ -69,7 +81,7 @@
         <div class="mr-auto p-2">
           <span>
             <a :href="`/nutritionGoals/${nutritionGoal.id}`" style="color: #08a29e;">
-              {{ nutritionGoal.type }} (Protein Goal: {{ nutritionGoal.proteinGoal }}, Fibre Goal: {{ nutritionGoal.fibreGoal }}, Calorie Goal: {{ nutritionGoal.calorieGoal }}, Carbs Goal: {{ nutritionGoal.carbsGoal }}, Fat Goal: {{ nutritionGoal.fatGoal }}, User ID: {{ nutritionGoal.userId }})
+              {{ nutritionGoal.type }} (Protein Goal: {{ nutritionGoal.proteinGoal }} g, Fibre Goal: {{ nutritionGoal.fibreGoal }} g, Calorie Goal: {{ nutritionGoal.calorieGoal }} calories, Carbs Goal: {{ nutritionGoal.carbsGoal }} g, Fat Goal: {{ nutritionGoal.fatGoal }} g, User ID: {{ nutritionGoal.userId }})
             </a>
           </span>
         </div>

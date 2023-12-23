@@ -16,7 +16,8 @@ fun mapToActivity(it: ResultRow) = Activity(
     duration = it[Activities.duration],
     started = it[Activities.started],
     calories = it[Activities.calories],
-    userId = it[Activities.userId]
+    userId = it[Activities.userId],
+    fitnessId = it[Activities.fitnessId]
 )
 
 fun mapToHealthRecord(it: ResultRow): HealthRecord {
@@ -45,7 +46,7 @@ fun mapToFitnessGoal(it: ResultRow): FitnessGoal {
         workoutsPerWeek = it[FitnessGoals.workoutsPerWeek],
         minutesOfWorkouts = it[FitnessGoals.minutesOfWorkouts],
         calorieBurningGoalDuringExercise = it[FitnessGoals.calorieBurningGoalDuringExercise],
-        userId = it[FitnessGoals.userId]
+        userId = it[FitnessGoals.userId],
     )
 }
 
@@ -59,7 +60,8 @@ fun mapToWeightGoal(it: ResultRow): WeightGoal {
         targetWeight = it[WeightGoals.targetWeight],
         weeklyGoal = it[WeightGoals.weeklyGoal],
         deadline = it[WeightGoals.deadline],
-        userId = it[WeightGoals.userId]
+        userId = it[WeightGoals.userId],
+        actId = it[WeightGoals.actId]
     )
 }
 
@@ -83,7 +85,9 @@ fun mapToNutritionGoal(it: ResultRow): NutritionGoal {
         calorieGoal = it[NutritionGoals.calorieGoal],
         carbsGoal = it[NutritionGoals.carbsGoal],
         fatGoal = it[NutritionGoals.fatGoal],
-        userId = it[NutritionGoals.userId]
+        userId = it[NutritionGoals.userId],
+        fitnessId = it[NutritionGoals.fitnessId],
+        weightId = it[NutritionGoals.weightId],
     )
 }
 
@@ -105,6 +109,7 @@ fun mapToMoodTracking(it: ResultRow): MoodEntry {
         mood = it[MoodTracking.mood],
         rating = it[MoodTracking.rating],
         notes = it[MoodTracking.notes],
-        userId = it[MoodTracking.userId]
+        userId = it[MoodTracking.userId],
+        sleepId = it[MoodTracking.sleepId]
     )
 }

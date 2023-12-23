@@ -66,6 +66,23 @@
           </div>
         </form>
       </div>
+      <div class="card-footer text-left">
+        <p v-if="moodTracking.length === 0">
+          No mood entries associated with this sleep
+        </p>
+        <p v-else>
+          View associated mood entries you have linked to this sleep entry:
+        </p>
+        <div class="card-footer text-center">
+          <div v-if="sleepEntry">
+            <div class="btn-group-vertical" role="group" aria-label="Fitness Actions">
+              <a :href="`/sleepTracking/${sleepEntry.id}/moodTracking`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-smile"></i> View Mood Entries
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </app-layout>
 </template>
@@ -81,7 +98,8 @@ app.component("sleep-tracking-profile", {
   template: "#sleep-tracking-profile",
   data: () => ({
     sleepEntry: null,
-    noSleepEntry: false
+    noSleepEntry: false,
+    moodTracking: []
   }),
   created: function () {
     const entryId = this.$javalin.pathParams["sleep-tracking-id"];
@@ -92,6 +110,11 @@ app.component("sleep-tracking-profile", {
           console.error("Error while fetching sleep entry: " + entryId);
           this.noSleepEntry = true;
         });
+    axios.get(url + `/moodTracking`)
+        .then(res => this.moodTracking = res.data)
+        .catch(error => {
+          console.log("No mood entries added yet: " + error)
+        })
   },
   methods: {
     updateSleepEntry: function () {

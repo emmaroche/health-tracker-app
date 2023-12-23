@@ -77,6 +77,18 @@
           </div>
           <input class="form-control" v-model="nutritionGoal.userId" name="userId" type="number" />
         </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-fitnessId">Fitness ID</span>
+          </div>
+          <input class="form-control" v-model="nutritionGoal.fitnessId" name="fitnessId" type="number" />
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-weightId">Weight ID</span>
+          </div>
+          <input class="form-control" v-model="nutritionGoal.weightId" name="weightId" type="number" />
+        </div>
       </div>
     </div>
   </app-layout>
@@ -118,7 +130,9 @@ app.component("nutrition-goals-profile", {
         calorieGoal: this.nutritionGoal.calorieGoal,
         carbsGoal: this.nutritionGoal.carbsGoal,
         fatGoal: this.nutritionGoal.fatGoal,
-        userId: this.nutritionGoal.userId
+        userId: this.nutritionGoal.userId,
+        fitnessId: this.nutritionGoal.fitnessId,
+        weightId: this.nutritionGoal.weightId,
       };
 
       axios.patch(url, updatedNutritionGoal)

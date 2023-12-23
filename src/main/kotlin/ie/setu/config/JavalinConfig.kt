@@ -82,6 +82,9 @@ class JavalinConfig {
                     get(ActivityController::getActivityByActivityId)
                     delete(ActivityController::deleteActivity)
                     patch(ActivityController::updateActivity)
+                    path("weightGoals") {
+                        get(WeightGoalsController::getWeightGoalsByActivityId)
+                    }
                 }
             }
             path("/api/healthRecords") {
@@ -100,6 +103,9 @@ class JavalinConfig {
                     get(WeightGoalsController::getWeightGoalByGoalId)
                     delete(WeightGoalsController::deleteWeightGoal)
                     patch(WeightGoalsController::updateWeightGoal)
+                    path("nutritionGoals") {
+                        get(NutritionGoalsController::getNutritionGoalsByWeightGoalId)
+                    }
                     path("userWeight") {
                         get(UserWeightController::getAllUserWeights)
                         post(UserWeightController::addUserWeight)
@@ -114,10 +120,17 @@ class JavalinConfig {
                     get(FitnessGoalsController::getFitnessGoalByGoalId)
                     delete(FitnessGoalsController::deleteFitnessGoal)
                     patch(FitnessGoalsController::updateFitnessGoal)
+                    path("activities") {
+                        get(ActivityController::getActivitiesByFitnessId)
+                    }
+                    path("nutritionGoals") {
+                        get(NutritionGoalsController::getNutritionGoalsByFitnessId)
+                    }
                 }
                 path("type/{type}") {
                     get(FitnessGoalsController::getFitnessGoalByType)
                 }
+
             }
             path("/api/nutritionGoals") {
                 get(NutritionGoalsController::getAllNutritionGoals)
@@ -135,6 +148,9 @@ class JavalinConfig {
                     get(SleepTrackingController::getSleepTrackingById)
                     delete(SleepTrackingController::deleteSleepTracking)
                     patch(SleepTrackingController::updateSleepTracking)
+                    path("moodTracking") {
+                        get(MoodTrackingController::getMoodTrackingBySleepId)
+                    }
                 }
             }
             path("/api/moodTracking") {
@@ -183,7 +199,12 @@ class JavalinConfig {
             get("/users/{user-id}/healthRecords", VueComponent("<user-health-record-overview></user-health-record-overview>"))
             get("/users/{user-id}/sleepTracking", VueComponent("<user-sleep-tracking-overview></user-sleep-tracking-overview>"))
             get("/users/{user-id}/moodTracking", VueComponent("<user-mood-tracking-overview></mood-health-tracking-overview>"))
+            get("/fitnessGoals/{fitness-goal-id}/activities", VueComponent("<fitness-goals-activity-overview></fitness-goals-activity-overview>"))
+            get("/fitnessGoals/{fitness-goal-id}/nutritionGoals", VueComponent("<fitness-goals-nutrition-goal-overview></fitness-goals-nutrition-goal-overview>"))
+            get("/activities/{activity-id}/weightGoals", VueComponent("<activity-weight-goal-overview></activity-weight-goal-overview>"))
+            get("/weightGoals/{weight-goal-id}/nutritionGoals", VueComponent("<weight-goal-nutrition-goal-overview></weight-goal-nutrition-goal-overview>"))
             get("/weightGoals/{weight-goal-id}/userWeight", VueComponent("<weight-goals-user-weight-overview></weight-goals-user-weight-overview>"))
+            get("/sleepTracking/{sleep-tracking-id}/moodTracking", VueComponent("<sleep-tracking-mood-tracking-overview></sleep-tracking-mood-tracking-overview>"))
         }
     }
 }

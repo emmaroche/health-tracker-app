@@ -1,5 +1,6 @@
 package ie.setu.domain.db
 
+import ie.setu.domain.db.Activities.references
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
@@ -12,4 +13,6 @@ object NutritionGoals : Table("nutritionGoals") {
     val carbsGoal = double("carbs_goal")
     val fatGoal = double("fat_goal")
     val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
+    val fitnessId = integer("fitness_id").references(FitnessGoals.id, onDelete = ReferenceOption.CASCADE)
+    val weightId = integer("weight_id").references(WeightGoals.id, onDelete = ReferenceOption.CASCADE)
 }

@@ -52,6 +52,13 @@
             <input type="text" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
 
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-fitnessId">Fitness Goal ID</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.fitnessId" name="fitnessId" placeholder="Fitness Goal ID"/>
+          </div>
+
           <button rel="tooltip" title="Add Activity" class="btn btn-info btn-sm mt-3" @click="addActivity" style="background-color: #08a29e; border-color: #08a29e;">
             <i class="fa fa-plus" aria-hidden="true"></i> Add Activity
           </button>
@@ -60,13 +67,13 @@
 
     </div>
     <div class="list-group list-group-flush">
-      <div class="col-6 mb-3" style="font-weight: 600;">Current Activities Goals</div>
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Activities Started</div>
       <div class="list-group-item d-flex align-items-start"
            v-for="(activity, index) in activities" :key="index">
         <div class="mr-auto p-2">
           <span>
             <a :href="`/activities/${activity.id}`" style="color: #08a29e;">
-              {{ activity.description }} (Duration: {{ activity.duration }}, Calories Burnt: {{ activity.calories }}, Date & Time of Activity: {{ activity.started }}, User ID: {{ activity.userId }})
+              {{ activity.description }} (Duration: {{ activity.duration }} hour(s), Calories Burnt: {{ activity.calories }}, Date & Time of Activity: {{ activity.started }}, User ID: {{ activity.userId }})
             </a>
           </span>
         </div>

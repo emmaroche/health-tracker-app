@@ -28,6 +28,15 @@ class WeightGoalsDAO {
         }
     }
 
+    // Find weight goals by activity ID
+    fun findByActivityId(actId: Int): List<WeightGoal> {
+        return transaction {
+            WeightGoals
+                .select { WeightGoals.actId eq actId }
+                .map { mapToWeightGoal(it) }
+        }
+    }
+
     // Find a specific weight goal by goal ID
     fun findByGoalId(id: Int): WeightGoal? {
         return transaction {
@@ -61,6 +70,7 @@ class WeightGoalsDAO {
                 it[weeklyGoal] = weightGoal.weeklyGoal
                 it[deadline] = weightGoal.deadline
                 it[userId] = weightGoal.userId
+                it[actId] = weightGoal.actId
             } get WeightGoals.id
         }
     }
@@ -89,6 +99,7 @@ class WeightGoalsDAO {
                 it[weeklyGoal] = weightGoalToUpdate.weeklyGoal
                 it[deadline] = weightGoalToUpdate.deadline
                 it[userId] = weightGoalToUpdate.userId
+                it[actId] = weightGoalToUpdate.actId
             }
         }
     }

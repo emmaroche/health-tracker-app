@@ -64,6 +64,13 @@
             </div>
             <input class="form-control" v-model="moodEntry.userId" name="userId" type="number" />
           </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-sleepId">Sleep ID</span>
+            </div>
+            <input class="form-control" v-model="moodEntry.sleepId" name="sleepId" type="number" />
+          </div>
         </form>
       </div>
     </div>
@@ -104,7 +111,8 @@ app.component("mood-tracking-profile", {
         rating: this.moodEntry.rating,
         notes: this.moodEntry.notes,
         date: this.moodEntry.date,
-        userId: this.moodEntry.userId
+        userId: this.moodEntry.userId,
+        sleepId: this.moodEntry.sleepId
       };
 
       axios.patch(url, updatedMoodEntry)

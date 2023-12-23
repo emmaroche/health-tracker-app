@@ -29,6 +29,7 @@
         </div>
       </div>
       <div class="card-body">
+        <form>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Type</span>
@@ -38,7 +39,7 @@
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Starting Weight</span>
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Starting Weight (kg)</span>
           </div>
           <input class="form-control" v-model="weightGoal.startingWeight" name="startingWeight" type="number" />
         </div>
@@ -52,14 +53,14 @@
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Target Weight</span>
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Target Weight (kg)</span>
           </div>
           <input class="form-control" v-model="weightGoal.targetWeight" name="targetWeight" type="number" />
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Weekly Goal</span>
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Weekly Goal (kg)</span>
           </div>
           <input class="form-control" v-model="weightGoal.weeklyGoal" name="weeklyGoal" type="number" />
         </div>
@@ -77,6 +78,14 @@
           </div>
           <input class="form-control" v-model="weightGoal.userId" name="userId" type="number" />
         </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-actId">Activity ID</span>
+            </div>
+            <input type="text" class="form-control" v-model="weightGoal.actId" name="userId" placeholder="Activity ID"/>
+          </div>
+        </form>
       </div>
       <div class="card-footer text-center">
         <div v-if="weightGoal">
@@ -84,6 +93,23 @@
           <a :href="`/weightGoals/${weightGoal.id}/userWeight`">View Current Weight</a>
           <br />
           <br />
+        </div>
+      </div>
+      <div class="card-footer text-left">
+        <p v-if="nutritionGoals.length === 0">
+          No nutrition goals associated with this weight goal yet
+        </p>
+        <p v-else>
+          View associated nutrition goal you have set to assist in achieving your weight goal:
+        </p>
+        <div class="card-footer text-center">
+          <div v-if="weightGoal">
+            <div class="btn-group-vertical" role="group" aria-label="Fitness Actions">
+              <a :href="`/weightGoals/${weightGoal.id}/nutritionGoals`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-apple-alt"></i> View Nutrition Goals
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -101,7 +127,8 @@ app.component("weight-goals-profile", {
   template: "#weight-goals-profile",
   data: () => ({
     weightGoal: null,
-    noWeightGoal: false
+    noWeightGoal: false,
+    nutritionGoals: []
   }),
   created: function () {
     const wgId = this.$javalin.pathParams["weight-goal-id"];
@@ -112,6 +139,12 @@ app.component("weight-goals-profile", {
           console.error("Error while fetching weight goal: " + wgId);
           this.noWeightGoal = true;
         });
+
+    axios.get(url + `/nutritionGoals`)
+        .then(res => this.nutritionGoals = res.data)
+        .catch(error => {
+          console.log("No nutrition goals added yet: " + error)
+        })
   },
   methods: {
     updateWeightGoal: function () {
@@ -126,7 +159,8 @@ app.component("weight-goals-profile", {
         targetWeight: this.weightGoal.targetWeight,
         weeklyGoal: this.weightGoal.weeklyGoal,
         deadline: this.weightGoal.deadline,
-        userId: this.weightGoal.userId
+        userId: this.weightGoal.userId,
+        actId: this.weightGoal.actId
       };
 
       axios.patch(url, updatedWeightGoal)

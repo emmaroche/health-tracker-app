@@ -1,6 +1,8 @@
 package ie.setu.controllers
 
 import ie.setu.domain.WeightGoal
+import ie.setu.domain.repository.ActivityDAO
+import ie.setu.domain.repository.FitnessGoalsDAO
 import ie.setu.domain.repository.WeightGoalsDAO
 import ie.setu.domain.repository.UserDAO
 import ie.setu.utils.jsonToObject
@@ -9,6 +11,8 @@ import io.javalin.http.Context
 object WeightGoalsController {
 
     private val userDao = UserDAO()
+    val fitnessDao = FitnessGoalsDAO()
+    val actDAO = ActivityDAO()
     private val weightGoalsDAO = WeightGoalsDAO()
 
     // Get all weight goals
@@ -37,6 +41,21 @@ object WeightGoalsController {
     fun getWeightGoalsByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val weightGoals = weightGoalsDAO.findByUserId(ctx.pathParam("user-id").toInt())
+            if (weightGoals.isNotEmpty()) {
+                ctx.json(weightGoals)
+                ctx.status(200)
+            } else {
+                ctx.status(404)
+            }
+        } else {
+            ctx.status(404)
+        }
+    }
+
+    // Get weight goal by activity ID
+    fun getWeightGoalsByActivityId(ctx: Context) {
+        if (actDAO.findByActivityId(ctx.pathParam("activity-id").toInt()) != null) {
+            val weightGoals = weightGoalsDAO.findByActivityId(ctx.pathParam("activity-id").toInt())
             if (weightGoals.isNotEmpty()) {
                 ctx.json(weightGoals)
                 ctx.status(200)
