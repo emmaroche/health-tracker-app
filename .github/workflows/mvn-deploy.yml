@@ -48,10 +48,12 @@ jobs:
     name: Railway Deploy
     needs: package
     runs-on: ubuntu-latest  
-    
+      
     steps:
-       - uses: actions/checkout@v3
-       - uses: devtomio/action-railway@v1.1.4
-         name: Deploy to Railway
-         env:
-           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - uses: actions/checkout@v3
+      - uses: devtomio/action-railway@v1.1.4
+        name: Deploy to Railway
+        with:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          service: 30adcc1c-333d-4136-9b7a-d0113569ad62
+
