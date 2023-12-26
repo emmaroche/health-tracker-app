@@ -8,5 +8,6 @@ data class MoodEntry(
     val mood: String,
     val rating: Int,
     val notes: String,
-    var userId: Int
+    var userId: Int,
+    var sleepId: Int?
 )

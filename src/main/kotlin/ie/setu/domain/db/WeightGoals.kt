@@ -13,4 +13,5 @@ object WeightGoals : Table("weightGoals") {
     val weeklyGoal = double("weekly_goal")
     val deadline = datetime("deadline")
     val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
+    val actId= integer("activity_id").references(Activities.id, onDelete = ReferenceOption.CASCADE)
 }

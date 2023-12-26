@@ -1,77 +1,91 @@
 <template id="mood-tracking-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-6">Mood Tracking</div>
+          <div class="col-6" style="font-weight: 600;">Mood Tracking</div>
           <div class="col" align="right">
-            <button rel="tooltip" title="Add"
-                    class="btn btn-info btn-simple btn-link"
-                    @click="hideForm =!hideForm">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm =!hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
             </button>
           </div>
         </div>
       </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;"> Easily monitor and gain insights into your
+        emotional well-being by tracking moods, jotting down notes and more with our Mood Tracking feature.</div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addMoodTracking">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-quality">Mood</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-quality">Mood</span>
             </div>
             <input type="text" class="form-control" v-model="formData.mood" name="mood" placeholder="Mood"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-rating">Rating</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-rating">Rating</span>
             </div>
             <input type="number" class="form-control" v-model="formData.rating" name="rating" placeholder="Rating"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-notes">Notes</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-notes">Notes</span>
             </div>
             <input type="text" class="form-control" v-model="formData.notes" name="notes" placeholder="Notes"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-date">Date</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-date">Date</span>
             </div>
             <input type="date" class="form-control" v-model="formData.date" name="date"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-mood-userId">User ID</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-userId">User ID</span>
             </div>
             <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-sleepId">Sleep ID</span>
+            </div>
+            <input class="form-control" v-model="formData.sleepId" name="sleepId" type="number"placeholder="Sleep ID" />
+          </div>
         </form>
-        <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addMoodEntry()">Add Mood Entry</button>
+        <button rel="tooltip" title="Add Mood Entry" class="btn btn-info btn-sm mt-3" @click="addMoodEntry" style="background-color: #08a29e; border-color: #08a29e;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Mood Entry
+        </button>
       </div>
     </div>
     <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Mood Entries</div>
       <div class="list-group-item d-flex align-items-start" v-for="(moodEntry, index) in moodTracking" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/moodTracking/${moodEntry.id}`">
-              {{ moodEntry.mood }} (Rating: {{ moodEntry.rating }}, Notes: {{ moodEntry.notes }}, Date: {{ moodEntry.date }}, User ID: {{ moodEntry.userId }})
-            </a>
-          </span>
+          <span><a :href="`/moodTracking/${moodEntry.id}`" style="color: #08a29e;">
+            {{ moodEntry.mood }} (Rating: {{ moodEntry.rating }}, Notes: {{ moodEntry.notes }}, Date: {{ moodEntry.date }}, User ID: {{ moodEntry.userId }})
+          </a></span>
         </div>
         <div class="p-2">
-          <a :href="`/moodTracking/${moodEntry.id}`">
-            <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link">
+          <div class="btn-group d-flex" role="group">
+            <a :href="`/moodTracking/${moodEntry.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <div class="mr-2"></div>
+            <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteMoodEntry(moodEntry, index)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
-          </a>
-          <button rel="tooltip" title="Delete" class="btn btn-info btn-simple btn-link" @click="deleteMoodEntry(moodEntry, index)">
-            <i class="fas fa-trash" aria-hidden="true"></i>
-          </button>
+          </div>
         </div>
       </div>
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 150px;
+}
+</style>
 
 <script>
 app.component("mood-tracking-overview", {

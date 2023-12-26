@@ -37,6 +37,15 @@ class ActivityDAO {
         }
     }
 
+    // Find all activities for a specific fitness id
+    fun findByFitnessId(fitnessId: Int): List<Activity> {
+        return transaction {
+            Activities
+                .select { Activities.fitnessId eq fitnessId }
+                .map { mapToActivity(it) }
+        }
+    }
+
     // Save an activity to the database
     fun save(activity: Activity): Int {
         return transaction {
@@ -46,6 +55,7 @@ class ActivityDAO {
                 it[calories] = activity.calories
                 it[started] = activity.started
                 it[userId] = activity.userId
+                it[fitnessId] = activity.fitnessId
             }
         } get Activities.id
     }
@@ -74,6 +84,7 @@ class ActivityDAO {
                 it[calories] = activityToUpdate.calories
                 it[started] = activityToUpdate.started
                 it[userId] = activityToUpdate.userId
+                it[fitnessId] = activityToUpdate.fitnessId
             }
         }
     }

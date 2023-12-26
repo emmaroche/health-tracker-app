@@ -1,75 +1,88 @@
 <template id="activity-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-6">
+          <div class="col-6" style="font-weight: 600;">
             Activities
           </div>
           <div class="col" align="right">
-            <button rel="tooltip" title="Add"
-                    class="btn btn-info btn-simple btn-link"
-                    @click="hideForm =!hideForm">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
             </button>
           </div>
         </div>
       </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;"> Elevate your fitness journey with our Activities feature.
+        Stay motivated and keep moving forward! </div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addActivity">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-description">Description</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Description</span>
             </div>
             <input type="text" class="form-control" v-model="formData.description" name="description" placeholder="Description"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-duration">Duration</span>
-            </div>
-            <input type="text" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-calories">Calories</span>
-            </div>
-            <input type="text" class="form-control" v-model="formData.calories" name="calories" placeholder="Calories"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-started">Started</span>
-            </div>
-            <input type="text" class="form-control" v-model="formData.started" name="started" placeholder="Started"/>
           </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-activity-userId">User ID</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Duration</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Calories Burnt</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.calories" name="calories" placeholder="Calories Burnt"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date & Time</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.started" name="started" placeholder="Date & Time"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-userId">User ID</span>
             </div>
             <input type="text" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-fitnessId">Fitness Goal ID</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.fitnessId" name="fitnessId" placeholder="Fitness Goal ID"/>
+          </div>
+
+          <button rel="tooltip" title="Add Activity" class="btn btn-info btn-sm mt-3" @click="addActivity" style="background-color: #08a29e; border-color: #08a29e;">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add Activity
+          </button>
         </form>
-        <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addActivity()">Add Activity</button>
       </div>
+
     </div>
     <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Activities Started</div>
       <div class="list-group-item d-flex align-items-start"
            v-for="(activity, index) in activities" :key="index">
         <div class="mr-auto p-2">
           <span>
-            <a :href="`/activities/${activity.id}`">
-              {{ activity.description }} (Duration: {{ activity.duration }}, Calories: {{ activity.calories }}, Started: {{ activity.started }}, User ID: {{ activity.userId }})
+            <a :href="`/activities/${activity.id}`" style="color: #08a29e;">
+              {{ activity.description }} (Duration: {{ activity.duration }} hour(s), Calories Burnt: {{ activity.calories }}, Date & Time of Activity: {{ activity.started }}, User ID: {{ activity.userId }})
             </a>
           </span>
         </div>
-        <div class="p2">
-          <a :href="`/activities/${activity.id}`">
-            <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
+        <div class="p-2">
+        <div class="btn-group d-flex" role="group">
+          <a :href="`/activities/${activity.id}`" class="btn btn-info btn-sm mr-2" style="background-color: #08a29e; border-color: #08a29e;">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
-          <button rel="tooltip" title="Delete" class="btn btn-info btn-simple btn-link"
-                  @click="deleteActivity(activity, index)">
+          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteActivity(activity, index)">
             <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </div>
@@ -77,6 +90,13 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 150px;
+}
+</style>
+
 <script>
 app.component("activity-overview", {
   template: "#activity-overview",

@@ -1,77 +1,84 @@
 <template id="sleep-tracking-overview">
   <app-layout>
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mt-4 mb-3">
       <div class="card-header">
         <div class="row">
-          <div class="col-6">Sleep Tracking</div>
+          <div class="col-6" style="font-weight: 600;">Sleep Tracking</div>
           <div class="col" align="right">
-            <button rel="tooltip" title="Add"
-                    class="btn btn-info btn-simple btn-link"
-                    @click="hideForm =!hideForm">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm =!hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
             </button>
           </div>
         </div>
       </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;"> Easily monitor your sleep
+        patterns by tracking sleep quality, duration, and more with our Sleep Tracking feature.</div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addSleepTracking">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-sleep-type">Quality</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-type">Quality</span>
             </div>
             <input type="text" class="form-control" v-model="formData.quality" name="quality" placeholder="Quality"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-sleep-duration">Duration</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-duration">Duration in hours</span>
             </div>
-            <input type="number" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration"/>
+            <input type="number" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration in hours"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-sleep-notes">Notes</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-notes">Notes</span>
             </div>
             <input type="text" class="form-control" v-model="formData.notes" name="notes" placeholder="Notes"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-sleep-date">Date</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-date">Date</span>
             </div>
             <input type="date" class="form-control" v-model="formData.date" name="date"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="input-sleep-userId">User ID</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sleep-userId">User ID</span>
             </div>
             <input type="number" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
           </div>
         </form>
-        <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link" @click="addSleepEntry()">Add Sleep Entry</button>
+        <button rel="tooltip" title="Add Sleep Entry" class="btn btn-info btn-sm mt-3" @click="addSleepEntry" style="background-color: #08a29e; border-color: #08a29e;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Sleep Entry
+        </button>
       </div>
     </div>
     <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Sleep Entries</div>
       <div class="list-group-item d-flex align-items-start" v-for="(sleepEntry, index) in sleepTracking" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/sleepTracking/${sleepEntry.id}`">
-              {{ sleepEntry.quality }} (Duration: {{ sleepEntry.duration }} minutes, Notes: {{ sleepEntry.notes }}, Date: {{ sleepEntry.date }}, User ID: {{ sleepEntry.userId }})
-            </a>
-          </span>
+          <span><a :href="`/sleepTracking/${sleepEntry.id}`" style="color: #08a29e;">
+            {{ sleepEntry.quality }} (Duration: {{ sleepEntry.duration }} hours, Notes: {{ sleepEntry.notes }}, Date: {{ sleepEntry.date }}, User ID: {{ sleepEntry.userId }})
+          </a></span>
         </div>
         <div class="p-2">
-          <a :href="`/sleepTracking/${sleepEntry.id}`">
-            <button rel="tooltip" title="Update" class="btn btn-info btn-simple btn-link">
+          <div class="btn-group d-flex" role="group">
+            <a :href="`/sleepTracking/${sleepEntry.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <div class="mr-2"></div>
+            <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteSleepEntry(sleepEntry, index)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
-          </a>
-          <button rel="tooltip" title="Delete" class="btn btn-info btn-simple btn-link" @click="deleteSleepEntry(sleepEntry, index)">
-            <i class="fas fa-trash" aria-hidden="true"></i>
-          </button>
+          </div>
         </div>
       </div>
-    </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 180px;
+}
+</style>
 
 <script>
 app.component("sleep-tracking-overview", {

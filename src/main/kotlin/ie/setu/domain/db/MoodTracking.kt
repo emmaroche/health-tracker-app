@@ -9,4 +9,5 @@ object MoodTracking : Table("moodTracking") {
     val rating = integer("rating")
     val notes = varchar("notes", 200)
     val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
+    val sleepId = integer("sleep_id").references(SleepTracking.id, onDelete = ReferenceOption.SET_NULL).nullable()
 }

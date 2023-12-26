@@ -3,6 +3,7 @@ package ie.setu.repository
 import ie.setu.domain.WeightGoal
 import ie.setu.domain.db.WeightGoals
 import ie.setu.domain.repository.WeightGoalsDAO
+import ie.setu.helpers.populateActivityTable
 import ie.setu.helpers.weightGoals
 import ie.setu.helpers.populateUserTable
 import ie.setu.helpers.populateWGTable
@@ -34,7 +35,8 @@ class WeightGoalsDAOTest {
         @Test
         fun `getting all weight goals from a populated table returns all rows`() {
             transaction {
-                populateUserTable() // Add this line to populate user records
+                populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(3, weightGoalsDAO.getAll().size)
             }
@@ -44,6 +46,7 @@ class WeightGoalsDAOTest {
         fun `get weight goal by user id that has no weight goals, results in no record returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(0, weightGoalsDAO.findByUserId(4).size)
             }
@@ -62,6 +65,8 @@ class WeightGoalsDAOTest {
         fun `get weight goal by weight goal id that has no records, results in no record returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(null, weightGoalsDAO.findByType("Maintenance"))
             }
@@ -71,6 +76,7 @@ class WeightGoalsDAOTest {
         fun `get weight goal by weight goal id that exists, results in a correct weight goal returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(weightGoal3, weightGoalsDAO.findByGoalId(3))
                 assertEquals(weightGoal2, weightGoalsDAO.findByGoalId(2))
@@ -85,6 +91,7 @@ class WeightGoalsDAOTest {
         fun `multiple weight goals added to the table can be retrieved successfully`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(3, weightGoalsDAO.getAll().size)
                 assertEquals(weightGoal1, weightGoalsDAO.findByGoalId(weightGoal1.id))
@@ -101,6 +108,7 @@ class WeightGoalsDAOTest {
         fun `updating an existing weight goal in the table results in a successful update`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 val updatedWeightGoal = WeightGoal(
                     id = 2,
@@ -110,7 +118,8 @@ class WeightGoalsDAOTest {
                     targetWeight = 170.0,
                     weeklyGoal = 0.3,
                     deadline = weightGoal2.deadline,
-                    userId = 2
+                    userId = 2,
+                    actId = 1
                 )
                 weightGoalsDAO.updateWeightGoal(updatedWeightGoal.id, updatedWeightGoal)
                 assertEquals(updatedWeightGoal, weightGoalsDAO.findByGoalId(2))
@@ -121,6 +130,7 @@ class WeightGoalsDAOTest {
         fun `updating a non-existent weight goal in the table results in no updates`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 val updatedWeightGoal = WeightGoal(
                     id = 4,
@@ -130,7 +140,8 @@ class WeightGoalsDAOTest {
                     targetWeight = 165.0,
                     weeklyGoal = 0.5,
                     deadline = weightGoal1.deadline,
-                    userId = 1
+                    userId = 1,
+                    actId = 2
                 )
                 weightGoalsDAO.updateWeightGoal(4, updatedWeightGoal)
                 assertEquals(null, weightGoalsDAO.findByGoalId(4))
@@ -146,6 +157,7 @@ class WeightGoalsDAOTest {
         fun `deleting a non-existent weight goal (by id) in the table results in no deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(3, weightGoalsDAO.getAll().size)
                 weightGoalsDAO.delete(4)
@@ -157,6 +169,7 @@ class WeightGoalsDAOTest {
         fun `deleting an existing weight goal (by id) in the table results in the record being deleted`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(3, weightGoalsDAO.getAll().size)
                 weightGoalsDAO.delete(weightGoal3.id)
@@ -168,6 +181,7 @@ class WeightGoalsDAOTest {
         fun `deleting weight goals when none exist for the user id results in no deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(3, weightGoalsDAO.getAll().size)
                 weightGoalsDAO.delete(4)
@@ -179,6 +193,7 @@ class WeightGoalsDAOTest {
         fun `deleting weight goals when 1 or more exist for the user id results in deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val weightGoalsDAO = populateWGTable()
                 assertEquals(3, weightGoalsDAO.getAll().size)
                 weightGoalsDAO.delete(1)

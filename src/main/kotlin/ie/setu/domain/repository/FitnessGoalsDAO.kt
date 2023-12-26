@@ -38,7 +38,6 @@ class FitnessGoalsDAO {
         }
     }
 
-
     // Find a specific fitness goal type
     fun findByType(type: String): FitnessGoal? {
         return transaction {

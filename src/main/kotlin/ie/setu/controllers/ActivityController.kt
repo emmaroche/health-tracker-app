@@ -2,6 +2,7 @@ package ie.setu.controllers
 
 import ie.setu.domain.Activity
 import ie.setu.domain.repository.ActivityDAO
+import ie.setu.domain.repository.FitnessGoalsDAO
 import ie.setu.domain.repository.UserDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
@@ -9,6 +10,7 @@ import io.javalin.http.Context
 object ActivityController {
 
     val userDao = UserDAO()
+    val fitnessDao = FitnessGoalsDAO()
     private val activityDAO = ActivityDAO()
 
     // Get all activities
@@ -36,6 +38,22 @@ object ActivityController {
             ctx.status(404)
         }
     }
+
+    // Get activities by fitness ID
+    fun getActivitiesByFitnessId(ctx: Context) {
+        if (fitnessDao.findByGoalId(ctx.pathParam("fitness-goal-id").toInt()) != null) {
+            val activities = activityDAO.findByFitnessId(ctx.pathParam("fitness-goal-id").toInt())
+            if (activities.isNotEmpty()) {
+                ctx.json(activities)
+                ctx.status(200)
+            } else {
+                ctx.status(404)
+            }
+        } else {
+            ctx.status(404)
+        }
+    }
+
 
     // Add a new activity
     fun addActivity(ctx: Context) {

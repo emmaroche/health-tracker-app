@@ -25,6 +25,18 @@ class UserControllerTest {
     private val origin = "http://localhost:" + app.port()
     private val testUtilities = TestUtilities()
 
+    @AfterEach
+    fun tearDown() {
+        val emailToDelete = "testuser1@test.com"
+        val userToDeleteResponse = testUtilities.retrieveUserByEmail(emailToDelete)
+        if (userToDeleteResponse.status == 200) {
+            val responseBody = userToDeleteResponse.body.toString()
+            val objectMapper = ObjectMapper()
+            val jsonResponse = objectMapper.readTree(responseBody)
+            val userId = jsonResponse["id"].asInt()
+            testUtilities.deleteUser(userId)
+        }
+    }
     @Nested
     inner class ReadUsers {
 

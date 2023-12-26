@@ -1,9 +1,9 @@
 <template id="app-layout">
   <div class="app-layout">
-    <div class="container">
-      <!-- Start of navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/">Home</a>
+    <!-- Start of navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container text-center">
+<!--        <a class="navbar-brand" :class="{ 'active': activeLink === '/' }" @click="setActiveLink('/')">Home</a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -11,7 +11,17 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item" :class="{ 'active': activeLink === '/' }">
+              <a @click="setActiveLink('/')" class="nav-link">
+                Home
+              </a>
+            </li>
+            <li class="nav-item" :class="{ 'active': activeLink === '/' }">
+              <a @click="setActiveLink('/')" class="nav-link">
+                Dashboard
+              </a>
+            </li>
             <li class="nav-item" :class="{ 'active': activeLink === '/users' }">
               <a @click="setActiveLink('/users')" class="nav-link">
                 Users
@@ -54,16 +64,15 @@
             </li>
           </ul>
         </div>
-      </nav>
-      <!--End of nav bar-->
-      <!--Start of main content area-->
-      <div class="content mt-3">
-        <div class="container-fluid">
-          <slot></slot>
-        </div>
       </div>
-      <!--End of main content area-->
+    </nav>
+    <!--End of nav bar-->
+
+    <!--Start of main content area-->
+    <div class="container mt-3">
+      <slot></slot>
     </div>
+    <!--End of main content area-->
   </div>
 </template>
 
@@ -75,17 +84,20 @@ app.component("app-layout", {
       activeLink: null
     };
   },
+
+  // ChatGPT generated active VUE code
+
   mounted() {
     // Retrieve active link from local storage on component mount
     this.activeLink = localStorage.getItem('activeLink') || null;
   },
   methods: {
     setActiveLink(link) {
-      this.activeLink = link;
-      // Save active link to local storage
-      localStorage.setItem('activeLink', link);
-      // Manual redirect
-      window.location.href = link;
+        this.activeLink = link;
+        // Save active link to local storage
+        localStorage.setItem('activeLink', link);
+        // Manual redirect
+        window.location.href = link;
     }
   }
 });
@@ -93,10 +105,27 @@ app.component("app-layout", {
 
 <style>
 .navbar {
-  background-color: #e3f2fd;
+  background-color: #08a29e;
+  color: white;
 }
 
-.nav-item.active {
-  color: #bbdefb;
+.navbar-nav .nav-item.active a,
+.navbar-brand.active {
+  color: #000000 !important;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  font-size: 18px; /* Adjust the font size to your preference */
+}
+
+.app-layout {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 </style>
+
+
+

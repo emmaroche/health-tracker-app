@@ -5,6 +5,7 @@ import ie.setu.domain.db.MoodTracking
 import ie.setu.domain.repository.MoodTrackingDAO
 import ie.setu.helpers.moodTracking
 import ie.setu.helpers.populateMTTable
+import ie.setu.helpers.populateSTTable
 import ie.setu.helpers.populateUserTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -35,7 +36,8 @@ class MoodTrackingDAOTest {
         @Test
         fun `getting all mood tracking records from a populated table returns all rows`() {
             transaction {
-                populateUserTable() // Add this line to populate user records
+                populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(3, moodTrackingDAO.getAll().size)
             }
@@ -45,6 +47,7 @@ class MoodTrackingDAOTest {
         fun `get mood tracking records by user id that has no records, results in no records returned`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(0, moodTrackingDAO.findByUserId(4).size)
             }
@@ -63,6 +66,7 @@ class MoodTrackingDAOTest {
         fun `get mood tracking record by mood tracking id that has no records, results in no record returned`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(null, moodTrackingDAO.findById(4))
             }
@@ -72,6 +76,7 @@ class MoodTrackingDAOTest {
         fun `get mood tracking record by mood tracking id that exists, results in a correct record returned`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(moodTracking3, moodTrackingDAO.findById(3))
                 assertEquals(moodTracking2, moodTrackingDAO.findById(2))
@@ -86,6 +91,7 @@ class MoodTrackingDAOTest {
         fun `multiple mood tracking records added to the table can be retrieved successfully`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(3, moodTrackingDAO.getAll().size)
                 assertEquals(moodTracking1, moodTrackingDAO.findById(moodTracking1.id))
@@ -102,6 +108,7 @@ class MoodTrackingDAOTest {
         fun `updating an existing mood tracking record in the table results in a successful update`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 val updatedMoodTracking = MoodEntry(
                     id = 2,
@@ -109,7 +116,8 @@ class MoodTrackingDAOTest {
                     mood = "Joyful",
                     rating = 4,
                     notes = "Had a great day.",
-                    userId = 1
+                    userId = 1,
+                    sleepId = 1
                 )
                 moodTrackingDAO.updateMoodTracking(2, updatedMoodTracking)
                 assertEquals(updatedMoodTracking, moodTrackingDAO.findById(2))
@@ -119,7 +127,8 @@ class MoodTrackingDAOTest {
         @Test
         fun `updating a non-existent mood tracking record in the table results in no updates`() {
             transaction {
-                populateUserTable()
+                 populateUserTable()
+                 populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 val updatedMoodTracking = MoodEntry(
                     id = 4,
@@ -127,7 +136,8 @@ class MoodTrackingDAOTest {
                     mood = "Joyful",
                     rating = 4,
                     notes = "Had a great day.",
-                    userId = 1
+                    userId = 1,
+                    sleepId = 1
                 )
                 moodTrackingDAO.updateMoodTracking(4, updatedMoodTracking)
                 assertEquals(null, moodTrackingDAO.findById(4))
@@ -143,6 +153,7 @@ class MoodTrackingDAOTest {
         fun `deleting a non-existent mood tracking record (by id) in the table results in no deletion`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(3, moodTrackingDAO.getAll().size)
                 moodTrackingDAO.delete(4)
@@ -154,6 +165,7 @@ class MoodTrackingDAOTest {
         fun `deleting an existing mood tracking record (by id) in the table results in the record being deleted`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(3, moodTrackingDAO.getAll().size)
                 moodTrackingDAO.delete(moodTracking3.id)
@@ -165,6 +177,7 @@ class MoodTrackingDAOTest {
         fun `deleting mood tracking records when none exist for the user id results in no deletion`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(3, moodTrackingDAO.getAll().size)
                 moodTrackingDAO.delete(4)
@@ -176,6 +189,7 @@ class MoodTrackingDAOTest {
         fun `deleting mood tracking records when 1 or more exist for the user id results in deletion`() {
             transaction {
                 populateUserTable()
+                populateSTTable()
                 val moodTrackingDAO = populateMTTable()
                 assertEquals(3, moodTrackingDAO.getAll().size)
                 moodTrackingDAO.delete(1)

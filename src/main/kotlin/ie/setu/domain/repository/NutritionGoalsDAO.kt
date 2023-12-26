@@ -28,6 +28,25 @@ class NutritionGoalsDAO {
         }
     }
 
+    // Find nutrition goals by weigh-goal-id
+    fun findNutritionGoalsByWeightGoalId(weightGoalId: Int): List<NutritionGoal> {
+        return transaction {
+            NutritionGoals
+                .select { NutritionGoals.weightId eq weightGoalId }
+                .map { mapToNutritionGoal(it) }
+        }
+    }
+
+    // Find nutrition goals by fitness goal ID
+    fun findByFitnessId(fitnessGoalId: Int): List<NutritionGoal> {
+        return transaction {
+            NutritionGoals
+                .select { NutritionGoals.fitnessId eq fitnessGoalId }
+                .map { mapToNutritionGoal(it) }
+        }
+    }
+
+
     // Find a specific nutrition goal by goal ID
     fun findByGoalId(id: Int): NutritionGoal? {
         return transaction {
@@ -60,6 +79,8 @@ class NutritionGoalsDAO {
                 it[carbsGoal] = nutritionGoal.carbsGoal
                 it[fatGoal] = nutritionGoal.fatGoal
                 it[userId] = nutritionGoal.userId
+                it[fitnessId] = nutritionGoal.fitnessId
+                it[weightId] = nutritionGoal.weightId
             } get NutritionGoals.id
         }
     }
@@ -86,6 +107,8 @@ class NutritionGoalsDAO {
                 it[carbsGoal] = nutritionGoalToUpdate.carbsGoal
                 it[fatGoal] = nutritionGoalToUpdate.fatGoal
                 it[userId] = nutritionGoalToUpdate.userId
+                it[fitnessId] = nutritionGoalToUpdate.fitnessId
+                it[weightId] = nutritionGoalToUpdate.weightId
             }
         }
     }

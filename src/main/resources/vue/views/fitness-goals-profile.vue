@@ -4,18 +4,18 @@
       <p>We're sorry, we were not able to retrieve this fitness goal.</p>
       <p>View <a :href="'/fitnessGoals'">all fitness goals</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="!noFitnessGoal">
+    <div class="card bg-light mt-4 mb-3" v-if="!noFitnessGoal">
       <div class="card-header">
         <div class="row">
-          <div class="col-6"> Fitness Goal Profile</div>
+          <div class="col-6" style="font-weight: 600;"> Fitness Goal Profile</div>
           <div class="col" align="right">
             <button
                 rel="tooltip"
                 title="Update"
-                class="btn btn-info btn-simple btn-link"
+                class="btn btn-info btn-simple btn-link mr-2"
                 @click="updateFitnessGoal()"
             >
-              <i class="far fa-save" aria-hidden="true"></i>
+              <i class="fas fa-edit" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
             <button
                 rel="tooltip"
@@ -23,60 +23,119 @@
                 class="btn btn-info btn-simple btn-link"
                 @click="deleteFitnessGoal()"
             >
-              <i class="fas fa-trash" aria-hidden="true"></i>
+              <i class="fas fa-trash" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
           </div>
         </div>
       </div>
+
       <div class="card-body">
         <form>
-          <div class="form-group">
-            <label class="col-form-label">Goal ID:</label>
-            <input class="form-control" v-model="fitnessGoal.id" name="id" type="number" readonly />
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-description">Type</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Type:</label>
-            <input class="form-control" v-model="fitnessGoal.type" name="type" type="text" />
+          <input class="form-control" v-model="fitnessGoal.type" name="type" type="text" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Workouts Per Week</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Workouts Per Week:</label>
-            <input class="form-control" v-model="fitnessGoal.workoutsPerWeek" name="workoutsPerWeek" type="number" />
+          <input class="form-control" v-model="fitnessGoal.workoutsPerWeek" name="workoutsPerWeek" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Workout Duration (minutes)</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Minutes of Workouts:</label>
-            <input class="form-control" v-model="fitnessGoal.minutesOfWorkouts" name="minutesOfWorkouts" type="number" />
+          <input class="form-control" v-model="fitnessGoal.minutesOfWorkouts" name="minutesOfWorkouts" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Calorie Burning Goal</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Calorie Burning Goal:</label>
-            <input class="form-control" v-model="fitnessGoal.calorieBurningGoalDuringExercise" name="calorieBurningGoalDuringExercise" type="number" />
+          <input class="form-control" v-model="fitnessGoal.calorieBurningGoalDuringExercise" name="calorieBurningGoalDuringExercise" type="number" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-userId">User ID</span>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">User ID:</label>
-            <input class="form-control" v-model="fitnessGoal.userId" name="userId" type="number" />
+          <input class="form-control" v-model="fitnessGoal.userId" name="userId" type="number" />
+        </div>
+      </form>
+      </div>
+      <div class="card-footer text-left">
+        <p v-if="activities.length === 0">
+          No activities or goals associated yet
+        </p>
+        <p v-else>
+          View associated activities and nutrition goals you have set to assist in achieving your fitness goal:
+        </p>
+        <div class="card-footer text-center">
+          <div v-if="fitnessGoal">
+            <div class="btn-group-vertical" role="group" aria-label="Fitness Actions">
+              <a :href="`/fitnessGoals/${fitnessGoal.id}/activities`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-running"></i> View User Activities
+              </a>
+              <a :href="`/fitnessGoals/${fitnessGoal.id}/nutritionGoals`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-apple-alt"></i> View Nutrition Goals
+              </a>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 230px;
+}
+</style>
 
 <script>
 app.component("fitness-goals-profile", {
   template: "#fitness-goals-profile",
   data: () => ({
     fitnessGoal: null,
-    noFitnessGoal: false
+    noFitnessGoal: false,
+    activities: [],
+    nutritionGoals: [],
   }),
   created: function () {
     const fgId = this.$javalin.pathParams["fitness-goal-id"];
     const url = `/api/fitnessGoals/${fgId}`;
+
+    console.log("Fitness Goal ID:", fgId);
+
+// Fetch the fitness goal
     axios.get(url)
-        .then(res => this.fitnessGoal = res.data)
-        .catch(() => {
-          console.error("Error while fetching fitness goal: " + fgId);
+        .then(res => {
+          console.log("Fitness Goal Response:", res.data);
+          this.fitnessGoal = res.data;
+        })
+        .catch(error => {
+          console.error("Error while fetching fitness goal:", error);
           this.noFitnessGoal = true;
         });
+
+    axios.get(url + `/activities`)
+        .then(res => this.activities = res.data)
+        .catch(error => {
+          console.log("No activities added yet: " + error)
+        })
+
+    axios.get(url + `/nutritionGoals`)
+        .then(res => this.nutritionGoals = res.data)
+        .catch(error => {
+          console.log("No nutrition goals added yet: " + error)
+        })
   },
+
   methods: {
     updateFitnessGoal: function () {
       const fgId = this.$javalin.pathParams["fitness-goal-id"];

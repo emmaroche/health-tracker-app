@@ -11,5 +11,6 @@ data class WeightGoal(
     val targetWeight: Double,
     val weeklyGoal: Double,
     val deadline: DateTime,
-    var userId: Int
+    var userId: Int,
+    var actId: Int
 )

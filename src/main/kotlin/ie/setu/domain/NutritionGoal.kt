@@ -8,5 +8,7 @@ data class NutritionGoal(
     val calorieGoal: Double,
     val carbsGoal: Double,
     val fatGoal: Double,
-    var userId: Int
+    var userId: Int,
+    var fitnessId: Int,
+    var weightId: Int
 )

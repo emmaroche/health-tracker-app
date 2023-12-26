@@ -4,18 +4,18 @@
       <p>We're sorry, we were not able to retrieve this health record.</p>
       <p>View <a :href="'/healthRecords'">all health records</a>.</p>
     </div>
-    <div class="card bg-light mb-3" v-if="!noHealthRecord">
+    <div class="card bg-light mt-4 mb-3" v-if="!noHealthRecord">
       <div class="card-header">
         <div class="row">
-          <div class="col-6"> Health Record Profile</div>
+          <div class="col-6" style="font-weight: 600;"> Health Record Profile</div>
           <div class="col" align="right">
             <button
                 rel="tooltip"
                 title="Update"
-                class="btn btn-info btn-simple btn-link"
+                class="btn btn-info btn-simple btn-link mr-2"
                 @click="updateHealthRecord()"
             >
-              <i class="far fa-save" aria-hidden="true"></i>
+              <i class="fas fa-edit" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
             <button
                 rel="tooltip"
@@ -23,74 +23,108 @@
                 class="btn btn-info btn-simple btn-link"
                 @click="deleteHealthRecord()"
             >
-              <i class="fas fa-trash" aria-hidden="true"></i>
+              <i class="fas fa-trash" aria-hidden="true" style="color: #08a29e;"></i>
             </button>
           </div>
         </div>
       </div>
       <div class="card-body">
         <form>
-          <div class="form-group">
-            <label class="col-form-label">Record ID:</label>
-            <input class="form-control" v-model="healthRecord.id" name="id" type="number" readonly />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-record-id">Record ID</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.id" name="id" type="number" readonly placeholder="Record ID"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Timestamp:</label>
-            <input class="form-control" v-model="healthRecord.timestamp" name="timestamp" type="text" readonly />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-timestamp">Timestamp</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.timestamp" name="timestamp" type="text" readonly placeholder="Timestamp"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">First Name:</label>
-            <input class="form-control" v-model="healthRecord.firstName" name="firstName" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-first-name">First Name</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.firstName" name="firstName" type="text" placeholder="First Name"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Last Name:</label>
-            <input class="form-control" v-model="healthRecord.lastName" name="lastName" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-last-name">Last Name</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.lastName" name="lastName" type="text" placeholder="Last Name"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Sex:</label>
-            <input class="form-control" v-model="healthRecord.sex" name="sex" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-sex">Sex</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.sex" name="sex" type="text" placeholder="Sex"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Date of Birth:</label>
-            <input class="form-control" v-model="healthRecord.dob" name="dob" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-dob">Date of Birth</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.dob" name="dob" type="text" placeholder="Date of Birth"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Weight:</label>
-            <input class="form-control" v-model="healthRecord.weight" name="weight" type="number" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight">Weight</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.weight" name="weight" type="number" placeholder="Weight"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Height:</label>
-            <input class="form-control" v-model="healthRecord.height" name="height" type="number" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-height">Height</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.height" name="height" type="number" placeholder="Height"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Blood Type:</label>
-            <input class="form-control" v-model="healthRecord.bloodType" name="bloodType" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-blood-type">Blood Type</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.bloodType" name="bloodType" type="text" placeholder="Blood Type"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Allergies:</label>
-            <input class="form-control" v-model="healthRecord.allergies" name="allergies" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-allergies">Allergies</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.allergies" name="allergies" type="text" placeholder="Allergies"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Medical Conditions:</label>
-            <input class="form-control" v-model="healthRecord.medicalConditions" name="medicalConditions" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-medical-conditions">Medical Conditions</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.medicalConditions" name="medicalConditions" type="text" placeholder="Medical Conditions"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Medications:</label>
-            <input class="form-control" v-model="healthRecord.medications" name="medications" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-medications">Medications</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.medications" name="medications" type="text" placeholder="Medications"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">Notes:</label>
-            <input class="form-control" v-model="healthRecord.notes" name="notes" type="text" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-notes">Notes</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.notes" name="notes" type="text" placeholder="Notes"/>
           </div>
-          <div class="form-group">
-            <label class="col-form-label">User ID:</label>
-            <input class="form-control" v-model="healthRecord.userId" name="userId" type="number" />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-id">User ID</span>
+            </div>
+            <input class="form-control" v-model="healthRecord.userId" name="userId" type="number" placeholder="User ID"/>
           </div>
         </form>
       </div>
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 200px;
+}
+</style>
 
 <script>
 app.component("health-record-profile", {

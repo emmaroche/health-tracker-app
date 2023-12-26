@@ -28,6 +28,15 @@ class MoodTrackingDAO {
         }
     }
 
+    // Find mood tracking entries by sleep ID
+    fun findBySleepId(sleepId: Int): List<MoodEntry> {
+        return transaction {
+            MoodTracking
+                .select { MoodTracking.sleepId eq sleepId }
+                .map { mapToMoodTracking(it) }
+        }
+    }
+
     // Find a specific mood tracking entry by ID
     fun findById(id: Int): MoodEntry? {
         return transaction {
@@ -47,6 +56,7 @@ class MoodTrackingDAO {
                 it[rating] = moodTracking.rating
                 it[notes] = moodTracking.notes
                 it[userId] = moodTracking.userId
+                it[sleepId] = moodTracking.sleepId
             } get MoodTracking.id
         }
     }
@@ -71,6 +81,7 @@ class MoodTrackingDAO {
                 it[rating] = updatedMoodTracking.rating
                 it[notes] = updatedMoodTracking.notes
                 it[userId] = updatedMoodTracking.userId
+                it[sleepId] = updatedMoodTracking.sleepId
             }
         }
     }

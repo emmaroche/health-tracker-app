@@ -57,20 +57,23 @@ class NutritionGoalsControllerTest {
         fun `get all nutrition goals by user id when user and nutrition goals exist returns 200 response`() {
             // Arrange - add a user and 3 associated nutrition goals that we plan to retrieve
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val fitnessId = 174
+            val weightId = 304
+
             addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, addedUser.id
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
             )
             addNutritionGoal(
                 nutritionGoals[1].type, nutritionGoals[1].proteinGoal,
                 nutritionGoals[1].fibreGoal, nutritionGoals[1].calorieGoal, nutritionGoals[1].carbsGoal,
-                nutritionGoals[1].fatGoal, addedUser.id
+                nutritionGoals[1].fatGoal, addedUser.id, fitnessId, weightId
             )
             addNutritionGoal(
                 nutritionGoals[2].type, nutritionGoals[2].proteinGoal,
                 nutritionGoals[2].fibreGoal, nutritionGoals[2].calorieGoal, nutritionGoals[2].carbsGoal,
-                nutritionGoals[2].fatGoal, addedUser.id
+                nutritionGoals[2].fatGoal, addedUser.id, fitnessId, weightId
             )
 
             // Act and Assert - retrieve the three added nutrition goals by user id
@@ -120,10 +123,13 @@ class NutritionGoalsControllerTest {
         fun `get nutrition goal by goal id when nutrition goal exists returns 200 response`() {
             // Arrange - add a user and an associated nutrition goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val fitnessId = 174
+            val weightId = 304
+
             val addGoalResponse = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, addedUser.id
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
             )
             assertEquals(201, addGoalResponse.status)
             val addedGoal = jsonNodeToObject<NutritionGoal>(addGoalResponse)
@@ -136,6 +142,7 @@ class NutritionGoalsControllerTest {
             assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
 
+
     }
 
     @Nested
@@ -143,14 +150,15 @@ class NutritionGoalsControllerTest {
 
         @Test
         fun `add a nutrition goal when a user exists for it, returns a 201 response`() {
-
             // Arrange - add a user and an associated nutrition goal that we plan to do a delete on
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val fitnessId = 174
+            val weightId = 304
 
             val addGoalResponse = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, addedUser.id
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
             )
             assertEquals(201, addGoalResponse.status)
 
@@ -165,14 +173,20 @@ class NutritionGoalsControllerTest {
             val userId = -1
             assertEquals(404, testUtilities.retrieveUserById(userId).status)
 
+            val fitnessId = 174
+            val weightId = 304
+
+            // Add fitnessId to the addNutritionGoal call
             val addGoalResponse = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, userId
+                nutritionGoals[0].fatGoal, userId, fitnessId, weightId
             )
 
             assertEquals(404, addGoalResponse.status)
         }
+
+
     }
 
     @Nested
@@ -186,24 +200,31 @@ class NutritionGoalsControllerTest {
             // Arrange - check there is no user for -1 id
             assertEquals(404, testUtilities.retrieveUserById(userId).status)
 
+            val fitnessId = 174
+            val weightId = 304
+
             // Act and Assert - attempt to update the details of a nutrition goal/user that doesn't exist
             assertEquals(
                 404, updateNutritionGoal(
                     goalId, updatedType3, updatedProteinGoal,
-                    updatedFibreGoal, updatedCalorieGoal, updatedCarbsGoal, updatedFatGoal, userId
+                    updatedFibreGoal, updatedCalorieGoal, updatedCarbsGoal, updatedFatGoal, userId, fitnessId, weightId
                 ).status
             )
         }
+
 
         @Test
         fun `updating a nutrition goal by goal id when it exists, returns 204 response`() {
 
             // Arrange - add a user and an associated nutrition goal that we plan to do an update on
+            val fitnessId = 174
+            val weightId = 304
+
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             val addGoalResponse = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, addedUser.id
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
             )
             assertEquals(201, addGoalResponse.status)
             val addedGoal = jsonNodeToObject<NutritionGoal>(addGoalResponse)
@@ -211,13 +232,14 @@ class NutritionGoalsControllerTest {
             // Act and Assert - update the added nutrition goal and assert a 204 is returned
             val updatedGoalResponse = updateNutritionGoal(
                 addedGoal.id, updatedType3, updatedProteinGoal,
-                updatedFibreGoal, updatedCalorieGoal, updatedCarbsGoal, updatedFatGoal, addedUser.id
+                updatedFibreGoal, updatedCalorieGoal, updatedCarbsGoal, updatedFatGoal, addedUser.id, fitnessId, weightId
             )
             assertEquals(204, updatedGoalResponse.status)
 
             // After - delete the user
             testUtilities.deleteUser(addedUser.id)
         }
+
     }
 
     @Nested
@@ -234,22 +256,25 @@ class NutritionGoalsControllerTest {
 
             // Arrange - add a user and 3 associated nutrition goals that we plan to do a cascade delete
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val fitnessId = 174
+            val weightId = 304
+
             val addGoalResponse1 = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, addedUser.id
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
             )
             assertEquals(201, addGoalResponse1.status)
             val addGoalResponse2 = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, addedUser.id
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
             )
             assertEquals(201, addGoalResponse2.status)
             val addGoalResponse3 = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, addedUser.id
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
             )
             assertEquals(201, addGoalResponse3.status)
 
@@ -290,47 +315,52 @@ class NutritionGoalsControllerTest {
         return Unirest.delete(origin + "/api/nutritionGoals/$id").asString()
     }
 
-    // Helper function to update a nutrition goal
-    private fun updateNutritionGoal(
-        id: Int, type: String, proteinGoal: Double, fibreGoal: Double,
-        calorieGoal: Double, carbsGoal: Double, fatGoal: Double, userId: Int
-    ): HttpResponse<JsonNode> {
-        return Unirest.patch(origin + "/api/nutritionGoals/$id")
-            .body(
-                """
-        {
-            "type": "$type",
-            "proteinGoal": $proteinGoal,
-            "fibreGoal": $fibreGoal,
-            "calorieGoal": $calorieGoal,
-            "carbsGoal": $carbsGoal,
-            "fatGoal": $fatGoal,
-            "userId": $userId
-        }
-        """.trimIndent()
-            )
-            .asJson()
-    }
-
     // Helper function to add a nutrition goal
     private fun addNutritionGoal(
         type: String, proteinGoal: Double, fibreGoal: Double,
-        calorieGoal: Double, carbsGoal: Double, fatGoal: Double, userId: Int
+        calorieGoal: Double, carbsGoal: Double, fatGoal: Double, userId: Int, fitnessId: Int, weightId: Int
     ): HttpResponse<JsonNode> {
         return Unirest.post(origin + "/api/nutritionGoals")
             .body(
                 """
-        {
-            "type": "$type",
-            "proteinGoal": $proteinGoal,
-            "fibreGoal": $fibreGoal,
-            "calorieGoal": $calorieGoal,
-            "carbsGoal": $carbsGoal,
-            "fatGoal": $fatGoal,
-            "userId": $userId
-        }
-        """.trimIndent()
+    {
+        "type": "$type",
+        "proteinGoal": $proteinGoal,
+        "fibreGoal": $fibreGoal,
+        "calorieGoal": $calorieGoal,
+        "carbsGoal": $carbsGoal,
+        "fatGoal": $fatGoal,
+        "userId": $userId,
+        "fitnessId": $fitnessId,
+        "weightId": $weightId
+    }
+    """.trimIndent()
             )
             .asJson()
     }
+
+    // Helper function to update a nutrition goal
+    private fun updateNutritionGoal(
+        id: Int, type: String, proteinGoal: Double, fibreGoal: Double,
+        calorieGoal: Double, carbsGoal: Double, fatGoal: Double, userId: Int, fitnessId: Int, weightId: Int
+    ): HttpResponse<JsonNode> {
+        return Unirest.patch(origin + "/api/nutritionGoals/$id")
+            .body(
+                """
+    {
+        "type": "$type",
+        "proteinGoal": $proteinGoal,
+        "fibreGoal": $fibreGoal,
+        "calorieGoal": $calorieGoal,
+        "carbsGoal": $carbsGoal,
+        "fatGoal": $fatGoal,
+        "userId": $userId,
+        "fitnessId": $fitnessId,
+        "weightId": $weightId
+    }
+    """.trimIndent()
+            )
+            .asJson()
+    }
+
 }

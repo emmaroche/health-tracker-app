@@ -1,14 +1,18 @@
 package ie.setu.controllers
 
 import ie.setu.domain.NutritionGoal
+import ie.setu.domain.repository.FitnessGoalsDAO
 import ie.setu.domain.repository.NutritionGoalsDAO
 import ie.setu.domain.repository.UserDAO
+import ie.setu.domain.repository.WeightGoalsDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
 object NutritionGoalsController {
 
     private val userDao = UserDAO()
+    private val fitnessDao = FitnessGoalsDAO()
+    private val weightGoalDao = WeightGoalsDAO()
     private val nutritionGoalsDAO = NutritionGoalsDAO()
 
     // Get all nutrition goals
@@ -47,6 +51,37 @@ object NutritionGoalsController {
             ctx.status(404)
         }
     }
+
+    // Get all nutrition goals for a specific weigh-goal-id
+    fun getNutritionGoalsByWeightGoalId(ctx: Context) {
+        if (weightGoalDao.findByGoalId(ctx.pathParam("weight-goal-id").toInt()) != null) {
+            val nutritionGoals = nutritionGoalsDAO.findNutritionGoalsByWeightGoalId(ctx.pathParam("weight-goal-id").toInt())
+            if (nutritionGoals.isNotEmpty()) {
+                ctx.json(nutritionGoals)
+                ctx.status(200)
+            } else {
+                ctx.status(404)
+            }
+        } else {
+            ctx.status(404)
+        }
+    }
+
+    // Get all nutrition goals for a specific fitness id
+    fun getNutritionGoalsByFitnessId(ctx: Context) {
+        if (fitnessDao.findByGoalId(ctx.pathParam("fitness-goal-id").toInt()) != null) {
+            val nutritionGoals = nutritionGoalsDAO.findByFitnessId(ctx.pathParam("fitness-goal-id").toInt())
+            if (nutritionGoals.isNotEmpty()) {
+                ctx.json(nutritionGoals)
+                ctx.status(200)
+            } else {
+                ctx.status(404)
+            }
+        } else {
+            ctx.status(404)
+        }
+    }
+
 
     // Get a nutrition goal by type
     fun getNutritionGoalByType(ctx: Context) {
