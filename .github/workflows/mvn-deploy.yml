@@ -61,13 +61,13 @@ jobs:
   deploy:
     name: Railway Deploy
     needs: test
-    runs-on: ubuntu-latest  
-    
+    runs-on: ubuntu-latest
+      
     steps:
-       - uses: actions/checkout@v3
-       - uses: devtomio/action-railway@v1.1.4
-         name: Deploy to Railway
-         with:
-           service: health-tracker-app
-         env:
-           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }} 
+      - uses: actions/checkout@v3
+      - uses: devtomio/action-railway@v1.1.4
+        name: Deploy to Railway
+        with:
+          token: ${{ secrets.RAILWAY_TOKEN }}
+          service: health-tracker-app
+   
