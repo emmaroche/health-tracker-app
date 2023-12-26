@@ -1,7 +1,5 @@
 package ie.setu.domain.db
 
-import ie.setu.domain.db.Activities.references
-import ie.setu.domain.db.FitnessGoals.references
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 

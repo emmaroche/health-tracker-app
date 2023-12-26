@@ -3,6 +3,7 @@ package ie.setu.repository
 import ie.setu.domain.CurrentWeight
 import ie.setu.domain.db.UserWeight
 import ie.setu.domain.repository.UserWeightDAO
+import ie.setu.helpers.populateActivityTable
 import ie.setu.helpers.populateUWTable
 import ie.setu.helpers.populateUserTable
 import ie.setu.helpers.userWeight
@@ -36,6 +37,7 @@ class UserWeightDAOTest {
         fun `getting all current weights from a populated table returns all rows`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertEquals(3, userWeightDAO.getAll().size)
             }
@@ -45,6 +47,7 @@ class UserWeightDAOTest {
         fun `get current weights by user id that has no current weights, results in no record returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertEquals(0, userWeightDAO.findByUserId(4).size)
             }
@@ -63,6 +66,7 @@ class UserWeightDAOTest {
         fun `get current weight by weight id that has no records, results in no record returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertNull(userWeightDAO.findByWeightId(4))
             }
@@ -71,6 +75,7 @@ class UserWeightDAOTest {
         fun `get current weight by weight id that exists, results in a correct current weight returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertEquals(currentWeight3, userWeightDAO.findByWeightId(3))
                 assertEquals(currentWeight2, userWeightDAO.findByWeightId(2))
@@ -85,6 +90,7 @@ class UserWeightDAOTest {
         fun `multiple current weights added to the table can be retrieved successfully`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertEquals(3, userWeightDAO.getAll().size)
                 assertEquals(currentWeight1, userWeightDAO.findByWeightId(currentWeight1.id))
@@ -101,6 +107,7 @@ class UserWeightDAOTest {
         fun `updating an existing current weight in the table results in a successful update`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 val updatedCurrentWeight = CurrentWeight(
                     id = 2,
@@ -118,6 +125,7 @@ class UserWeightDAOTest {
         fun `updating a non-existent current weight in the table results in no updates`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 val updatedCurrentWeight = CurrentWeight(
                     id = 4,
@@ -140,6 +148,7 @@ class UserWeightDAOTest {
         fun `deleting a non-existent current weight (by id) in the table results in no deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertEquals(3, userWeightDAO.getAll().size)
                 userWeightDAO.delete(4)
@@ -151,6 +160,7 @@ class UserWeightDAOTest {
         fun `deleting an existing current weight (by id) in the table results in the record being deleted`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertEquals(3, userWeightDAO.getAll().size)
                 userWeightDAO.delete(currentWeight3.id)
@@ -162,6 +172,7 @@ class UserWeightDAOTest {
         fun `deleting current weights when none exist for the user id results in no deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertEquals(3, userWeightDAO.getAll().size)
                 userWeightDAO.delete(4)
@@ -173,6 +184,7 @@ class UserWeightDAOTest {
         fun `deleting current weights when 1 or more exist for the user id results in deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val userWeightDAO = populateUWTable()
                 assertEquals(3, userWeightDAO.getAll().size)
                 userWeightDAO.delete(1)

@@ -4,6 +4,7 @@ import ie.setu.domain.NutritionGoal
 import ie.setu.domain.db.NutritionGoals
 import ie.setu.domain.repository.NutritionGoalsDAO
 import ie.setu.helpers.nutritionGoals
+import ie.setu.helpers.populateActivityTable
 import ie.setu.helpers.populateNGTable
 import ie.setu.helpers.populateUserTable
 import org.jetbrains.exposed.sql.Database
@@ -34,7 +35,9 @@ class NutritionGoalsDAOTest {
         @Test
         fun `getting all nutrition goals from a populated table returns all rows`() {
             transaction {
-                populateUserTable() // Add this line to populate user records
+                populateUserTable()
+                populateActivityTable() 
+                populateActivityTable() 
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(3, nutritionGoalsDAO.getAll().size)
             }
@@ -44,6 +47,8 @@ class NutritionGoalsDAOTest {
         fun `get nutrition goal by user id that has no nutrition goals, results in no record returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(0, nutritionGoalsDAO.findByUserId(4).size)
             }
@@ -62,6 +67,8 @@ class NutritionGoalsDAOTest {
         fun `get nutrition goal by nutrition goal id that has no records, results in no record returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(null, nutritionGoalsDAO.findByType("Neutron"))
             }
@@ -71,6 +78,8 @@ class NutritionGoalsDAOTest {
         fun `get nutrition goal by nutrition goal id that exists, results in a correct nutrition goal returned`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(nutritionGoal3, nutritionGoalsDAO.findByGoalId(3))
                 assertEquals(nutritionGoal2, nutritionGoalsDAO.findByGoalId(2))
@@ -85,6 +94,8 @@ class NutritionGoalsDAOTest {
         fun `multiple nutrition goals added to the table can be retrieved successfully`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(3, nutritionGoalsDAO.getAll().size)
                 assertEquals(nutritionGoal1, nutritionGoalsDAO.findByGoalId(nutritionGoal1.id))
@@ -101,6 +112,7 @@ class NutritionGoalsDAOTest {
         fun `updating an existing nutrition goal in the table results in a successful update`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 val updatedNutritionGoal = NutritionGoal(
                     id = 2,
@@ -110,7 +122,9 @@ class NutritionGoalsDAOTest {
                     calorieGoal = 800.0,
                     carbsGoal = 30.0,
                     fatGoal = 20.0,
-                    userId = 2
+                    userId = 2,
+                    fitnessId = 1,
+                    weightId = 1
                 )
                 nutritionGoalsDAO.updateNutritionGoal(updatedNutritionGoal.id, updatedNutritionGoal)
                 assertEquals(updatedNutritionGoal, nutritionGoalsDAO.findByGoalId(2))
@@ -121,6 +135,7 @@ class NutritionGoalsDAOTest {
         fun `updating a non-existent nutrition goal in the table results in no updates`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 val updatedNutritionGoal = NutritionGoal(
                     id = 4,
@@ -130,7 +145,9 @@ class NutritionGoalsDAOTest {
                     calorieGoal = 800.0,
                     carbsGoal = 30.0,
                     fatGoal = 20.0,
-                    userId = 2
+                    userId = 2,
+                    fitnessId = 3,
+                    weightId = 2
                 )
                 nutritionGoalsDAO.updateNutritionGoal(4, updatedNutritionGoal)
                 assertEquals(null, nutritionGoalsDAO.findByGoalId(4))
@@ -146,6 +163,7 @@ class NutritionGoalsDAOTest {
         fun `deleting a non-existent nutrition goal (by id) in the table results in no deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(3, nutritionGoalsDAO.getAll().size)
                 nutritionGoalsDAO.delete(4)
@@ -157,6 +175,7 @@ class NutritionGoalsDAOTest {
         fun `deleting an existing nutrition goal (by id) in the table results in the record being deleted`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(3, nutritionGoalsDAO.getAll().size)
                 nutritionGoalsDAO.delete(nutritionGoal3.id)
@@ -168,6 +187,7 @@ class NutritionGoalsDAOTest {
         fun `deleting nutrition goals when none exist for the user id results in no deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(3, nutritionGoalsDAO.getAll().size)
                 nutritionGoalsDAO.delete(4)
@@ -179,6 +199,7 @@ class NutritionGoalsDAOTest {
         fun `deleting nutrition goals when 1 or more exist for the user id results in deletion`() {
             transaction {
                 populateUserTable()
+                populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
                 assertEquals(3, nutritionGoalsDAO.getAll().size)
                 nutritionGoalsDAO.delete(1)

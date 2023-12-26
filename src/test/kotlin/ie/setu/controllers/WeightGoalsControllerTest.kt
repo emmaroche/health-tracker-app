@@ -59,20 +59,22 @@ class WeightGoalsControllerTest {
         fun `get all weight goals by user id when user and weight goals exist returns 200 response`() {
             // Arrange - add a user and 3 associated weight goals that we plan to retrieve
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val actId = 186
+
             addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
                 weightGoals[0].targetWeight,
-                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id, actId
             )
             addWeightGoal(
                 weightGoals[1].type, weightGoals[1].startingWeight, weightGoals[1].startingWeightTimestamp,
                 weightGoals[1].targetWeight,
-                weightGoals[1].weeklyGoal, weightGoals[1].deadline, addedUser.id
+                weightGoals[1].weeklyGoal, weightGoals[1].deadline, addedUser.id, actId
             )
             addWeightGoal(
                 weightGoals[2].type, weightGoals[2].startingWeight, weightGoals[2].startingWeightTimestamp,
                 weightGoals[2].targetWeight,
-                weightGoals[2].weeklyGoal, weightGoals[2].deadline, addedUser.id
+                weightGoals[2].weeklyGoal, weightGoals[2].deadline, addedUser.id, actId
             )
 
             // Act and Assert - retrieve the three added weight goals by user id
@@ -122,10 +124,12 @@ class WeightGoalsControllerTest {
         fun `get weight goal by goal id when weight goal exists returns 200 response`() {
             // Arrange - add a user and an associated weight goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val actId = 186
+
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
                 weightGoals[0].targetWeight,
-                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id, actId
             )
             assertEquals(201, addGoalResponse.status)
             val addedGoal = jsonNodeToObject<WeightGoal>(addGoalResponse)
@@ -148,11 +152,12 @@ class WeightGoalsControllerTest {
 
             // Arrange - add a user and an associated weight goal that we plan to do a delete on
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val actId = 186
 
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
                 weightGoals[0].targetWeight,
-                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id, actId
             )
             assertEquals(201, addGoalResponse.status)
 
@@ -166,11 +171,12 @@ class WeightGoalsControllerTest {
             // Arrange - check there is no user for -1 id
             val userId = -1
             assertEquals(404, testUtilities.retrieveUserById(userId).status)
+            val actId = 186
 
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
                 weightGoals[0].targetWeight,
-                weightGoals[0].weeklyGoal, weightGoals[0].deadline, userId
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, userId, actId
             )
 
             assertEquals(404, addGoalResponse.status)
@@ -184,6 +190,7 @@ class WeightGoalsControllerTest {
         fun `updating a weight goal by goal id when it doesn't exist, returns a 404 response`() {
             val userId = -1
             val goalId = -1
+            val actId = 186
 
             // Arrange - check there is no user for -1 id
             assertEquals(404, testUtilities.retrieveUserById(userId).status)
@@ -192,7 +199,7 @@ class WeightGoalsControllerTest {
             assertEquals(
                 404, updateWeightGoal(
                     goalId, updatedType2, updatedStartingWeight, updatedStartingWeightTimestamp,
-                    updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, userId
+                    updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, userId, actId
                 ).status
             )
         }
@@ -201,10 +208,12 @@ class WeightGoalsControllerTest {
         fun `updating a weight goal by goal id when it exists, returns 204 response`() {
             // Arrange - add a user and an associated weight goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val actId = 186
+
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
                 weightGoals[0].targetWeight,
-                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id, actId
             )
             assertEquals(201, addGoalResponse.status)
             val addedGoal = jsonNodeToObject<WeightGoal>(addGoalResponse)
@@ -212,7 +221,7 @@ class WeightGoalsControllerTest {
             // Act & Assert - update the added goal and assert a 204 is returned
             val updatedGoalResponse = updateWeightGoal(
                 addedGoal.id, updatedType2, updatedStartingWeight, updatedStartingWeightTimestamp,
-                updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, addedUser.id
+                updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, addedUser.id, actId
             )
 
             if (updatedGoalResponse.body != null) {
@@ -225,40 +234,6 @@ class WeightGoalsControllerTest {
             // After - delete the user
             testUtilities.deleteUser(addedUser.id)
         }
-
-//        @Test
-//        fun `updating a weight goal by goal id when it exists, returns 204 response`() {
-//            // Arrange - add a user and an associated weight goal
-//            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
-//            val addGoalResponse = addWeightGoal(
-//                weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
-//                weightGoals[0].currentWeight, weightGoals[0].targetWeight,
-//                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
-//            )
-//            assertEquals(201, addGoalResponse.status)
-//            val addedGoal = jsonNodeToObject<WeightGoal>(addGoalResponse)
-//
-//            //Act & Assert - update the added goal and assert a 204 is returned
-//            val updatedGoalResponse = updateWeightGoal(
-//                addedGoal.id, updatedType2, updatedStartingWeight, updatedStartingWeightTimestamp,
-//                updatedCurrentWeight, updatedTargetWeight, updatedWeeklyGoal, updatedDeadline, addedUser.id)
-//            assertEquals(204, updatedGoalResponse.status)
-//
-//            //Assert that the individual fields were all updated as expected
-//            val retrievedGoalResponse = retrieveWeightGoalByGoalId(addedGoal.id)
-//            val updatedGoals = jsonNodeToObject<WeightGoal>(retrievedGoalResponse)
-//            assertEquals(updatedDescription, updatedGoals.type)
-//            assertEquals(updatedDuration, updatedGoals.startingWeight)
-//            assertEquals(updatedCalories, updatedGoals.startingWeightTimestamp)
-//            assertEquals(updatedStarted, updatedGoals.currentWeight )
-//            assertEquals(updatedStarted, updatedGoals.targetWeight )
-//            assertEquals(updatedStarted, updatedGoals.weeklyGoal )
-//            assertEquals(updatedStarted, updatedGoals.deadline )
-//
-//
-////            //After - delete the user
-//            testUtilities.deleteUser(addedUser.id)
-//        }
 
     }
 
@@ -276,22 +251,24 @@ class WeightGoalsControllerTest {
 
             // Arrange - add a user and 3 associated weight goals that we plan to do a cascade delete
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val actId = 186
+
             val addGoalResponse1 = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
                 weightGoals[0].targetWeight,
-                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id, actId
             )
             assertEquals(201, addGoalResponse1.status)
             val addGoalResponse2 = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
                 weightGoals[0].targetWeight,
-                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id, actId
             )
             assertEquals(201, addGoalResponse2.status)
             val addGoalResponse3 = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
                 weightGoals[0].targetWeight,
-                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id, actId
             )
             assertEquals(201, addGoalResponse3.status)
 
@@ -335,7 +312,7 @@ class WeightGoalsControllerTest {
     // Helper function to update a weight goal
     private fun updateWeightGoal(
         id: Int, type: String, startingWeight: Double, startingWeightTimestamp: DateTime,
-        targetWeight: Double, weeklyGoal: Double, deadline: DateTime, userId: Int
+        targetWeight: Double, weeklyGoal: Double, deadline: DateTime, userId: Int, actId: Int
     ): HttpResponse<JsonNode> {
         val startingWeightTimestampStr =
             startingWeightTimestamp.toString(ISODateTimeFormat.dateTime())  // Format as ISO 8601
@@ -351,7 +328,8 @@ class WeightGoalsControllerTest {
         "targetWeight": $targetWeight,
         "weeklyGoal": $weeklyGoal,
         "deadline": "$deadlineStr",
-        "userId": $userId
+        "userId": $userId,
+        "actId": $actId
     }
         """.trimIndent()
             )
@@ -366,7 +344,8 @@ class WeightGoalsControllerTest {
         targetWeight: Double,
         weeklyGoal: Double,
         deadline: DateTime,
-        userId: Int
+        userId: Int,
+        actId: Int
     ): HttpResponse<JsonNode> {
         // ChatGPT generated the 3 lines 372-374 to help with a formatting error
         val startingWeightTimestampStr =
@@ -383,7 +362,8 @@ class WeightGoalsControllerTest {
             "targetWeight": $targetWeight,
             "weeklyGoal": $weeklyGoal,
             "deadline": "$deadlineStr",
-            "userId": $userId
+            "userId": $userId,
+            "actId": $actId
         }
         """.trimIndent()
             )

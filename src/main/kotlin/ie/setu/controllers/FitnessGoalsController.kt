@@ -1,7 +1,6 @@
 package ie.setu.controllers
 
 import ie.setu.domain.FitnessGoal
-import ie.setu.domain.repository.ActivityDAO
 import ie.setu.domain.repository.FitnessGoalsDAO
 import ie.setu.domain.repository.UserDAO
 import ie.setu.domain.repository.WeightGoalsDAO
@@ -11,7 +10,6 @@ import io.javalin.http.Context
 object FitnessGoalsController {
 
     private val userDao = UserDAO()
-    private val weightDao = WeightGoalsDAO()
     private val fitnessGoalsDAO = FitnessGoalsDAO()
 
     // Get all fitness goals

@@ -11,7 +11,6 @@ import io.javalin.http.Context
 object WeightGoalsController {
 
     private val userDao = UserDAO()
-    val fitnessDao = FitnessGoalsDAO()
     val actDAO = ActivityDAO()
     private val weightGoalsDAO = WeightGoalsDAO()
 
