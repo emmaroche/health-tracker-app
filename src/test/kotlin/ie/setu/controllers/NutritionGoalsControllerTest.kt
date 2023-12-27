@@ -297,7 +297,7 @@ class NutritionGoalsControllerTest {
 
     // Helper function to retrieve all nutrition goals
     private fun retrieveAllNutritionGoals(): HttpResponse<JsonNode> {
-        return Unirest.get(origin + "/api/nutritionGoals").asJson()
+        return Unirest.get("$origin/api/nutritionGoals").asJson()
     }
 
     // Helper function to retrieve nutrition goals by user id
@@ -312,7 +312,7 @@ class NutritionGoalsControllerTest {
 
     // Helper function to delete nutrition goals by user id
     private fun deleteNutritionGoalsByUserId(id: Int): HttpResponse<String> {
-        return Unirest.delete(origin + "/api/nutritionGoals/$id").asString()
+        return Unirest.delete("$origin/api/nutritionGoals/$id").asString()
     }
 
     // Helper function to add a nutrition goal
@@ -320,7 +320,7 @@ class NutritionGoalsControllerTest {
         type: String, proteinGoal: Double, fibreGoal: Double,
         calorieGoal: Double, carbsGoal: Double, fatGoal: Double, userId: Int, fitnessId: Int, weightId: Int
     ): HttpResponse<JsonNode> {
-        return Unirest.post(origin + "/api/nutritionGoals")
+        return Unirest.post("$origin/api/nutritionGoals")
             .body(
                 """
     {
@@ -344,7 +344,7 @@ class NutritionGoalsControllerTest {
         id: Int, type: String, proteinGoal: Double, fibreGoal: Double,
         calorieGoal: Double, carbsGoal: Double, fatGoal: Double, userId: Int, fitnessId: Int, weightId: Int
     ): HttpResponse<JsonNode> {
-        return Unirest.patch(origin + "/api/nutritionGoals/$id")
+        return Unirest.patch("$origin/api/nutritionGoals/$id")
             .body(
                 """
     {

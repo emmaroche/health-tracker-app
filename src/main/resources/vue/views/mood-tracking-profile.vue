@@ -55,7 +55,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date</span>
             </div>
-            <input class="form-control" v-model="moodEntry.date" name="date" type="date" />
+            <input class="form-control" v-model="date" name="date" type="date" />
           </div>
 
           <div class="input-group mb-3">
@@ -88,13 +88,23 @@ app.component("mood-tracking-profile", {
   template: "#mood-tracking-profile",
   data: () => ({
     moodEntry: null,
-    noMoodEntry: false
+    noMoodEntry: false,
+    date: null,
   }),
   created: function () {
     const entryId = this.$javalin.pathParams["mood-tracking-id"];
     const url = `/api/moodTracking/${entryId}`;
     axios.get(url)
-        .then(res => this.moodEntry = res.data)
+        .then(res => {
+          this.moodEntry = res.data;
+
+          // Format the date from the mood entry
+          // Reference: https://stackoverflow.com/questions/47066555/remove-time-after-converting-date-toisostring
+          const moodDate = new Date(this.moodEntry.date);
+          const formattedDate = moodDate.toISOString().split('T')[0];
+
+          this.date = formattedDate; // Set the formatted date
+        })
         .catch(() => {
           console.error("Error while fetching mood entry: " + entryId);
           this.noMoodEntry = true;
@@ -110,7 +120,7 @@ app.component("mood-tracking-profile", {
         mood: this.moodEntry.mood,
         rating: this.moodEntry.rating,
         notes: this.moodEntry.notes,
-        date: this.moodEntry.date,
+        date: this.date,
         userId: this.moodEntry.userId,
         sleepId: this.moodEntry.sleepId
       };

@@ -9,8 +9,8 @@ import io.javalin.http.Context
 
 object ActivityController {
 
-    val userDao = UserDAO()
-    val fitnessDao = FitnessGoalsDAO()
+    private val userDao = UserDAO()
+    private val fitnessDao = FitnessGoalsDAO()
     private val activityDAO = ActivityDAO()
 
     // Get all activities
@@ -53,7 +53,6 @@ object ActivityController {
             ctx.status(404)
         }
     }
-
 
     // Add a new activity
     fun addActivity(ctx: Context) {

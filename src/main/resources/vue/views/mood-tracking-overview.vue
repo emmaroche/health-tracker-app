@@ -62,7 +62,7 @@
       <div class="list-group-item d-flex align-items-start" v-for="(moodEntry, index) in moodTracking" :key="index">
         <div class="mr-auto p-2">
           <span><a :href="`/moodTracking/${moodEntry.id}`" style="color: #08a29e;">
-            {{ moodEntry.mood }} (Rating: {{ moodEntry.rating }}, Notes: {{ moodEntry.notes }}, Date: {{ moodEntry.date }}, User ID: {{ moodEntry.userId }})
+            {{ moodEntry.mood }} (Rating: {{ moodEntry.rating }}, Notes: {{ moodEntry.notes }}, Date: {{ new Date (moodEntry.date).toLocaleDateString() }}, User ID: {{ moodEntry.userId }})
           </a></span>
         </div>
         <div class="p-2">
@@ -102,7 +102,7 @@ app.component("mood-tracking-overview", {
     fetchMoodEntries: function () {
       axios.get("/api/moodTracking")
           .then(res => this.moodTracking = res.data)
-          .catch(() => alert("Error while fetching mood entries"));
+          .catch(() => alert("We couldn't find any mood entries at the moment. Feel free to add a new mood entry, wait a moment, or refresh the page to check again"));
     },
     deleteMoodEntry: function (moodEntry, index) {
       if (confirm('Are you sure you want to delete this mood entry? This action cannot be undone.', 'Warning')) {

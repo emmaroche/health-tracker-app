@@ -291,7 +291,7 @@ class WeightGoalsControllerTest {
 
     // Helper function to retrieve all weight goals
     private fun retrieveAllWeightGoals(): HttpResponse<JsonNode> {
-        return Unirest.get(origin + "/api/weightGoals").asJson()
+        return Unirest.get("$origin/api/weightGoals").asJson()
     }
 
     // Helper function to retrieve weight goals by user id
@@ -306,7 +306,7 @@ class WeightGoalsControllerTest {
 
     // Helper function to delete weight goals by user id
     private fun deleteWeightGoalsByUserId(id: Int): HttpResponse<String> {
-        return Unirest.delete(origin + "/api/weightGoals/$id").asString()
+        return Unirest.delete("$origin/api/weightGoals/$id").asString()
     }
 
     // Helper function to update a weight goal
@@ -318,7 +318,7 @@ class WeightGoalsControllerTest {
             startingWeightTimestamp.toString(ISODateTimeFormat.dateTime())  // Format as ISO 8601
         val deadlineStr = deadline.toString(ISODateTimeFormat.dateTime())  // Format as ISO 8601
 
-        return Unirest.patch(origin + "/api/weightGoals/$id")
+        return Unirest.patch("$origin/api/weightGoals/$id")
             .body(
                 """
     {
@@ -352,7 +352,7 @@ class WeightGoalsControllerTest {
             startingWeightTimestamp.toString(ISODateTimeFormat.dateTime())  // Format as ISO 8601
         val deadlineStr = deadline.toString(ISODateTimeFormat.dateTime())  // Format as ISO 8601
 
-        return Unirest.post(origin + "/api/weightGoals")
+        return Unirest.post("$origin/api/weightGoals")
             .body(
                 """
         {

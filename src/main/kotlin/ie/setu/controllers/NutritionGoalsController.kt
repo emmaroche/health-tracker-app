@@ -52,7 +52,7 @@ object NutritionGoalsController {
         }
     }
 
-    // Get all nutrition goals for a specific weigh-goal-id
+    // Get all nutrition goals for a specific weight goal ID
     fun getNutritionGoalsByWeightGoalId(ctx: Context) {
         if (weightGoalDao.findByGoalId(ctx.pathParam("weight-goal-id").toInt()) != null) {
             val nutritionGoals = nutritionGoalsDAO.findNutritionGoalsByWeightGoalId(ctx.pathParam("weight-goal-id").toInt())
@@ -67,7 +67,7 @@ object NutritionGoalsController {
         }
     }
 
-    // Get all nutrition goals for a specific fitness id
+    // Get all nutrition goals for a specific fitness goal ID
     fun getNutritionGoalsByFitnessId(ctx: Context) {
         if (fitnessDao.findByGoalId(ctx.pathParam("fitness-goal-id").toInt()) != null) {
             val nutritionGoals = nutritionGoalsDAO.findByFitnessId(ctx.pathParam("fitness-goal-id").toInt())
@@ -81,7 +81,6 @@ object NutritionGoalsController {
             ctx.status(404)
         }
     }
-
 
     // Get a nutrition goal by type
     fun getNutritionGoalByType(ctx: Context) {

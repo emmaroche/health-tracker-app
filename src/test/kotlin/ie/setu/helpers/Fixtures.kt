@@ -6,56 +6,56 @@ import ie.setu.domain.repository.*
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.joda.time.DateTime
 
-val nonExistingEmail = "112233445566778testUser@xxxxx.xx"
-val validName = "Test User 1"
-val validEmail = "testuser1@test.com"
-val updatedName = "Updated Name"
-val updatedEmail = "Updated Email 23"
+const val nonExistingEmail = "112233445566778testUser@xxxxx.xx"
+const val validName = "Test User 1"
+const val validEmail = "testuser1@test.com"
+const val updatedName = "Updated Name"
+const val updatedEmail = "Updated Email"
 
-val updatedDescription = "Updated Description"
-val updatedDuration = 30.0
-val updatedCalories = 945
-val updatedStarted = DateTime.parse("2023-10-25T14:36:23.915Z")
+const val updatedDescription = "Updated Description"
+const val updatedDuration = 30.0
+const val updatedCalories = 945
+val updatedStarted: DateTime = DateTime.parse("2023-10-25T14:36:23.915Z")
 
-val updatedTimestamp = DateTime.parse("2023-10-25T15:29:45.225Z")
-val updatedFirstname = "Joe"
-val updatedLastname = "Smith"
-val updatedSex = "Male"
-val updatedDob = DateTime.parse("1987-06-11T05:59:27.258Z")
-val updatedWeight = 90.0
-val updatedHeight = 170
-val updatedbloodType = "O"
-val updatedallergies = "Cats"
-val updatedmedicalConditions = "None"
-val updatedmedications = "None"
-val updatednotes = "None"
+val updatedTimestamp: DateTime = DateTime.parse("2023-10-25T15:29:45.225Z")
+const val updatedFirstname = "Joe"
+const val updatedLastname = "Smith"
+const val updatedSex = "Male"
+val updatedDob: DateTime = DateTime.parse("1987-06-11T05:59:27.258Z")
+const val updatedWeight = 90.0
+const val updatedHeight = 170
+const val updatedBloodType = "O"
+const val updatedAllergies = "Cats"
+const val updatedMedicalConditions = "None"
+const val updatedMedications = "None"
+const val updatedNote = "None"
 
-val updatedType = "Cardio"
-val updatedWorkoutsPerWeek = 4
-val updatedMinutesOfWorkouts = 35
-val updatedCalorieBurningGoalDuringExercise = 550.0
+const val updatedType = "Cardio"
+const val updatedWorkoutsPerWeek = 4
+const val updatedMinutesOfWorkouts = 35
+const val updatedCalorieBurningGoalDuringExercise = 550.0
 
-val updatedType2 = "Weight Loss"
-val updatedStartingWeight = 75.0
-val updatedStartingWeightTimestamp = DateTime.parse("2023-11-23T10:30:00")
-val updatedTargetWeight = 70.0
-val updatedWeeklyGoal = 1.5
-val updatedDeadline = DateTime.parse("2023-11-23T10:30:00")
+const val updatedType2 = "Weight Loss"
+const val updatedStartingWeight = 75.0
+val updatedStartingWeightTimestamp: DateTime = DateTime.parse("2023-11-23T10:30:00")
+const val updatedTargetWeight = 70.0
+const val updatedWeeklyGoal = 1.5
+val updatedDeadline: DateTime = DateTime.parse("2023-11-23T10:30:00")
 
-val updatedType3 = "Weight Loss"
-val updatedProteinGoal = 120.0
-val updatedFibreGoal = 30.0
-val updatedCalorieGoal = 1500.0
-val updatedCarbsGoal = 200.0
-val updatedFatGoal = 50.0
+const val updatedType3 = "Weight Loss"
+const val updatedProteinGoal = 120.0
+const val updatedFibreGoal = 30.0
+const val updatedCalorieGoal = 1500.0
+const val updatedCarbsGoal = 200.0
+const val updatedFatGoal = 50.0
 
-val updatedDate = DateTime.parse("2023-10-25T14:36:23.915Z")
-val updatedDuration2 = 30
-val updatedQuality = "Updated Quality"
-val updatedNotes = "Updated Notes"
+val updatedDate: DateTime = DateTime.parse("2023-10-25T14:36:23.915Z")
+const val updatedDuration2 = 30
+const val updatedQuality = "Updated Quality"
+const val updatedNotes = "Updated Notes"
 
-val updatedMood = "Sad"
-val updatedRating = 1
+const val updatedMood = "Sad"
+const val updatedRating = 1
 
 val users = arrayListOf(
     User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),

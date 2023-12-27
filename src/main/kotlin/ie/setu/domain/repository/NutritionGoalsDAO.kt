@@ -28,7 +28,7 @@ class NutritionGoalsDAO {
         }
     }
 
-    // Find nutrition goals by weigh-goal-id
+    // Find nutrition goals by weight goal ID
     fun findNutritionGoalsByWeightGoalId(weightGoalId: Int): List<NutritionGoal> {
         return transaction {
             NutritionGoals

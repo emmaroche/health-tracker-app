@@ -65,7 +65,6 @@ class WeightGoalsDAO {
                 it[type] = weightGoal.type
                 it[startingWeight] = weightGoal.startingWeight
                 it[startingWeightTimestamp] = weightGoal.startingWeightTimestamp
-//                it[currentWeight] = weightGoal.currentWeight
                 it[targetWeight] = weightGoal.targetWeight
                 it[weeklyGoal] = weightGoal.weeklyGoal
                 it[deadline] = weightGoal.deadline
@@ -94,7 +93,6 @@ class WeightGoalsDAO {
                 it[type] = weightGoalToUpdate.type
                 it[startingWeight] = weightGoalToUpdate.startingWeight
                 it[startingWeightTimestamp] = weightGoalToUpdate.startingWeightTimestamp
-//                it[currentWeight] = weightGoalToUpdate.currentWeight
                 it[targetWeight] = weightGoalToUpdate.targetWeight
                 it[weeklyGoal] = weightGoalToUpdate.weeklyGoal
                 it[deadline] = weightGoalToUpdate.deadline

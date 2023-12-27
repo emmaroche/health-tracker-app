@@ -2,7 +2,6 @@ package ie.setu.domain.repository
 
 import ie.setu.domain.CurrentWeight
 import ie.setu.domain.db.UserWeight
-import ie.setu.domain.db.WeightGoals
 import ie.setu.utils.mapToCurrentWeight
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction

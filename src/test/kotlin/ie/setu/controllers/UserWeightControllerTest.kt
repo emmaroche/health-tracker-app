@@ -1,11 +1,13 @@
 package ie.setu.controllers
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.datatype.joda.JodaModule
 import ie.setu.config.DbConfig
 import ie.setu.domain.CurrentWeight
 import ie.setu.domain.User
-import ie.setu.helpers.*
+import ie.setu.helpers.ServerContainer
+import ie.setu.helpers.userWeight2
+import ie.setu.helpers.validEmail
+import ie.setu.helpers.validName
 import ie.setu.utils.TestUtilities
 import ie.setu.utils.jsonNodeToObject
 import ie.setu.utils.jsonToObject
@@ -14,7 +16,8 @@ import kong.unirest.JsonNode
 import kong.unirest.Unirest
 import org.joda.time.DateTime
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance

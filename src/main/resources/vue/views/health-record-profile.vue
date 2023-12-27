@@ -64,7 +64,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-dob">Date of Birth</span>
             </div>
-            <input class="form-control" v-model="healthRecord.dob" name="dob" type="text" placeholder="Date of Birth"/>
+            <input class="form-control" v-model="dob" name="dob" type="date" />
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -137,7 +137,16 @@ app.component("health-record-profile", {
     const hrId = this.$javalin.pathParams["health-record-id"];
     const url = `/api/healthRecords/${hrId}`;
     axios.get(url)
-        .then(res => this.healthRecord = res.data)
+        .then(res => {
+          this.healthRecord = res.data;
+
+          // Format the date of birth from the health record
+          // Reference: https://stackoverflow.com/questions/47066555/remove-time-after-converting-date-toisostring
+          const dobDate = new Date(this.healthRecord.dob);
+          const formattedDob = dobDate.toISOString().split('T')[0];
+
+          this.dob = formattedDob; // Set the formatted date of birth
+        })
         .catch(() => {
           console.error("Error while fetching health record: " + hrId);
           this.noHealthRecord = true;
@@ -154,7 +163,7 @@ app.component("health-record-profile", {
         firstName: this.healthRecord.firstName,
         lastName: this.healthRecord.lastName,
         sex: this.healthRecord.sex,
-        dob: this.healthRecord.dob,
+        dob: this.dob,
         weight: this.healthRecord.weight,
         height: this.healthRecord.height,
         bloodType: this.healthRecord.bloodType,

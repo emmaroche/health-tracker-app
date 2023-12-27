@@ -56,7 +56,7 @@
       <div class="list-group-item d-flex align-items-start" v-for="(sleepEntry, index) in sleepTracking" :key="index">
         <div class="mr-auto p-2">
           <span><a :href="`/sleepTracking/${sleepEntry.id}`" style="color: #08a29e;">
-            {{ sleepEntry.quality }} (Duration: {{ sleepEntry.duration }} hours, Notes: {{ sleepEntry.notes }}, Date: {{ sleepEntry.date }}, User ID: {{ sleepEntry.userId }})
+            {{ sleepEntry.quality }} (Duration: {{ sleepEntry.duration }} hours, Notes: {{ sleepEntry.notes }}, Date: {{ new Date (sleepEntry.date).toLocaleDateString() }}, User ID: {{ sleepEntry.userId }})
           </a></span>
         </div>
         <div class="p-2">
@@ -95,7 +95,7 @@ app.component("sleep-tracking-overview", {
     fetchSleepEntries: function () {
       axios.get("/api/sleepTracking")
           .then(res => this.sleepTracking = res.data)
-          .catch(() => alert("Error while fetching sleep entries"));
+          .catch(() => alert("We couldn't find any sleep entries at the moment. Feel free to add a new sleep entry, wait a moment, or refresh the page to check again"));
     },
     deleteSleepEntry: function (sleepEntry, index) {
       if (confirm('Are you sure you want to delete this sleep entry? This action cannot be undone.', 'Warning')) {
