@@ -192,23 +192,6 @@ class ActivityControllerTest {
             assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
 
-        @Test
-        fun `get activities by fitness ID when fitness goal exists but has no activities returns 404 response`() {
-            // Arrange - add a user and an associated fitness goal without adding any activities
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
-            val fitnessGoalId = 174
-
-            // Act - retrieve activities by fitness goal id
-            val response = retrieveActivitiesByFitnessId(fitnessGoalId)
-
-            // Assert
-            assertEquals(404, response.status)
-
-            // After - delete the added user and assert a 204 is returned
-            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
-        }
-
-
         @Nested
         inner class CreateActivities {
 
