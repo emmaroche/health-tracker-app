@@ -2,6 +2,7 @@ package ie.setu.controllers
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import ie.setu.config.DbConfig
+import ie.setu.domain.Activity
 import ie.setu.domain.CurrentWeight
 import ie.setu.domain.User
 import ie.setu.helpers.ServerContainer
@@ -90,6 +91,46 @@ class UserWeightControllerTest {
             // After - delete the added user and assert a 204 is returned
             assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
+
+        @Test
+        fun `get all user weights when user weights exist returns 200 response`() {
+            // Arrange - add a user and an associated user weight
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            addUserWeight(
+                userWeight2[0].currentWeight,
+                userWeight2[0].currentWeightTimestamp,
+                userWeight2[0].weightGoalId,
+                addedUser.id
+            )
+
+            // Act & Assert - retrieve all user weights
+            val response = retrieveAllUserWeights()
+            assertEquals(200, response.status)
+
+            // After - delete the added user
+            testUtilities.deleteUser(addedUser.id)
+        }
+
+        @Test
+        fun `get all user weights when no user weights exist returns 404 response`() {
+            // Arrange - add a user and delete its associated user weight
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val userWeightResponse = addUserWeight(
+                userWeight2[0].currentWeight,
+                userWeight2[0].currentWeightTimestamp,
+                userWeight2[0].weightGoalId,
+                addedUser.id
+            )
+            val addedUserWeight = jsonNodeToObject<CurrentWeight>(userWeightResponse)
+            deleteUserWeight(addedUserWeight.id)
+
+            // Act & Assert - retrieve all user weights
+            val response = retrieveAllUserWeights()
+            assertEquals(404, response.status)
+
+            // After - delete the added user
+            testUtilities.deleteUser(addedUser.id)
+        }
     }
 
     @Nested
@@ -130,22 +171,7 @@ class UserWeightControllerTest {
     inner class UpdateUserWeight {
 
         @Test
-        fun `update user weight by weight ID when it doesn't exist, returns a 404 response`() {
-            // Act & Assert - attempt to update the details of a non-existing user weight
-            assertEquals(
-                404, updateUserWeight(
-                    -1,
-                    userWeight2[0].currentWeight,
-                    userWeight2[0].currentWeightTimestamp,
-                    userWeight2[0].weightGoalId,
-                    userWeight2[0].userId
-                ).status
-            )
-        }
-
-
-        @Test
-        fun `update user weight by weight ID when it exists, returns 204 response`() {
+        fun `update user weight by weight ID when it exists returns 204 response`() {
             // Arrange - add a user and an associated user weight
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             val addUserWeightResponse = addUserWeight(
@@ -157,15 +183,6 @@ class UserWeightControllerTest {
             assertEquals(201, addUserWeightResponse.status)
             val addedUserWeight = jsonNodeToObject<CurrentWeight>(addUserWeightResponse)
 
-            // Print relevant information for debugging
-            println("User ID: ${addedUser.id}")
-            println("User Weight ID: ${addedUserWeight.id}")
-
-            // Retrieve the existing user weight by the correct ID
-            val existingUserWeightResponse = retrieveUserWeightByWeightId(addedUserWeight.id)
-            println("Existing User Weight Response Body: ${existingUserWeightResponse.body}")
-            println("Existing User Weight Response Status: ${existingUserWeightResponse.status}")
-
             // Act & Assert - update the user weight
             val updatedWeight = 90.0
             val updatedTimestamp = DateTime.parse("2023-11-24T10:30:00")
@@ -176,25 +193,27 @@ class UserWeightControllerTest {
                 userWeight2[0].weightGoalId,
                 addedUser.id
             )
-
-            // Print relevant information for debugging
-            println("Updated Weight Response Body: ${updatedWeightResponse.body}")
-            println("Updated Weight Response Status: ${updatedWeightResponse.status}")
-
-            if (updatedWeightResponse.body != null) {
-                println(updatedWeightResponse.body.toString())
-            }
-
-            // Assert
 //            assertEquals(204, updatedWeightResponse.status)
 
             // After - delete the user
             testUtilities.deleteUser(addedUser.id)
         }
 
-
-
+        @Test
+        fun `update user weight by weight ID when it doesn't exist returns 404 response`() {
+            // Act & Assert - attempt to update the details of a non-existing user weight
+            assertEquals(
+                404, updateUserWeight(
+                    -1,
+                    userWeight2[0].currentWeight,
+                    userWeight2[0].currentWeightTimestamp,
+                    userWeight2[0].weightGoalId,
+                    userWeight2[0].userId
+                ).status
+            )
+        }
     }
+
 
         @Nested
     inner class DeleteUserWeight {

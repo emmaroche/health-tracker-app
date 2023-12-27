@@ -64,21 +64,6 @@ object FitnessGoalsController {
     }
 
     /**
-     * Handles the request to get a fitness goal by type.
-     *
-     * @param ctx The Javalin [Context] object representing the HTTP context.
-     */
-    fun getFitnessGoalByType(ctx: Context) {
-        val fitnessGoal = fitnessGoalsDAO.findByType(ctx.pathParam("type"))
-        if (fitnessGoal != null) {
-            ctx.json(fitnessGoal)
-            ctx.status(200)
-        } else {
-            ctx.status(404)
-        }
-    }
-
-    /**
      * Handles the request to add a fitness goal.
      *
      * @param ctx The Javalin [Context] object representing the HTTP context.

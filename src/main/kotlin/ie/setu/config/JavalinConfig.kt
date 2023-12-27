@@ -72,9 +72,6 @@ class JavalinConfig {
                         get(WeightGoalsController::getWeightGoalsByUserId)
                         post(WeightGoalsController::addWeightGoal)
                     }
-                    path("userWeight") {
-                        get(UserWeightController::getUserWeightsByUserId)
-                    }
                     path("nutritionGoals") {
                         get(NutritionGoalsController::getNutritionGoalsByUserId)
                         post(NutritionGoalsController::addNutritionGoal)
@@ -148,10 +145,6 @@ class JavalinConfig {
                         get(NutritionGoalsController::getNutritionGoalsByFitnessId)
                     }
                 }
-                path("type/{type}") {
-                    get(FitnessGoalsController::getFitnessGoalByType)
-                }
-
             }
             path("/api/nutritionGoals") {
                 get(NutritionGoalsController::getAllNutritionGoals)
@@ -160,9 +153,6 @@ class JavalinConfig {
                     get(NutritionGoalsController::getNutritionGoalByGoalId)
                     delete(NutritionGoalsController::deleteNutritionGoal)
                     patch(NutritionGoalsController::updateNutritionGoal)
-                }
-                path("{type}") {
-                    get(NutritionGoalsController::getNutritionGoalByType)
                 }
             }
             path("/api/sleepTracking") {

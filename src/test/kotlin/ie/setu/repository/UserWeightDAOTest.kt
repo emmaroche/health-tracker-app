@@ -44,16 +44,6 @@ class UserWeightDAOTest {
         }
 
         @Test
-        fun `get current weights by user id that has no current weights, results in no record returned`() {
-            transaction {
-                populateUserTable()
-                populateActivityTable()
-                val userWeightDAO = populateUWTable()
-                assertEquals(0, userWeightDAO.findByUserId(4).size)
-            }
-        }
-
-        @Test
         fun `get all current weights over an empty table returns none`() {
             transaction {
                 SchemaUtils.create(UserWeight)

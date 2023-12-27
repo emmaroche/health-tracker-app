@@ -45,25 +45,6 @@ object UserWeightController {
     }
 
     /**
-     * Handles the request to get user weights by user ID.
-     *
-     * @param ctx The Javalin [Context] object representing the HTTP context.
-     */
-    fun getUserWeightsByUserId(ctx: Context) {
-        if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
-            val userWeights = userWeightDAO.findByUserId(ctx.pathParam("user-id").toInt())
-            if (userWeights.isNotEmpty()) {
-                ctx.json(userWeights)
-                ctx.status(200)
-            } else {
-                ctx.status(404)
-            }
-        } else {
-            ctx.status(404)
-        }
-    }
-
-    /**
      * Handles the request to add user weight.
      *
      * @param ctx The Javalin [Context] object representing the HTTP context.

@@ -24,20 +24,6 @@ class UserWeightDAO {
     }
 
     /**
-     * Find user weights by user ID.
-     *
-     * @param userId The ID of the user to find weights for.
-     * @return List of user weights for the specified user.
-     */
-    fun findByUserId(userId: Int): List<CurrentWeight> {
-        return transaction {
-            UserWeight
-                .select { UserWeight.userId eq userId }
-                .map { mapToCurrentWeight(it) }
-        }
-    }
-
-    /**
      * Find a specific user weight by weight ID.
      *
      * @param id The ID of the user weight to find.

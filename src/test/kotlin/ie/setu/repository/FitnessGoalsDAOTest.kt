@@ -63,7 +63,7 @@ class FitnessGoalsDAOTest {
             transaction {
                 populateUserTable()
                 val fitnessGoalsDAO = populateFGTable()
-                assertEquals(null, fitnessGoalsDAO.findByType("Resistance training"))
+                assertEquals(null, fitnessGoalsDAO.findByGoalId(100))
             }
         }
 

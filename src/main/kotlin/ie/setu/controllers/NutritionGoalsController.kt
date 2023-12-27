@@ -106,21 +106,6 @@ object NutritionGoalsController {
     }
 
     /**
-     * Handles the request to get a nutrition goal by type.
-     *
-     * @param ctx The Javalin [Context] object representing the HTTP context.
-     */
-    fun getNutritionGoalByType(ctx: Context) {
-        val nutritionGoal = nutritionGoalsDAO.findByType(ctx.pathParam("type"))
-        if (nutritionGoal != null) {
-            ctx.json(nutritionGoal)
-            ctx.status(200)
-        } else {
-            ctx.status(404)
-        }
-    }
-
-    /**
      * Handles the request to add a nutrition goal.
      *
      * @param ctx The Javalin [Context] object representing the HTTP context.
