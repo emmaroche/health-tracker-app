@@ -82,6 +82,29 @@ class MoodTrackingDAOTest {
                 assertEquals(moodTracking2, moodTrackingDAO.findById(2))
             }
         }
+
+        @Test
+        fun `get mood tracking records by sleep id that has no records, results in no records returned`() {
+            transaction {
+                populateUserTable()
+                populateSTTable()
+                val moodTrackingDAO = populateMTTable()
+                assertEquals(0, moodTrackingDAO.findBySleepId(4).size)
+            }
+        }
+
+        @Test
+        fun `get mood tracking records by sleep id that exists, results in correct records returned`() {
+            transaction {
+                populateUserTable()
+                populateSTTable()
+                val moodTrackingDAO = populateMTTable()
+
+                // Assuming that moodTracking1 and moodTracking2 have the same sleepId
+                assertEquals(3, moodTracking1.sleepId?.let { moodTrackingDAO.findBySleepId(it).size })
+                assertEquals(3, moodTracking3.sleepId?.let { moodTrackingDAO.findBySleepId(it).size })
+            }
+        }
     }
 
     @Nested
