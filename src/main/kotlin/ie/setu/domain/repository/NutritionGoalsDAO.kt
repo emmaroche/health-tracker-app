@@ -6,9 +6,17 @@ import ie.setu.utils.mapToNutritionGoal
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
+/**
+ * Data Access Object (DAO) for interacting with the `NutritionGoals` table in the database.
+ * It provides methods to perform CRUD operations on nutrition goals.
+ */
 class NutritionGoalsDAO {
 
-    // Get all nutrition goals
+    /**
+     * Get all nutrition goals from the database.
+     *
+     * @return List of nutrition goals.
+     */
     fun getAll(): ArrayList<NutritionGoal> {
         val ngList: ArrayList<NutritionGoal> = arrayListOf()
         transaction {
@@ -19,7 +27,12 @@ class NutritionGoalsDAO {
         return ngList
     }
 
-    // Find nutrition goals by user ID
+    /**
+     * Find nutrition goals by user ID.
+     *
+     * @param userId The ID of the user to find nutrition goals for.
+     * @return List of nutrition goals for the specified user.
+     */
     fun findByUserId(userId: Int): List<NutritionGoal> {
         return transaction {
             NutritionGoals
@@ -28,7 +41,12 @@ class NutritionGoalsDAO {
         }
     }
 
-    // Find nutrition goals by weight goal ID
+    /**
+     * Find nutrition goals by weight goal ID.
+     *
+     * @param weightGoalId The ID of the weight goal associated with nutrition goals.
+     * @return List of nutrition goals associated with the specified weight goal.
+     */
     fun findNutritionGoalsByWeightGoalId(weightGoalId: Int): List<NutritionGoal> {
         return transaction {
             NutritionGoals
@@ -37,7 +55,12 @@ class NutritionGoalsDAO {
         }
     }
 
-    // Find nutrition goals by fitness goal ID
+    /**
+     * Find nutrition goals by fitness goal ID.
+     *
+     * @param fitnessGoalId The ID of the fitness goal associated with nutrition goals.
+     * @return List of nutrition goals associated with the specified fitness goal.
+     */
     fun findByFitnessId(fitnessGoalId: Int): List<NutritionGoal> {
         return transaction {
             NutritionGoals
@@ -46,8 +69,12 @@ class NutritionGoalsDAO {
         }
     }
 
-
-    // Find a specific nutrition goal by goal ID
+    /**
+     * Find a specific nutrition goal by goal ID.
+     *
+     * @param id The ID of the nutrition goal to find.
+     * @return The found nutrition goal, or null if not found.
+     */
     fun findByGoalId(id: Int): NutritionGoal? {
         return transaction {
             NutritionGoals
@@ -57,7 +84,12 @@ class NutritionGoalsDAO {
         }
     }
 
-    // Find a specific nutrition goal type
+    /**
+     * Find a specific nutrition goal type.
+     *
+     * @param type The type of the nutrition goal to find.
+     * @return The found nutrition goal, or null if not found.
+     */
     fun findByType(type: String): NutritionGoal? {
         return transaction {
             NutritionGoals.select {
@@ -68,7 +100,12 @@ class NutritionGoalsDAO {
         }
     }
 
-    // Save nutrition goals
+    /**
+     * Save nutrition goals to the database.
+     *
+     * @param nutritionGoal The nutrition goal to save.
+     * @return The ID of the saved nutrition goal.
+     */
     fun save(nutritionGoal: NutritionGoal): Int {
         return transaction {
             NutritionGoals.insert {
@@ -85,7 +122,12 @@ class NutritionGoalsDAO {
         }
     }
 
-    // Delete nutrition goal
+    /**
+     * Delete nutrition goal by ID.
+     *
+     * @param id The ID of the nutrition goal to delete.
+     * @return The number of deleted rows.
+     */
     fun delete(id: Int): Int {
         return transaction {
             NutritionGoals.deleteWhere {
@@ -94,7 +136,13 @@ class NutritionGoalsDAO {
         }
     }
 
-    // Update nutrition goal
+    /**
+     * Update nutrition goal by ID.
+     *
+     * @param goalId The ID of the nutrition goal to update.
+     * @param nutritionGoalToUpdate The updated nutrition goal information.
+     * @return The number of updated rows.
+     */
     fun updateNutritionGoal(goalId: Int, nutritionGoalToUpdate: NutritionGoal): Int {
         return transaction {
             NutritionGoals.update({

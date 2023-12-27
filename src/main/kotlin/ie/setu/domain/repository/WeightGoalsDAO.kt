@@ -6,9 +6,17 @@ import ie.setu.utils.mapToWeightGoal
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
+/**
+ * Data Access Object (DAO) for interacting with the `WeightGoals` table in the database.
+ * It provides methods to perform CRUD operations on weight goal data.
+ */
 class WeightGoalsDAO {
 
-    // Get all weight goals
+    /**
+     * Get all weight goals from the database.
+     *
+     * @return List of weight goals.
+     */
     fun getAll(): ArrayList<WeightGoal> {
         val wgList: ArrayList<WeightGoal> = arrayListOf()
         transaction {
@@ -19,7 +27,12 @@ class WeightGoalsDAO {
         return wgList
     }
 
-    // Find weight goals by user ID
+    /**
+     * Find weight goals by user ID.
+     *
+     * @param userId The ID of the user to find weight goals for.
+     * @return List of weight goals for the specified user.
+     */
     fun findByUserId(userId: Int): List<WeightGoal> {
         return transaction {
             WeightGoals
@@ -28,7 +41,12 @@ class WeightGoalsDAO {
         }
     }
 
-    // Find weight goals by activity ID
+    /**
+     * Find weight goals by activity ID.
+     *
+     * @param actId The ID of the activity associated with weight goals.
+     * @return List of weight goals associated with the specified activity.
+     */
     fun findByActivityId(actId: Int): List<WeightGoal> {
         return transaction {
             WeightGoals
@@ -37,7 +55,12 @@ class WeightGoalsDAO {
         }
     }
 
-    // Find a specific weight goal by goal ID
+    /**
+     * Find a specific weight goal by goal ID.
+     *
+     * @param id The ID of the weight goal to find.
+     * @return The found weight goal, or null if not found.
+     */
     fun findByGoalId(id: Int): WeightGoal? {
         return transaction {
             WeightGoals
@@ -47,7 +70,12 @@ class WeightGoalsDAO {
         }
     }
 
-    // Find a specific weight goal type
+    /**
+     * Find a specific weight goal type.
+     *
+     * @param type The type of weight goal to find.
+     * @return The found weight goal, or null if not found.
+     */
     fun findByType(type: String): WeightGoal? {
         return transaction {
             WeightGoals.select {
@@ -58,7 +86,12 @@ class WeightGoalsDAO {
         }
     }
 
-    // Save weight goals
+    /**
+     * Save weight goals to the database.
+     *
+     * @param weightGoal The weight goal to save.
+     * @return The ID of the saved weight goal.
+     */
     fun save(weightGoal: WeightGoal): Int {
         return transaction {
             WeightGoals.insert {
@@ -74,8 +107,12 @@ class WeightGoalsDAO {
         }
     }
 
-
-    // Delete weight goal
+    /**
+     * Delete weight goal by ID.
+     *
+     * @param id The ID of the weight goal to delete.
+     * @return The number of deleted rows.
+     */
     fun delete(id: Int): Int {
         return transaction {
             WeightGoals.deleteWhere {
@@ -84,7 +121,13 @@ class WeightGoalsDAO {
         }
     }
 
-    // Update weight goal
+    /**
+     * Update weight goal by goal ID.
+     *
+     * @param goalId The ID of the weight goal to update.
+     * @param weightGoalToUpdate The updated weight goal information.
+     * @return The number of updated rows.
+     */
     fun updateWeightGoal(goalId: Int, weightGoalToUpdate: WeightGoal): Int {
         return transaction {
             WeightGoals.update({

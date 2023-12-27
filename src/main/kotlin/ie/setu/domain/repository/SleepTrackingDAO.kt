@@ -6,9 +6,17 @@ import ie.setu.utils.mapToSleepTracking
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
+/**
+ * Data Access Object (DAO) for interacting with the `SleepTracking` table in the database.
+ * It provides methods to perform CRUD operations on sleep tracking entries.
+ */
 class SleepTrackingDAO {
 
-    // Get all sleep tracking entries
+    /**
+     * Get all sleep tracking entries from the database.
+     *
+     * @return List of sleep tracking entries.
+     */
     fun getAll(): ArrayList<SleepEntry> {
         val stList: ArrayList<SleepEntry> = arrayListOf()
         transaction {
@@ -19,7 +27,12 @@ class SleepTrackingDAO {
         return stList
     }
 
-    // Find sleep tracking entries by user ID
+    /**
+     * Find sleep tracking entries by user ID.
+     *
+     * @param userId The ID of the user to find sleep tracking entries for.
+     * @return List of sleep tracking entries for the specified user.
+     */
     fun findByUserId(userId: Int): List<SleepEntry> {
         return transaction {
             SleepTracking
@@ -28,7 +41,12 @@ class SleepTrackingDAO {
         }
     }
 
-    // Find a specific sleep tracking entry by ID
+    /**
+     * Find a specific sleep tracking entry by ID.
+     *
+     * @param id The ID of the sleep tracking entry to find.
+     * @return The found sleep tracking entry, or null if not found.
+     */
     fun findById(id: Int): SleepEntry? {
         return transaction {
             SleepTracking
@@ -38,7 +56,12 @@ class SleepTrackingDAO {
         }
     }
 
-    // Save sleep tracking entry
+    /**
+     * Save sleep tracking entry to the database.
+     *
+     * @param sleepTracking The sleep tracking entry to save.
+     * @return The ID of the saved sleep tracking entry.
+     */
     fun save(sleepTracking: SleepEntry): Int {
         return transaction {
             SleepTracking.insert {
@@ -51,7 +74,12 @@ class SleepTrackingDAO {
         }
     }
 
-    // Delete sleep tracking entry
+    /**
+     * Delete sleep tracking entry by ID.
+     *
+     * @param id The ID of the sleep tracking entry to delete.
+     * @return The number of deleted rows.
+     */
     fun delete(id: Int): Int {
         return transaction {
             SleepTracking.deleteWhere {
@@ -60,7 +88,13 @@ class SleepTrackingDAO {
         }
     }
 
-    // Update sleep tracking entry
+    /**
+     * Update sleep tracking entry by ID.
+     *
+     * @param id The ID of the sleep tracking entry to update.
+     * @param updatedSleepTracking The updated sleep tracking entry information.
+     * @return The number of updated rows.
+     */
     fun updateSleepTracking(id: Int, updatedSleepTracking: SleepEntry): Int {
         return transaction {
             SleepTracking.update({

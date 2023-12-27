@@ -6,12 +6,19 @@ import ie.setu.domain.repository.UserWeightDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
+/**
+ * Controller for handling user weight-related HTTP requests.
+ */
 object UserWeightController {
 
     private val userDao = UserDAO()
     private val userWeightDAO = UserWeightDAO()
 
-    // Get all user weights
+    /**
+     * Handles the request to get all user weights.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getAllUserWeights(ctx: Context) {
         val userWeights = userWeightDAO.getAll()
         if (userWeights.isNotEmpty()) {
@@ -22,7 +29,11 @@ object UserWeightController {
         ctx.json(userWeights)
     }
 
-    // Get user weight by weight ID
+    /**
+     * Handles the request to get user weight by weight ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getUserWeightById(ctx: Context) {
         val userWeight = userWeightDAO.findByWeightId(ctx.pathParam("user-weight-id").toInt())
         if (userWeight != null) {
@@ -33,7 +44,11 @@ object UserWeightController {
         }
     }
 
-    // Get user weights by user ID
+    /**
+     * Handles the request to get user weights by user ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getUserWeightsByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val userWeights = userWeightDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -48,7 +63,11 @@ object UserWeightController {
         }
     }
 
-    // Add user weight
+    /**
+     * Handles the request to add user weight.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun addUserWeight(ctx: Context) {
         val userWeight: CurrentWeight = jsonToObject(ctx.body())
         val user = userDao.findById(userWeight.userId)
@@ -62,7 +81,11 @@ object UserWeightController {
         }
     }
 
-    // Update user weight
+    /**
+     * Handles the request to update user weight.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun updateUserWeight(ctx: Context) {
         val userWeight: CurrentWeight = jsonToObject(ctx.body())
         if (userWeightDAO.updateCurrentWeight(
@@ -76,7 +99,11 @@ object UserWeightController {
         }
     }
 
-    // Delete user weight
+    /**
+     * Handles the request to delete user weight.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun deleteUserWeight(ctx: Context) {
         val weightId = ctx.pathParam("user-weight-id").toInt()
         val deletedCount = userWeightDAO.delete(weightId)

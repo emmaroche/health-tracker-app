@@ -8,6 +8,9 @@ import ie.setu.domain.repository.WeightGoalsDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
+/**
+ * Controller for handling nutrition goal-related HTTP requests.
+ */
 object NutritionGoalsController {
 
     private val userDao = UserDAO()
@@ -15,7 +18,11 @@ object NutritionGoalsController {
     private val weightGoalDao = WeightGoalsDAO()
     private val nutritionGoalsDAO = NutritionGoalsDAO()
 
-    // Get all nutrition goals
+    /**
+     * Handles the request to get all nutrition goals.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getAllNutritionGoals(ctx: Context) {
         val nutritionGoals = nutritionGoalsDAO.getAll()
         if (nutritionGoals.isNotEmpty()) {
@@ -26,7 +33,11 @@ object NutritionGoalsController {
         ctx.json(nutritionGoals)
     }
 
-    // Get nutrition goals by goal ID
+    /**
+     * Handles the request to get a nutrition goal by goal ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getNutritionGoalByGoalId(ctx: Context) {
         val nutritionGoal = nutritionGoalsDAO.findByGoalId(ctx.pathParam("nutrition-goal-id").toInt())
         if (nutritionGoal != null) {
@@ -37,7 +48,11 @@ object NutritionGoalsController {
         }
     }
 
-    // Get all nutrition goals for a specific user
+    /**
+     * Handles the request to get all nutrition goals for a specific user.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getNutritionGoalsByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val nutritionGoals = nutritionGoalsDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -52,7 +67,11 @@ object NutritionGoalsController {
         }
     }
 
-    // Get all nutrition goals for a specific weight goal ID
+    /**
+     * Handles the request to get all nutrition goals for a specific weight goal ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getNutritionGoalsByWeightGoalId(ctx: Context) {
         if (weightGoalDao.findByGoalId(ctx.pathParam("weight-goal-id").toInt()) != null) {
             val nutritionGoals = nutritionGoalsDAO.findNutritionGoalsByWeightGoalId(ctx.pathParam("weight-goal-id").toInt())
@@ -67,7 +86,11 @@ object NutritionGoalsController {
         }
     }
 
-    // Get all nutrition goals for a specific fitness goal ID
+    /**
+     * Handles the request to get all nutrition goals for a specific fitness goal ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getNutritionGoalsByFitnessId(ctx: Context) {
         if (fitnessDao.findByGoalId(ctx.pathParam("fitness-goal-id").toInt()) != null) {
             val nutritionGoals = nutritionGoalsDAO.findByFitnessId(ctx.pathParam("fitness-goal-id").toInt())
@@ -82,7 +105,11 @@ object NutritionGoalsController {
         }
     }
 
-    // Get a nutrition goal by type
+    /**
+     * Handles the request to get a nutrition goal by type.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getNutritionGoalByType(ctx: Context) {
         val nutritionGoal = nutritionGoalsDAO.findByType(ctx.pathParam("type"))
         if (nutritionGoal != null) {
@@ -93,7 +120,11 @@ object NutritionGoalsController {
         }
     }
 
-    // Add a nutrition goal
+    /**
+     * Handles the request to add a nutrition goal.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun addNutritionGoal(ctx: Context) {
         val nutritionGoal: NutritionGoal = jsonToObject(ctx.body())
         val user = userDao.findById(nutritionGoal.userId)
@@ -107,7 +138,11 @@ object NutritionGoalsController {
         }
     }
 
-    // Update a nutrition goal
+    /**
+     * Handles the request to update a nutrition goal.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun updateNutritionGoal(ctx: Context) {
         val nutritionGoal: NutritionGoal = jsonToObject(ctx.body())
         if (nutritionGoalsDAO.updateNutritionGoal(
@@ -121,7 +156,11 @@ object NutritionGoalsController {
         }
     }
 
-    // Delete a nutrition goal by goal ID
+    /**
+     * Handles the request to delete a nutrition goal by goal ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun deleteNutritionGoal(ctx: Context) {
         val goalId = ctx.pathParam("nutrition-goal-id").toInt()
         val deletedCount = nutritionGoalsDAO.delete(goalId)
