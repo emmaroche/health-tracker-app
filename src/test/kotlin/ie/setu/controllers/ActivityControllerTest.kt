@@ -145,6 +145,52 @@ class ActivityControllerTest {
             assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
 
+        @Test
+        fun `get activities by fitness ID when fitness goal exists and has activities returns 200 response`() {
+            // Arrange - add a user and an associated fitness goal
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val fitnessGoalId = 174
+
+            // Add three associated activities that we plan to retrieve
+            addActivity(
+                activities[0].description, activities[0].duration,
+                activities[0].calories, activities[0].started, addedUser.id, fitnessGoalId
+            )
+            addActivity(
+                activities[1].description, activities[1].duration,
+                activities[1].calories, activities[1].started, addedUser.id, fitnessGoalId
+            )
+            addActivity(
+                activities[2].description, activities[2].duration,
+                activities[2].calories, activities[2].started, addedUser.id, fitnessGoalId
+            )
+
+            // Act - retrieve the three added activities by fitness goal id
+            val response = retrieveActivitiesByFitnessId(fitnessGoalId)
+
+            // Assert
+            assertEquals(200, response.status)
+            val retrievedActivities = jsonNodeToObject<Array<Activity>>(response)
+            assertEquals(4, retrievedActivities.size)
+
+            // After - delete the added user and assert a 204 is returned (activities are cascade deleted)
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
+        }
+
+        @Test
+        fun `get activities by fitness ID when fitness goal does not exist returns 404 response`() {
+            // Arrange - add a user without adding a fitness goal
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+
+            // Act - retrieve activities by fitness goal id
+            val response = retrieveActivitiesByFitnessId(-1) // Replace -1 with a valid fitness goal ID
+
+            // Assert
+            assertEquals(404, response.status)
+
+            // After - delete the added user and assert a 204 is returned
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
+        }
 
         @Nested
         inner class CreateActivities {
@@ -339,6 +385,11 @@ class ActivityControllerTest {
         //Helper function to retrieve all activities
         private fun retrieveAllActivities(): HttpResponse<JsonNode> {
             return Unirest.get("$origin/api/activities").asJson()
+        }
+
+        // Helper function to retrieve activities by fitness goal id
+        private fun retrieveActivitiesByFitnessId(id: Int): HttpResponse<JsonNode> {
+            return Unirest.get("$origin/api/fitnessGoals/$id/activities").asJson()
         }
 
         //Helper function to retrieve activities by user id

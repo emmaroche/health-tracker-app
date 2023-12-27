@@ -70,7 +70,7 @@ class NutritionGoalsDAOTest {
                 populateActivityTable()
                 populateActivityTable()
                 val nutritionGoalsDAO = populateNGTable()
-                assertEquals(null, nutritionGoalsDAO.findByType("Neutron"))
+                assertEquals(null, nutritionGoalsDAO.findByGoalId(100))
             }
         }
 

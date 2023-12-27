@@ -85,22 +85,6 @@ class NutritionGoalsDAO {
     }
 
     /**
-     * Find a specific nutrition goal type.
-     *
-     * @param type The type of the nutrition goal to find.
-     * @return The found nutrition goal, or null if not found.
-     */
-    fun findByType(type: String): NutritionGoal? {
-        return transaction {
-            NutritionGoals.select {
-                NutritionGoals.type eq type
-            }
-                .map { mapToNutritionGoal(it) }
-                .firstOrNull()
-        }
-    }
-
-    /**
      * Save nutrition goals to the database.
      *
      * @param nutritionGoal The nutrition goal to save.

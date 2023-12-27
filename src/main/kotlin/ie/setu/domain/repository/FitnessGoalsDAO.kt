@@ -57,22 +57,6 @@ class FitnessGoalsDAO {
     }
 
     /**
-     * Find a specific fitness goal by type.
-     *
-     * @param type The type of the fitness goal to find.
-     * @return The found fitness goal, or null if not found.
-     */
-    fun findByType(type: String): FitnessGoal? {
-        return transaction {
-            FitnessGoals.select {
-                FitnessGoals.type eq type
-            }
-                .map { mapToFitnessGoal(it) }
-                .firstOrNull()
-        }
-    }
-
-    /**
      * Save fitness goals to the database.
      *
      * @param fitnessGoal The fitness goal to save.

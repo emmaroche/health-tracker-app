@@ -142,6 +142,66 @@ class NutritionGoalsControllerTest {
             assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
 
+        @Test
+        fun `get nutrition goals by weight goal id when weight goal exists returns 200 response`() {
+            // Arrange - add a weight goal, a user, and an associated nutrition goal
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val fitnessId = 174
+            val weightId = 304
+
+            addNutritionGoal(
+                nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
+                nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
+            )
+
+            // Act and Assert - retrieve nutrition goals by weight goal id
+            val response = retrieveNutritionGoalsByWeightGoalId(weightId)
+            assertEquals(200, response.status)
+            val retrievedNutritionGoals = jsonNodeToObject<Array<NutritionGoal>>(response)
+            assertNotEquals(0, retrievedNutritionGoals.size)
+
+            // After - delete the added user and assert a 204 is returned (weight goal and nutrition goal are cascade deleted)
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
+        }
+
+        @Test
+        fun `get nutrition goals by weight goal id when weight goal doesn't exist returns 404 response`() {
+            // Act and Assert - retrieve nutrition goals by weight goal id
+            val response = retrieveNutritionGoalsByWeightGoalId(-1)
+            assertEquals(404, response.status)
+        }
+
+        @Test
+        fun `get nutrition goals by fitness goal id when fitness goal exists returns 200 response`() {
+            // Arrange - add a fitness goal, a user, and an associated nutrition goal
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val fitnessId = 174
+            val weightId = 304
+
+            addNutritionGoal(
+                nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
+                nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
+            )
+
+            // Act and Assert - retrieve nutrition goals by fitness goal id
+            val response = retrieveNutritionGoalsByFitnessId(fitnessId)
+            assertEquals(200, response.status)
+            val retrievedNutritionGoals = jsonNodeToObject<Array<NutritionGoal>>(response)
+            assertNotEquals(0, retrievedNutritionGoals.size)
+
+            // After - delete the added user and assert a 204 is returned (fitness goal and nutrition goal are cascade deleted)
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
+        }
+
+        @Test
+        fun `get nutrition goals by fitness goal id when fitness goal doesn't exist returns 404 response`() {
+            // Act and Assert - retrieve nutrition goals by fitness goal id
+            val response = retrieveNutritionGoalsByFitnessId(-1)
+            assertEquals(404, response.status)
+        }
+
 
     }
 
@@ -294,6 +354,16 @@ class NutritionGoalsControllerTest {
     //--------------------------------------------------------------------------------------
 // HELPER METHODS - could move them into a test utility class when submitting assignment
 //--------------------------------------------------------------------------------------
+
+    // Helper function to retrieve nutrition goals by weight goal id
+    private fun retrieveNutritionGoalsByWeightGoalId(id: Int): HttpResponse<JsonNode> {
+        return Unirest.get("$origin/api/weightGoals/$id/nutritionGoals").asJson()
+    }
+
+    // Helper function to retrieve nutrition goals by fitness goal id
+    private fun retrieveNutritionGoalsByFitnessId(id: Int): HttpResponse<JsonNode> {
+        return Unirest.get("$origin/api/fitnessGoals/$id/nutritionGoals").asJson()
+    }
 
     // Helper function to retrieve all nutrition goals
     private fun retrieveAllNutritionGoals(): HttpResponse<JsonNode> {

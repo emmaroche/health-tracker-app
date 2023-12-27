@@ -142,6 +142,60 @@ class WeightGoalsControllerTest {
             assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
         }
 
+        @Test
+        fun `get weight goals by activity id when activity exists returns 200 response`() {
+            // Arrange - add an activity and weight goals associated with it
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+
+            val actId = 186
+
+            addWeightGoal(
+                weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
+                weightGoals[0].targetWeight,
+                weightGoals[0].weeklyGoal, weightGoals[0].deadline, addedUser.id, actId
+            )
+            addWeightGoal(
+                weightGoals[1].type, weightGoals[1].startingWeight, weightGoals[1].startingWeightTimestamp,
+                weightGoals[1].targetWeight,
+                weightGoals[1].weeklyGoal, weightGoals[1].deadline, addedUser.id, actId
+            )
+
+            // Act and Assert - retrieve the weight goals by activity id
+            val response = retrieveWeightGoalsByActivityId(actId)
+            assertEquals(200, response.status)
+            val retrievedWeightGoals = jsonNodeToObject<Array<WeightGoal>>(response)
+            assertEquals(3, retrievedWeightGoals.size)
+
+            // After - delete the added user and assert a 204 is returned (activities and weight goals are cascade deleted)
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
+        }
+
+        @Test
+        fun `get weight goals by activity id when no weight goals exist returns 404 response`() {
+            // Arrange - add an activity
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+
+            val actId = 106
+
+            // Act and Assert - retrieve the weight goals by activity id
+            val response = retrieveWeightGoalsByActivityId(actId)
+            assertEquals(404, response.status)
+
+            // After - delete the added user and assert a 204 is returned
+            assertEquals(204, testUtilities.deleteUser(addedUser.id).status)
+        }
+
+        @Test
+        fun `get weight goals by activity id when activity does not exist returns 404 response`() {
+            // Arrange - use a non-existing activity id
+            val activityId = -1
+
+            // Act and Assert - retrieve the weight goals by activity id
+            val response = retrieveWeightGoalsByActivityId(activityId)
+            assertEquals(404, response.status)
+        }
+
+
     }
 
     @Nested
@@ -302,6 +356,11 @@ class WeightGoalsControllerTest {
     // Helper function to retrieve a weight goal by goal id
     private fun retrieveWeightGoalByGoalId(id: Int): HttpResponse<JsonNode> {
         return Unirest.get(origin + "/api/weightGoals/${id}").asJson()
+    }
+
+    // Helper function to retrieve weight goals by activity id
+    private fun retrieveWeightGoalsByActivityId(id: Int): HttpResponse<JsonNode> {
+        return Unirest.get("$origin/api/activities/$id/weightGoals").asJson()
     }
 
     // Helper function to delete weight goals by user id
