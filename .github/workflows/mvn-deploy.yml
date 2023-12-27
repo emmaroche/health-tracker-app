@@ -47,20 +47,21 @@ jobs:
           cache: 'maven'
       - name: Maven Verify
         run: mvn -B clean verify
-
-      # Archive JUnit test report
-      - name: Archive test report
-        uses: actions/upload-artifact@v2
+        
+      - name: Generate JaCoCo Report
+        run: mvn jacoco:report
+  
+      - name: Archive JUnit test report
+        uses: actions/upload-artifact@v3
         with:
           name: Test report
-          path: build/reports/tests/test
-
-      # Archive code coverage report
-      - name: Archive coverage report
-        uses: actions/upload-artifact@v2
+          path: target/site/jacoco/index.html
+  
+      - name: Archive code coverage report
+        uses: actions/upload-artifact@v3
         with:
           name: Code Coverage report
-          path: build/reports/jacoco/test/html
+          path: target/site/jacoco
 
   deploy:
     name: Railway Deploy
