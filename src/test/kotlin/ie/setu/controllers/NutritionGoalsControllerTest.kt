@@ -177,11 +177,12 @@ class NutritionGoalsControllerTest {
             // Arrange - add a fitness goal, a user, and an associated nutrition goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
             val fitnessId = 174
+            val weightId = 304
 
             addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
                 nutritionGoals[0].fibreGoal, nutritionGoals[0].calorieGoal, nutritionGoals[0].carbsGoal,
-                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, -1
+                nutritionGoals[0].fatGoal, addedUser.id, fitnessId, weightId
             )
 
             // Act and Assert - retrieve nutrition goals by fitness goal id
