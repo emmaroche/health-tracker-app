@@ -135,8 +135,7 @@ app.component("activity-profile", {
         calories: this.activity.calories,
         started: this.activity.started,
         userId: this.activity.userId,
-        fitnessId: this.activity.fitnessId,
-        actId: this.activity.actId
+        fitnessId: this.activity.fitnessId
       };
 
       axios.patch(url, updatedActivity)

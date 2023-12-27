@@ -7,13 +7,20 @@ import ie.setu.domain.repository.UserDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
+/**
+ * Controller for handling mood tracking-related HTTP requests.
+ */
 object MoodTrackingController {
 
     private val userDao = UserDAO()
     private val sleepDao =  SleepTrackingDAO()
     private val moodTrackingDAO = MoodTrackingDAO()
 
-    // Get all mood tracking entries
+    /**
+     * Handles the request to get all mood tracking entries.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getAllMoodTracking(ctx: Context) {
         val moodTrackingEntries = moodTrackingDAO.getAll()
         if (moodTrackingEntries.isNotEmpty()) {
@@ -24,7 +31,11 @@ object MoodTrackingController {
         ctx.json(moodTrackingEntries)
     }
 
-    // Get mood tracking entry by ID
+    /**
+     * Handles the request to get a mood tracking entry by ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getMoodTrackingById(ctx: Context) {
         val moodTrackingEntry = moodTrackingDAO.findById(ctx.pathParam("mood-tracking-id").toInt())
         if (moodTrackingEntry != null) {
@@ -35,7 +46,11 @@ object MoodTrackingController {
         }
     }
 
-    // Get all mood tracking entries for a specific user
+    /**
+     * Handles the request to get all mood tracking entries for a specific user.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getMoodTrackingByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val moodTrackingEntries = moodTrackingDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -50,7 +65,11 @@ object MoodTrackingController {
         }
     }
 
-    // Get all mood tracking entries for a specific sleep ID
+    /**
+     * Handles the request to get all mood tracking entries for a specific sleep ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getMoodTrackingBySleepId(ctx: Context) {
         if (sleepDao.findById(ctx.pathParam("sleep-tracking-id").toInt()) != null) {
             val sleepId = ctx.pathParam("sleep-tracking-id").toInt()
@@ -66,7 +85,11 @@ object MoodTrackingController {
         }
     }
 
-    // Add a mood tracking entry
+    /**
+     * Handles the request to add a mood tracking entry.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun addMoodTracking(ctx: Context) {
         val moodTrackingEntry: MoodEntry = jsonToObject(ctx.body())
         val user = userDao.findById(moodTrackingEntry.userId)
@@ -80,7 +103,11 @@ object MoodTrackingController {
         }
     }
 
-    // Update a mood tracking entry
+    /**
+     * Handles the request to update a mood tracking entry.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun updateMoodTracking(ctx: Context) {
         val moodTrackingEntry: MoodEntry = jsonToObject(ctx.body())
         if (moodTrackingDAO.updateMoodTracking(
@@ -94,7 +121,11 @@ object MoodTrackingController {
         }
     }
 
-    // Delete a mood tracking entry by ID
+    /**
+     * Handles the request to delete a mood tracking entry by ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun deleteMoodTracking(ctx: Context) {
         val entryId = ctx.pathParam("mood-tracking-id").toInt()
         val deletedCount = moodTrackingDAO.delete(entryId)

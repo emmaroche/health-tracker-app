@@ -2,8 +2,16 @@ package ie.setu.config
 
 import org.jetbrains.exposed.sql.Database
 
+/**
+ * Configuration class for managing database connections.
+ */
 class DbConfig {
 
+    /**
+     * Establishes a connection to the database using the provided credentials.
+     *
+     * @return An instance of [Database] representing the database connection.
+     */
     fun getDbConnection(): Database {
 
         val PGHOST = "flora.db.elephantsql.com"

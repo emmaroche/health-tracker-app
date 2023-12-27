@@ -6,12 +6,19 @@ import ie.setu.domain.repository.UserDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
+/**
+ * Controller for handling health records-related HTTP requests.
+ */
 object HealthRecordController {
 
     private val userDao = UserDAO()
     private val healthRecordDAO = HealthRecordDAO()
 
-    // Get all health records
+    /**
+     * Handles the request to get all health records.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getAllHealthRecords(ctx: Context) {
         val healthRec = healthRecordDAO.getAll()
         if (healthRec.size != 0) {
@@ -22,7 +29,11 @@ object HealthRecordController {
         ctx.json(healthRec)
     }
 
-    // Get health records by health records ID
+    /**
+     * Handles the request to get a health record by health record ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getHealthRecordByHealthRecordId(ctx: Context) {
         val hr = healthRecordDAO.findByHealthRecordId((ctx.pathParam("health-record-id").toInt()))
         if (hr != null) {
@@ -33,7 +44,11 @@ object HealthRecordController {
         }
     }
 
-    // Get health records by user ID
+    /**
+     * Handles the request to get health records by user ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getHealthRecordByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val healthRec = healthRecordDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -48,7 +63,11 @@ object HealthRecordController {
         }
     }
 
-    // Add a new health record
+    /**
+     * Handles the request to add a new health record.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun addHealthRecord(ctx: Context) {
         val healthRecord: HealthRecord = jsonToObject(ctx.body())
         val user = userDao.findById(healthRecord.userId)
@@ -62,7 +81,11 @@ object HealthRecordController {
         }
     }
 
-    // Update a health record
+    /**
+     * Handles the request to update a health record.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun updateHealthRecord(ctx: Context) {
         val hr: HealthRecord = jsonToObject(ctx.body())
         if (healthRecordDAO.updateHealthRecord(
@@ -75,7 +98,11 @@ object HealthRecordController {
             ctx.status(404)
     }
 
-    // Delete a health record by health record ID
+    /**
+     * Handles the request to delete a health record by health record ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun deleteHealthRecord(ctx: Context) {
         val healthRecordId = ctx.pathParam("health-record-id").toInt()
         val deletedCount = healthRecordDAO.delete(healthRecordId)

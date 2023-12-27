@@ -8,38 +8,62 @@ import ie.setu.utils.mapToUser
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
+/**
+ * Data Access Object (DAO) for interacting with the `HealthRecords` table in the database.
+ * It provides methods to perform CRUD operations on health record records.
+ */
 class HealthRecordDAO {
 
-    // Get all health records
+    /**
+     * Get all health records from the database.
+     *
+     * @return List of health records.
+     */
     fun getAll(): ArrayList<HealthRecord> {
         val hrList: ArrayList<HealthRecord> = arrayListOf()
         transaction {
             HealthRecords.selectAll().map {
-                hrList.add(mapToHealthRecord(it)) }
+                hrList.add(mapToHealthRecord(it))
+            }
         }
         return hrList
     }
 
-    // Find health record by user ID
-    fun findByUserId(userId: Int): List<HealthRecord>{
+    /**
+     * Find health records by user ID.
+     *
+     * @param userId The ID of the user to find health records for.
+     * @return List of health records for the specified user.
+     */
+    fun findByUserId(userId: Int): List<HealthRecord> {
         return transaction {
             HealthRecords
-                .select { HealthRecords.userId eq userId}
+                .select { HealthRecords.userId eq userId }
                 .map { mapToHealthRecord(it) }
         }
     }
 
-    //Find a specific health record by health record ID
-    fun findByHealthRecordId(id: Int): HealthRecord?{
+    /**
+     * Find a specific health record by health record ID.
+     *
+     * @param id The ID of the health record to find.
+     * @return The found health record, or null if not found.
+     */
+    fun findByHealthRecordId(id: Int): HealthRecord? {
         return transaction {
             HealthRecords
-                .select { HealthRecords.id eq id}
-                .map{ mapToHealthRecord(it) }
+                .select { HealthRecords.id eq id }
+                .map { mapToHealthRecord(it) }
                 .firstOrNull()
         }
     }
 
-    // Save health records
+    /**
+     * Save health records to the database.
+     *
+     * @param healthRecord The health record to save.
+     * @return The ID of the saved health record.
+     */
     fun save(healthRecord: HealthRecord): Int {
         return transaction {
             HealthRecords.insert {
@@ -60,25 +84,43 @@ class HealthRecordDAO {
         }
     }
 
-    // Find health records by user first name
-    fun findByFirstName(firstName: String) : User?{
+    /**
+     * Find health records by user first name.
+     *
+     * @param firstName The first name of the user to find health records for.
+     * @return The found user, or null if not found.
+     */
+    fun findByFirstName(firstName: String): User? {
         return transaction {
             HealthRecords.select {
-                HealthRecords.firstName eq firstName}
-                .map{ mapToUser(it) }
+                HealthRecords.firstName eq firstName
+            }
+                .map { mapToUser(it) }
                 .firstOrNull()
         }
     }
 
-    // Delete health record by hr ID
-    fun delete(id: Int):Int{
-        return transaction{ HealthRecords.deleteWhere{
-            HealthRecords.id eq id
-        }
+    /**
+     * Delete a health record by health record ID.
+     *
+     * @param id The ID of the health record to delete.
+     * @return The number of deleted rows.
+     */
+    fun delete(id: Int): Int {
+        return transaction {
+            HealthRecords.deleteWhere {
+                HealthRecords.id eq id
+            }
         }
     }
 
-    // Update health record
+    /**
+     * Update a health record by health record ID.
+     *
+     * @param healthId The ID of the health record to update.
+     * @param healthRecordToUpdate The updated health record information.
+     * @return The number of updated rows.
+     */
     fun updateHealthRecord(healthId: Int, healthRecordToUpdate: HealthRecord): Int {
         return transaction {
             HealthRecords.update({
@@ -101,5 +143,3 @@ class HealthRecordDAO {
         }
     }
 }
-
-

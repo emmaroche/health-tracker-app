@@ -4,6 +4,9 @@ import ie.setu.domain.*
 import ie.setu.domain.db.*
 import org.jetbrains.exposed.sql.ResultRow
 
+/**
+ * Utility functions for mapping database result rows to domain objects.
+ */
 fun mapToUser(it: ResultRow) = User(
     id = it[Users.id],
     name = it[Users.name],

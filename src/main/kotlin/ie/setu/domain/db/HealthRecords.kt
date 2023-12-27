@@ -3,6 +3,9 @@ package ie.setu.domain.db
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 
+/**
+ * Represents the database table for storing health records.
+ */
 object HealthRecords : Table("healthRecords") {
     val id = integer("id").autoIncrement().primaryKey()
     val timestamp = datetime("timestamp")
@@ -17,5 +20,7 @@ object HealthRecords : Table("healthRecords") {
     val medicalConditions = varchar("medical_conditions", 100)
     val medications = varchar("medications", 100)
     val notes = varchar("notes", 200)
+
+    // Reference to the Users table
     val userId = integer("user_id").references(Users.id, onDelete = ReferenceOption.CASCADE)
 }

@@ -6,9 +6,17 @@ import ie.setu.utils.mapToMoodTracking
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
+/**
+ * Data Access Object (DAO) for interacting with the `MoodTracking` table in the database.
+ * It provides methods to perform CRUD operations on mood tracking entries.
+ */
 class MoodTrackingDAO {
 
-    // Get all mood tracking entries
+    /**
+     * Get all mood tracking entries from the database.
+     *
+     * @return List of mood tracking entries.
+     */
     fun getAll(): ArrayList<MoodEntry> {
         val moodList: ArrayList<MoodEntry> = arrayListOf()
         transaction {
@@ -19,7 +27,12 @@ class MoodTrackingDAO {
         return moodList
     }
 
-    // Find mood tracking entries by user ID
+    /**
+     * Find mood tracking entries by user ID.
+     *
+     * @param userId The ID of the user to find mood tracking entries for.
+     * @return List of mood tracking entries for the specified user.
+     */
     fun findByUserId(userId: Int): List<MoodEntry> {
         return transaction {
             MoodTracking
@@ -28,7 +41,12 @@ class MoodTrackingDAO {
         }
     }
 
-    // Find mood tracking entries by sleep ID
+    /**
+     * Find mood tracking entries by sleep ID.
+     *
+     * @param sleepId The ID of the sleep entry associated with mood tracking entries.
+     * @return List of mood tracking entries associated with the specified sleep entry.
+     */
     fun findBySleepId(sleepId: Int): List<MoodEntry> {
         return transaction {
             MoodTracking
@@ -37,7 +55,12 @@ class MoodTrackingDAO {
         }
     }
 
-    // Find a specific mood tracking entry by ID
+    /**
+     * Find a specific mood tracking entry by ID.
+     *
+     * @param id The ID of the mood tracking entry to find.
+     * @return The found mood tracking entry, or null if not found.
+     */
     fun findById(id: Int): MoodEntry? {
         return transaction {
             MoodTracking
@@ -47,7 +70,12 @@ class MoodTrackingDAO {
         }
     }
 
-    // Save mood tracking entry
+    /**
+     * Save mood tracking entry to the database.
+     *
+     * @param moodTracking The mood tracking entry to save.
+     * @return The ID of the saved mood tracking entry.
+     */
     fun save(moodTracking: MoodEntry): Int {
         return transaction {
             MoodTracking.insert {
@@ -61,7 +89,12 @@ class MoodTrackingDAO {
         }
     }
 
-    // Delete mood tracking entry
+    /**
+     * Delete mood tracking entry by ID.
+     *
+     * @param id The ID of the mood tracking entry to delete.
+     * @return The number of deleted rows.
+     */
     fun delete(id: Int): Int {
         return transaction {
             MoodTracking.deleteWhere {
@@ -70,7 +103,13 @@ class MoodTrackingDAO {
         }
     }
 
-    // Update mood tracking entry
+    /**
+     * Update mood tracking entry by ID.
+     *
+     * @param id The ID of the mood tracking entry to update.
+     * @param updatedMoodTracking The updated mood tracking entry information.
+     * @return The number of updated rows.
+     */
     fun updateMoodTracking(id: Int, updatedMoodTracking: MoodEntry): Int {
         return transaction {
             MoodTracking.update({

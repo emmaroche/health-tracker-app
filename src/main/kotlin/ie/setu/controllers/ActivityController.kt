@@ -7,13 +7,20 @@ import ie.setu.domain.repository.UserDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
+/**
+ * Controller for handling activities-related HTTP requests.
+ */
 object ActivityController {
 
     private val userDao = UserDAO()
     private val fitnessDao = FitnessGoalsDAO()
     private val activityDAO = ActivityDAO()
 
-    // Get all activities
+    /**
+     * Handles the request to get all activities.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getAllActivities(ctx: Context) {
         val activities = activityDAO.getAll()
         if (activities.size != 0) {
@@ -24,7 +31,11 @@ object ActivityController {
         ctx.json(activities)
     }
 
-    // Get activities by user ID
+    /**
+     * Handles the request to get activities by user ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getActivitiesByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val activities = activityDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -39,7 +50,11 @@ object ActivityController {
         }
     }
 
-    // Get activities by fitness ID
+    /**
+     * Handles the request to get activities by fitness ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getActivitiesByFitnessId(ctx: Context) {
         if (fitnessDao.findByGoalId(ctx.pathParam("fitness-goal-id").toInt()) != null) {
             val activities = activityDAO.findByFitnessId(ctx.pathParam("fitness-goal-id").toInt())
@@ -54,7 +69,11 @@ object ActivityController {
         }
     }
 
-    // Add a new activity
+    /**
+     * Handles the request to add a new activity.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun addActivity(ctx: Context) {
         val activity: Activity = jsonToObject(ctx.body())
         val userId = userDao.findById(activity.userId)
@@ -68,7 +87,11 @@ object ActivityController {
         }
     }
 
-    // Delete all activities associated with a user
+    /**
+     * Handles the request to delete all activities associated with a user.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun deleteAllActivitiesByUserId(ctx: Context) {
         if (activityDAO.deleteAllByUserId(ctx.pathParam("user-id").toInt()) != 0)
             ctx.status(204)
@@ -76,7 +99,11 @@ object ActivityController {
             ctx.status(404)
     }
 
-    // Delete a specific activity by activity ID
+    /**
+     * Handles the request to delete a specific activity by activity ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun deleteActivity(ctx: Context) {
         if (activityDAO.deleteByActivityId(ctx.pathParam("activity-id").toInt()) != 0)
             ctx.status(204)
@@ -84,7 +111,11 @@ object ActivityController {
             ctx.status(404)
     }
 
-    // Update a specific activity by activity ID
+    /**
+     * Handles the request to update a specific activity by activity ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun updateActivity(ctx: Context) {
         val activity: Activity = jsonToObject(ctx.body())
         if (activityDAO.updateByActivityId(
@@ -97,7 +128,11 @@ object ActivityController {
             ctx.status(404)
     }
 
-    // Get activities by activity ID
+    /**
+     * Handles the request to update a specific activity by activity ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getActivityByActivityId(ctx: Context) {
         val activity = activityDAO.findByActivityId((ctx.pathParam("activity-id").toInt()))
         if (activity != null) {

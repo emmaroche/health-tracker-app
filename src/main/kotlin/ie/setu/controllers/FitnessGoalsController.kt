@@ -6,12 +6,19 @@ import ie.setu.domain.repository.UserDAO
 import ie.setu.utils.jsonToObject
 import io.javalin.http.Context
 
+/**
+ * Controller for handling fitness goals-related HTTP requests.
+ */
 object FitnessGoalsController {
 
     private val userDao = UserDAO()
     private val fitnessGoalsDAO = FitnessGoalsDAO()
 
-    // Get all fitness goals
+    /**
+     * Handles the request to get all fitness goals.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getAllFitnessGoals(ctx: Context) {
         val fitnessGoals = fitnessGoalsDAO.getAll()
         if (fitnessGoals.isNotEmpty()) {
@@ -22,7 +29,11 @@ object FitnessGoalsController {
         ctx.json(fitnessGoals)
     }
 
-    // Get fitness goals by goal ID
+    /**
+     * Handles the request to get a fitness goal by goal ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getFitnessGoalByGoalId(ctx: Context) {
         val fitnessGoal = fitnessGoalsDAO.findByGoalId(ctx.pathParam("fitness-goal-id").toInt())
         if (fitnessGoal != null) {
@@ -33,7 +44,11 @@ object FitnessGoalsController {
         }
     }
 
-    // Get all fitness goals for a specific user
+    /**
+     * Handles the request to get all fitness goals for a specific user.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getFitnessGoalsByUserId(ctx: Context) {
         if (userDao.findById(ctx.pathParam("user-id").toInt()) != null) {
             val fitnessGoals = fitnessGoalsDAO.findByUserId(ctx.pathParam("user-id").toInt())
@@ -48,7 +63,11 @@ object FitnessGoalsController {
         }
     }
 
-    // Get a fitness goal by type
+    /**
+     * Handles the request to get a fitness goal by type.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun getFitnessGoalByType(ctx: Context) {
         val fitnessGoal = fitnessGoalsDAO.findByType(ctx.pathParam("type"))
         if (fitnessGoal != null) {
@@ -59,7 +78,11 @@ object FitnessGoalsController {
         }
     }
 
-    // Add a fitness goal
+    /**
+     * Handles the request to add a fitness goal.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun addFitnessGoal(ctx: Context) {
         val fitnessGoals: FitnessGoal = jsonToObject(ctx.body())
         val user = userDao.findById(fitnessGoals.userId)
@@ -73,7 +96,11 @@ object FitnessGoalsController {
         }
     }
 
-    // Update a fitness goal
+    /**
+     * Handles the request to update a fitness goal.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun updateFitnessGoal(ctx: Context) {
         val fitnessGoal: FitnessGoal = jsonToObject(ctx.body())
         if (fitnessGoalsDAO.updateFitnessGoal(
@@ -87,7 +114,11 @@ object FitnessGoalsController {
         }
     }
 
-    // Delete a fitness goal by goal ID
+    /**
+     * Handles the request to delete a fitness goal by goal ID.
+     *
+     * @param ctx The Javalin [Context] object representing the HTTP context.
+     */
     fun deleteFitnessGoal(ctx: Context) {
         val goalId = ctx.pathParam("fitness-goal-id").toInt()
         val deletedCount = fitnessGoalsDAO.delete(goalId)

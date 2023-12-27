@@ -8,8 +8,16 @@ import io.javalin.apibuilder.ApiBuilder.*
 import io.javalin.json.JavalinJackson
 import io.javalin.vue.VueComponent
 
+/**
+ * Configuration class for setting up and managing Javalin web service.
+ */
 class JavalinConfig {
 
+    /**
+     * Starts the Javalin web service and returns the configured Javalin instance.
+     *
+     * @return The configured [Javalin] instance.
+     */
     fun startJavalinService(): Javalin {
 
         val app = Javalin.create{
@@ -26,6 +34,11 @@ class JavalinConfig {
         return app
     }
 
+    /**
+     * Gets the assigned port for the Javalin service, considering the environment variable "PORT."
+     *
+     * @return The assigned port for the Javalin service.
+     */
     private fun getRemoteAssignedPort(): Int {
         val remotePort = System.getenv("PORT")
         return if (remotePort != null) {
@@ -33,6 +46,11 @@ class JavalinConfig {
         } else 7002
     }
 
+    /**
+     * Registers routes for the Javalin application.
+     *
+     * @param app The [Javalin] instance to which routes are registered.
+     */
     fun registerRoutes(app: Javalin) {
         app.routes {
             path("/api/users") {
