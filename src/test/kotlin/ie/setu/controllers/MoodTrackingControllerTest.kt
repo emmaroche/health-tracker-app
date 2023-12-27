@@ -272,7 +272,7 @@ class MoodTrackingControllerTest {
 
     // Helper function to retrieve all mood entries
     private fun retrieveAllMoodEntries(): HttpResponse<JsonNode> {
-        return Unirest.get(origin + "/api/moodTracking").asJson()
+        return Unirest.get("$origin/api/moodTracking").asJson()
     }
 
     // Helper function to retrieve a mood entry by user id
@@ -282,12 +282,12 @@ class MoodTrackingControllerTest {
 
     // Helper function to retrieve a mood entry by mood entry id
     private fun retrieveMoodEntryByMoodEntryId(id: Int): HttpResponse<JsonNode> {
-        return Unirest.get(origin + "/api/moodTracking/$id").asJson()
+        return Unirest.get("$origin/api/moodTracking/$id").asJson()
     }
 
     // Helper function to delete a mood entry by mood entry id
     private fun deleteMoodEntryByMoodEntryId(id: Int): HttpResponse<String> {
-        return Unirest.delete(origin + "/api/moodTracking/$id").asString()
+        return Unirest.delete("$origin/api/moodTracking/$id").asString()
     }
 
     // Helper function to update a mood entry
@@ -299,7 +299,7 @@ class MoodTrackingControllerTest {
         notes: String,
         userId: Int
     ): HttpResponse<JsonNode> {
-        return Unirest.patch(origin + "/api/moodTracking/$id")
+        return Unirest.patch("$origin/api/moodTracking/$id")
             .body(
                 """
             {
@@ -322,7 +322,7 @@ class MoodTrackingControllerTest {
         notes: String,
         userId: Int
     ): HttpResponse<JsonNode> {
-        return Unirest.post(origin + "/api/moodTracking")
+        return Unirest.post("$origin/api/moodTracking")
             .body(
                 """
             {

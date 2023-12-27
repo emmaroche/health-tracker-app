@@ -104,28 +104,28 @@ app.component('home-page',
       created() {
         axios.get("/api/users")
             .then(res => this.users = res.data)
-            .catch(() => alert("Error while fetching users"));
+            .catch(() => alert("There are currently no users to display"));
         axios.get("/api/activities")
             .then(res => this.activities = res.data)
-            .catch(() => alert("Error while fetching activities"));
+            .catch(() => alert("There are currently no activities to display"));
         axios.get("/api/fitnessGoals")
             .then(res => this.fitnessGoals = res.data)
-            .catch(() => alert("Error while fetching fitness goals"));
+            .catch(() => alert("There are currently no fitness goals to display"));
         axios.get("/api/weightGoals")
             .then(res => this.weightGoals = res.data)
-            .catch(() => alert("Error while fetching weight goals"));
+            .catch(() => alert("There are currently no weight goals to display"));
         axios.get("/api/nutritionGoals")
             .then(res => this.nutritionGoals = res.data)
-            .catch(() => alert("Error while fetching nutrition goals"));
+            .catch(() => alert("There are currently no nutrition goals to display"));
         axios.get("/api/healthRecords")
             .then(res => this.healthRecords = res.data)
-            .catch(() => alert("Error while fetching health records"));
+            .catch(() => alert("There are currently no health records to display"));
         axios.get("/api/sleepTracking")
             .then(res => this.sleepTracking = res.data)
-            .catch(() => alert("Error while fetching sleep tracking entries"));
+            .catch(() => alert("There are currently no sleep tracking entries to display"));
         axios.get("/api/moodTracking")
             .then(res => this.moodTracking = res.data)
-            .catch(() => alert("Error while fetching mood tracking entries"));
+            .catch(() => alert("There are currently no mood tracking entries to display"));
       }
     });
 </script>

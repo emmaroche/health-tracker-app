@@ -66,7 +66,7 @@ app.component("user-overview", {
     fetchUsers: function () {
       axios.get("/api/users")
           .then(res => this.users = res.data)
-          .catch(() => alert("Error while fetching users"));
+          .catch(() => alert("We couldn't find any users at the moment. Feel free to add a new user, wait a moment, or refresh the page to check again"));
     },
     deleteUser: function (user, index) {
       if (confirm('Are you sure you want to delete this user? This action cannot be undone.', 'Warning')) {

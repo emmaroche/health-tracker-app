@@ -270,7 +270,7 @@ class SleepTrackingControllerTest {
 
     // Helper function to retrieve all sleep entries
     private fun retrieveAllSleepEntries(): HttpResponse<JsonNode> {
-        return Unirest.get(origin + "/api/sleepTracking").asJson()
+        return Unirest.get("$origin/api/sleepTracking").asJson()
     }
 
     // Helper function to retrieve a sleep entry by user id
@@ -285,7 +285,7 @@ class SleepTrackingControllerTest {
 
     // Helper function to delete a sleep entry
     private fun deleteSleepEntryByUserId(id: Int): HttpResponse<String> {
-        return Unirest.delete(origin + "/api/sleepTracking/$id").asString()
+        return Unirest.delete("$origin/api/sleepTracking/$id").asString()
     }
 
     // Helper function to update a sleep entry
@@ -297,7 +297,7 @@ class SleepTrackingControllerTest {
         notes: String,
         userId: Int
     ): HttpResponse<JsonNode> {
-        return Unirest.patch(origin + "/api/sleepTracking/$id")
+        return Unirest.patch("$origin/api/sleepTracking/$id")
             .body(
                 """
             {
@@ -320,7 +320,7 @@ class SleepTrackingControllerTest {
         notes: String,
         userId: Int
     ): HttpResponse<JsonNode> {
-        return Unirest.post(origin + "/api/sleepTracking")
+        return Unirest.post("$origin/api/sleepTracking")
             .body(
                 """
             {

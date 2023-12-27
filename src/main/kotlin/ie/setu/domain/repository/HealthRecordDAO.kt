@@ -29,7 +29,7 @@ class HealthRecordDAO {
         }
     }
 
-    //Find a specific health record  by health record id
+    //Find a specific health record by health record ID
     fun findByHealthRecordId(id: Int): HealthRecord?{
         return transaction {
             HealthRecords
@@ -100,9 +100,6 @@ class HealthRecordDAO {
             }
         }
     }
-
-
-
 }
 
 

@@ -55,7 +55,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date</span>
             </div>
-            <input class="form-control" v-model="sleepEntry.date" name="date" type="date" />
+            <input class="form-control" v-model="date" name="date" type="date" />
           </div>
 
           <div class="input-group mb-3">
@@ -98,6 +98,8 @@ app.component("sleep-tracking-profile", {
   template: "#sleep-tracking-profile",
   data: () => ({
     sleepEntry: null,
+    //https://stackoverflow.com/questions/47066555/remove-time-after-converting-date-toisostring
+    date: null,
     noSleepEntry: false,
     moodTracking: []
   }),
@@ -105,7 +107,16 @@ app.component("sleep-tracking-profile", {
     const entryId = this.$javalin.pathParams["sleep-tracking-id"];
     const url = `/api/sleepTracking/${entryId}`;
     axios.get(url)
-        .then(res => this.sleepEntry = res.data)
+        .then(res => {
+          this.sleepEntry = res.data;
+
+          // Format the date from the sleep entry
+          // Reference: https://stackoverflow.com/questions/47066555/remove-time-after-converting-date-toisostring
+          const sleepDate = new Date(this.sleepEntry.date);
+          const formattedDate = sleepDate.toISOString().split('T')[0];
+
+          this.date = formattedDate; // Set the formatted date
+        })
         .catch(() => {
           console.error("Error while fetching sleep entry: " + entryId);
           this.noSleepEntry = true;
@@ -126,7 +137,7 @@ app.component("sleep-tracking-profile", {
         quality: this.sleepEntry.quality,
         duration: this.sleepEntry.duration,
         notes: this.sleepEntry.notes,
-        date: this.sleepEntry.date,
+        date: this.date,
         userId: this.sleepEntry.userId
       };
 

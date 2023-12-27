@@ -122,7 +122,7 @@ app.component("nutrition-goals-overview", {
     fetchNutritionGoals: function () {
       axios.get("/api/nutritionGoals")
           .then(res => this.nutritionGoals = res.data)
-          .catch(() => alert("Error while fetching nutrition goals"));
+          .catch(() => alert("We couldn't find any nutrition goals at the moment. Feel free to add a new nutrition goal, wait a moment, or refresh the page to check again"));
     },
     deleteNutritionGoal: function (nutritionGoal, index) {
       if (confirm('Are you sure you want to delete this nutrition goal? This action cannot be undone.', 'Warning')) {

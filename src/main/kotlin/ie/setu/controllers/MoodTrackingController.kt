@@ -50,7 +50,7 @@ object MoodTrackingController {
         }
     }
 
-    // Get all mood tracking entries for a specific sleep
+    // Get all mood tracking entries for a specific sleep ID
     fun getMoodTrackingBySleepId(ctx: Context) {
         if (sleepDao.findById(ctx.pathParam("sleep-tracking-id").toInt()) != null) {
             val sleepId = ctx.pathParam("sleep-tracking-id").toInt()

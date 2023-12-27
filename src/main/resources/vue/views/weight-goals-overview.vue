@@ -78,7 +78,7 @@
         <div class="mr-auto p-2">
           <span>
             <a :href="`/weightGoals/${weightGoal.id}`" style="color: #08a29e;">
-              {{ weightGoal.type }} (Starting Weight: {{ weightGoal.startingWeight }} kg, Target Weight: {{ weightGoal.targetWeight }} kg, Weekly Goal: {{ weightGoal.weeklyGoal }} kg, Deadline: {{ weightGoal.deadline }}, User ID: {{ weightGoal.userId }})
+              {{ weightGoal.type }} (Starting Weight: {{ weightGoal.startingWeight }} kg, Target Weight: {{ weightGoal.targetWeight }} kg, Weekly Goal: {{ weightGoal.weeklyGoal }} kg, Deadline: {{ new Date (weightGoal.deadline).toLocaleDateString() }}, User ID: {{ weightGoal.userId }})
             </a>
           </span>
         </div>
@@ -123,7 +123,7 @@ app.component("weight-goals-overview", {
     fetchWeightGoals: function () {
       axios.get("/api/weightGoals")
           .then(res => this.weightGoals = res.data)
-          .catch(() => alert("Error while fetching weight goals"));
+          .catch(() => alert("We couldn't find any weight goals at the moment. Feel free to add a new weight goal, wait a moment, or refresh the page to check again"));
     },
     addWeightGoal: function () {
       const url = "/api/weightGoals";

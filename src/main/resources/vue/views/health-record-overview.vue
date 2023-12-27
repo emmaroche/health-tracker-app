@@ -217,7 +217,7 @@ app.component("health-record-overview", {
     fetchHealthRecords: function () {
       axios.get("/api/healthRecords")
           .then(res => this.healthRecords = res.data)
-          .catch(() => alert("Error while fetching health records"));
+          .catch(() => alert("We couldn't find any health records at the moment. Feel free to add a new health record, wait a moment, or refresh the page to check again"));
     },
     deleteHealthRecord: function (healthRecord, index) {
       if (confirm('Are you sure you want to delete this health record? This action cannot be undone.', 'Warning')) {

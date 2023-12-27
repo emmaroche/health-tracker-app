@@ -210,8 +210,8 @@ class HealthRecordControllerTest {
                 404, updateHealthRecord(
                     hrId, updatedTimestamp, updatedFirstname,
                     updatedLastname, updatedSex, updatedDob, updatedWeight,
-                    updatedHeight, updatedbloodType, updatedallergies, updatedmedicalConditions,
-                    updatedmedications, updatednotes, userId
+                    updatedHeight, updatedBloodType, updatedAllergies, updatedMedicalConditions,
+                    updatedMedications, updatedNote, userId
                 ).status
             )
         }
@@ -236,8 +236,8 @@ class HealthRecordControllerTest {
             val updatedHrResponse = updateHealthRecord(
                 addedHr.id, updatedTimestamp, updatedFirstname,
                 updatedLastname, updatedSex, updatedDob, updatedWeight,
-                updatedHeight, updatedbloodType, updatedallergies, updatedmedicalConditions,
-                updatedmedications, updatednotes, addedUser.id
+                updatedHeight, updatedBloodType, updatedAllergies, updatedMedicalConditions,
+                updatedMedications, updatedNote, addedUser.id
             )
             assertEquals(204, updatedHrResponse.status)
 
@@ -251,13 +251,11 @@ class HealthRecordControllerTest {
             assertEquals(updatedDob, updatedHr.dob)
             assertEquals(updatedWeight, updatedHr.weight)
             assertEquals(updatedHeight, updatedHr.height)
-            assertEquals(updatedbloodType, updatedHr.bloodType)
-            assertEquals(updatedallergies, updatedHr.allergies)
-//                println("Expected: $updatedmedicalConditions")
-//                println("Actual: ${updatedHr.medicalConditions}")
-//                assertEquals(updatedmedicalConditions.trim(), updatedHr.medicalConditions.trim())
-//                assertEquals(updatedmedications, updatedHr.medications )
-//                assertEquals(updatednotes, updatedHr.notes )
+            assertEquals(updatedBloodType, updatedHr.bloodType)
+            assertEquals(updatedAllergies, updatedHr.allergies)
+            assertEquals(updatedMedicalConditions, updatedHr.medicalConditions)
+            assertEquals(updatedMedications, updatedHr.medications)
+            assertEquals(updatedNote, updatedHr.notes)
 
             //After - delete the user
             testUtilities.deleteUser(addedUser.id)
@@ -325,7 +323,7 @@ class HealthRecordControllerTest {
 
     //Helper function to retrieve all health records
     private fun retrieveAllHr(): HttpResponse<JsonNode> {
-        return Unirest.get(origin + "/api/healthRecords").asJson()
+        return Unirest.get("$origin/api/healthRecords").asJson()
     }
 
     //Helper function to retrieve a health record by user id
@@ -340,7 +338,7 @@ class HealthRecordControllerTest {
 
     //Helper function to delete a health record
     private fun deleteHrByUserId(id: Int): HttpResponse<String> {
-        return Unirest.delete(origin + "/api/healthRecords/$id").asString()
+        return Unirest.delete("$origin/api/healthRecords/$id").asString()
     }
 
     //Helper function to update a health record
@@ -360,7 +358,7 @@ class HealthRecordControllerTest {
         notes: String,
         userId: Int
     ): HttpResponse<JsonNode> {
-        return Unirest.patch(origin + "/api/healthRecords/$id")
+        return Unirest.patch("$origin/api/healthRecords/$id")
             .body(
                 """
             {
@@ -399,7 +397,7 @@ class HealthRecordControllerTest {
         notes: String,
         userId: Int
     ): HttpResponse<JsonNode> {
-        return Unirest.post(origin + "/api/healthRecords")
+        return Unirest.post("$origin/api/healthRecords")
             .body(
                 """
             {

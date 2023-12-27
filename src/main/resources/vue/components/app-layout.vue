@@ -17,11 +17,11 @@
                 Home
               </a>
             </li>
-            <li class="nav-item" :class="{ 'active': activeLink === '/' }">
-              <a @click="setActiveLink('/')" class="nav-link">
-                Dashboard
-              </a>
-            </li>
+<!--            <li class="nav-item" :class="{ 'active': activeLink === '/' }">-->
+<!--              <a @click="setActiveLink('/')" class="nav-link">-->
+<!--                Dashboard-->
+<!--              </a>-->
+<!--            </li>-->
             <li class="nav-item" :class="{ 'active': activeLink === '/users' }">
               <a @click="setActiveLink('/users')" class="nav-link">
                 Users

@@ -88,6 +88,7 @@
         </div>
       </div>
     </div>
+    </div>
   </app-layout>
 </template>
 
@@ -112,7 +113,7 @@ app.component("activity-overview", {
     fetchActivities: function () {
       axios.get("/api/activities")
           .then(res => this.activities = res.data)
-          .catch(() => alert("Error while fetching activities"));
+          .catch(() => alert("We couldn't find any activities at the moment. Feel free to add a new activity, wait a moment, or refresh the page to check again"));
     },
     deleteActivity: function (activity, index) {
       if (confirm('Are you sure you want to delete this activity? This action cannot be undone.', 'Warning')) {

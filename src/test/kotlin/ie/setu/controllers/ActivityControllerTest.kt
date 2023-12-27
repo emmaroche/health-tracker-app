@@ -338,7 +338,7 @@ class ActivityControllerTest {
 
         //Helper function to retrieve all activities
         private fun retrieveAllActivities(): HttpResponse<JsonNode> {
-            return Unirest.get(origin + "/api/activities").asJson()
+            return Unirest.get("$origin/api/activities").asJson()
         }
 
         //Helper function to retrieve activities by user id
@@ -353,12 +353,12 @@ class ActivityControllerTest {
 
         //Helper function to delete an activity by activity id
         private fun deleteActivityByActivityId(id: Int): HttpResponse<String> {
-            return Unirest.delete(origin + "/api/activities/$id").asString()
+            return Unirest.delete("$origin/api/activities/$id").asString()
         }
 
         //Helper function to delete an activity by activity id
         private fun deleteActivitiesByUserId(id: Int): HttpResponse<String> {
-            return Unirest.delete(origin + "/api/users/$id/activities").asString()
+            return Unirest.delete("$origin/api/users/$id/activities").asString()
         }
 
         // Helper function to update an activity
@@ -366,7 +366,7 @@ class ActivityControllerTest {
             id: Int, description: String, duration: Double, calories: Int,
             started: DateTime, userId: Int, fitnessId: Int
         ): HttpResponse<JsonNode> {
-            return Unirest.patch(origin + "/api/activities/$id")
+            return Unirest.patch("$origin/api/activities/$id")
                 .body(
                     """
             {
@@ -386,7 +386,7 @@ class ActivityControllerTest {
             description: String, duration: Double, calories: Int,
             started: DateTime, userId: Int, fitnessId: Int
         ): HttpResponse<JsonNode> {
-            return Unirest.post(origin + "/api/activities")
+            return Unirest.post("$origin/api/activities")
                 .body(
                     """
             {

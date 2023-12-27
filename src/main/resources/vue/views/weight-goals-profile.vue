@@ -44,12 +44,12 @@
           <input class="form-control" v-model="weightGoal.startingWeight" name="startingWeight" type="number" />
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Starting Weight Timestamp</span>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Starting Weight Date</span>
+            </div>
+            <input class="form-control" v-model="startingWeightDate" name="startingWeightDate" type="date" />
           </div>
-          <input class="form-control" v-model="weightGoal.startingWeightTimestamp" name="startingWeightTimestamp" type="datetime-local" />
-        </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -65,12 +65,12 @@
           <input class="form-control" v-model="weightGoal.weeklyGoal" name="weeklyGoal" type="number" />
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-deadline">Deadline</span>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-deadline">Deadline</span>
+            </div>
+            <input class="form-control" v-model="deadline" name="deadline" type="date" />
           </div>
-          <input class="form-control" v-model="weightGoal.deadline" name="deadline" type="datetime-local" />
-        </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -128,13 +128,23 @@ app.component("weight-goals-profile", {
   data: () => ({
     weightGoal: null,
     noWeightGoal: false,
-    nutritionGoals: []
+    nutritionGoals: [],
+    startingWeightDate: null,
+    deadline: null,
   }),
   created: function () {
     const wgId = this.$javalin.pathParams["weight-goal-id"];
     const url = `/api/weightGoals/${wgId}`;
     axios.get(url)
-        .then(res => this.weightGoal = res.data)
+        .then(res => {
+          this.weightGoal = res.data;
+
+          // Format the starting weight date
+          this.startingWeightDate = formatDate(this.weightGoal.startingWeightTimestamp);
+
+          // Format the deadline
+          this.deadline = formatDate(this.weightGoal.deadline);
+        })
         .catch(() => {
           console.error("Error while fetching weight goal: " + wgId);
           this.noWeightGoal = true;
@@ -144,7 +154,7 @@ app.component("weight-goals-profile", {
         .then(res => this.nutritionGoals = res.data)
         .catch(error => {
           console.log("No nutrition goals added yet: " + error)
-        })
+        });
   },
   methods: {
     updateWeightGoal: function () {
@@ -155,10 +165,10 @@ app.component("weight-goals-profile", {
         id: this.weightGoal.id,
         type: this.weightGoal.type,
         startingWeight: this.weightGoal.startingWeight,
-        startingWeightTimestamp: this.weightGoal.startingWeightTimestamp,
+        startingWeightTimestamp: formatDateISO(this.startingWeightDate),
         targetWeight: this.weightGoal.targetWeight,
         weeklyGoal: this.weightGoal.weeklyGoal,
-        deadline: this.weightGoal.deadline,
+        deadline: formatDateISO(this.deadline),
         userId: this.weightGoal.userId,
         actId: this.weightGoal.actId
       };
@@ -192,4 +202,15 @@ app.component("weight-goals-profile", {
     }
   }
 });
+
+// Helper function to format date
+function formatDate(date) {
+  const formattedDate = new Date(date);
+  return formattedDate.toISOString().split('T')[0];
+}
+
+// Helper function to format date as ISO string
+function formatDateISO(date) {
+  return new Date(date).toISOString();
+}
 </script>
