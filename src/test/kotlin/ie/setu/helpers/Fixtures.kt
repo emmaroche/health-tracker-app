@@ -9,8 +9,12 @@ import org.joda.time.DateTime
 const val nonExistingEmail = "112233445566778testUser@xxxxx.xx"
 const val validName = "Test User 1"
 const val validEmail = "testuser1@test.com"
+const val validPhone = 123456789
+const val validAddress = "123 Main Street"
 const val updatedName = "Updated Name"
 const val updatedEmail = "Updated Email"
+const val updatedPhone = 123456789
+const val updatedAddress = "123 Main Street"
 
 const val updatedDescription = "Updated Description"
 const val updatedDuration = 30.0

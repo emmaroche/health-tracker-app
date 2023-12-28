@@ -57,7 +57,7 @@ class MoodTrackingControllerTest {
         @Test
         fun `get all mood entries by user id when user and mood entries exist returns 200 response`() {
             // Arrange - add a user and 3 associated mood entries that we plan to retrieve
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val sleepId = 14
 
             addMoodEntry(
@@ -86,7 +86,7 @@ class MoodTrackingControllerTest {
         @Test
         fun `get all mood entries by user id when no mood entries exist returns 404 response`() {
             // Arrange - add a user
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             // Act & Assert - retrieve the mood entries by user id
             val response = retrieveMoodEntriesByUserId(addedUser.id)
@@ -119,7 +119,7 @@ class MoodTrackingControllerTest {
         @Test
         fun `get mood entry by mood entry id when mood entry exists returns 200 response`() {
             // Arrange - add a user and associated mood entry
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val sleepId = 14
             val addEntryResponse = addMoodEntry(
                 moodTracking[0].date, moodTracking[0].mood, moodTracking[0].rating,
@@ -139,7 +139,7 @@ class MoodTrackingControllerTest {
         @Test
         fun `get mood entries by sleep tracking id when sleep tracking id exists and has mood entries returns 200 response`() {
             // Arrange - add a sleep entry and associated mood entries
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val sleepId = 14
 
             // Add three associated mood entries
@@ -171,7 +171,7 @@ class MoodTrackingControllerTest {
         @Test
         fun `get mood entries by sleep tracking id when sleep tracking id exists and has no mood entries returns 404 response`() {
             // Arrange - add a sleep entry
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val sleepTrackingId = 456
 
             // Add a sleep entry with no associated mood entries
@@ -207,7 +207,7 @@ class MoodTrackingControllerTest {
         fun `add a mood entry when a user exists for it, returns a 201 response`() {
 
             // Arrange - add a user and an associated mood entry that we plan to do a delete on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val sleepId = 14
 
             val addEntryResponse = addMoodEntry(
@@ -263,7 +263,7 @@ class MoodTrackingControllerTest {
         fun `updating a mood entry by mood entry id when it exists, returns 204 response`() {
 
             // Arrange - add a user and an associated mood entry that we plan to do an update on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val sleepId = 14
             val addEntryResponse = addMoodEntry(
                 moodTracking[0].date, moodTracking[0].mood, moodTracking[0].rating,
@@ -305,7 +305,7 @@ class MoodTrackingControllerTest {
         fun `deleting all mood entries by user id when it exists, returns a 204 response`() {
 
             // Arrange - add a user and 3 associated mood entries that we plan to do a cascade delete
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val sleepId = 14
             val addEntryResponse1 = addMoodEntry(
                 moodTracking[0].date, moodTracking[0].mood, moodTracking[0].rating,

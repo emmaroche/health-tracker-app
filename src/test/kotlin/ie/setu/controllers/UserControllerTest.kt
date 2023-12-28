@@ -74,7 +74,7 @@ class UserControllerTest {
         fun `getting a user by id when id exists, returns a 200 response`() {
 
             //Arrange - add the user
-            val addResponse = testUtilities.addUser(validName, validEmail)
+            val addResponse = testUtilities.addUser(validName, validEmail, validPhone, validAddress)
             val addedUser: User = jsonToObject(addResponse.body.toString())
 
             //Assert - retrieve the added user from the database and verify return code
@@ -89,7 +89,7 @@ class UserControllerTest {
         fun `getting a user by email when email exists, returns a 200 response`() {
 
             //Arrange - add the user
-            testUtilities.addUser(validName, validEmail)
+            testUtilities.addUser(validName, validEmail, validPhone, validAddress)
 
             //Assert - retrieve the added user from the database and verify return code
             val retrieveResponse = testUtilities.retrieveUserByEmail(validEmail)
@@ -108,7 +108,7 @@ class UserControllerTest {
 
             //Arrange & Act & Assert
             //    add the user and verify return code (using fixture data)
-            val addResponse = testUtilities.addUser(validName, validEmail)
+            val addResponse = testUtilities.addUser(validName, validEmail, validPhone, validAddress)
             assertEquals(201, addResponse.status)
 
             //Assert - retrieve the added user from the database and verify return code
@@ -132,17 +132,19 @@ class UserControllerTest {
         fun `updating a user when it exists, returns a 204 response`() {
 
             //Arrange - add the user that we plan to do an update on
-            val addedResponse = testUtilities.addUser(validName, validEmail)
+            val addedResponse = testUtilities.addUser(validName, validEmail, validPhone, validAddress)
             val addedUser: User = jsonToObject(addedResponse.body.toString())
 
             //Act & Assert - update the email and name of the retrieved user and assert 204 is returned
-            assertEquals(204, updateUser(addedUser.id, updatedName, updatedEmail).status)
+            assertEquals(204, updateUser(addedUser.id, updatedName, updatedEmail, updatedPhone, updatedAddress).status)
 
             //Act & Assert - retrieve updated user and assert details are correct
             val updatedUserResponse = testUtilities.retrieveUserById(addedUser.id)
             val updatedUser: User = jsonToObject(updatedUserResponse.body.toString())
             assertEquals(updatedName, updatedUser.name)
             assertEquals(updatedEmail, updatedUser.email)
+            assertEquals(updatedPhone, updatedUser.phoneNumber)
+            assertEquals(updatedAddress, updatedUser.address)
 
             //After - restore the db to previous state by deleting the added user
             testUtilities.deleteUser(addedUser.id)
@@ -154,9 +156,11 @@ class UserControllerTest {
             //Arrange - creating some text fixture data
             val updatedName = "Updated Name"
             val updatedEmail = "Updated Email"
+            val updatedPhone = 123456789
+            val updatedAddress = "123 Main Street"
 
             //Act & Assert - attempt to update the email and name of user that doesn't exist
-            assertEquals(404, updateUser(-1, updatedName, updatedEmail).status)
+            assertEquals(404, updateUser(-1, updatedName, updatedEmail, updatedPhone, updatedAddress).status)
         }
     }
 
@@ -172,7 +176,7 @@ class UserControllerTest {
         fun `deleting a user when it exists, returns a 204 response`() {
 
             //Arrange - add the user that we plan to do a delete on
-            val addedResponse = testUtilities.addUser(validName, validEmail)
+            val addedResponse = testUtilities.addUser(validName, validEmail, validPhone, validAddress)
             val addedUser: User = jsonToObject(addedResponse.body.toString())
 
             //Act & Assert - delete the added user and assert a 204 is returned
@@ -184,10 +188,11 @@ class UserControllerTest {
     }
 
     //helper function to add a test user to the database
-    private fun updateUser(id: Int, name: String, email: String): HttpResponse<JsonNode> {
+    private fun updateUser(id: Int, name: String, email: String, phoneNumber: Int, address: String): HttpResponse<JsonNode> {
         return Unirest.patch("$origin/api/users/$id")
-            .body("{\"name\":\"$name\", \"email\":\"$email\"}")
+            .body("{\"name\":\"$name\", \"email\":\"$email\", \"phoneNumber\": $phoneNumber, \"address\": \"$address\"}")
             .asJson()
     }
+
 
 }

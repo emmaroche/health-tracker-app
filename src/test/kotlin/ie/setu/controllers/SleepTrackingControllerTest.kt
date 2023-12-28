@@ -57,7 +57,7 @@ class SleepTrackingControllerTest {
         @Test
         fun `get all sleep entries by user id when user and sleep entries exist returns 200 response`() {
             // Arrange - add a user and 3 associated sleep entries that we plan to retrieve
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             addSleepEntry(
                 sleepTracking[0].date, sleepTracking[0].duration,
                 sleepTracking[0].quality, sleepTracking[0].notes, addedUser.id
@@ -84,7 +84,7 @@ class SleepTrackingControllerTest {
         @Test
         fun `get all sleep entries by user id when no sleep entries exist returns 404 response`() {
             // Arrange - add a user
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             // Act & Assert - retrieve the sleep entries by user id
             val response = retrieveSleepEntriesByUserId(addedUser.id)
@@ -117,7 +117,7 @@ class SleepTrackingControllerTest {
         @Test
         fun `get sleep entry by sleep entry id when sleep entry exists returns 200 response`() {
             // Arrange - add a user and associated sleep entry
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addEntryResponse = addSleepEntry(
                 sleepTracking[0].date, sleepTracking[0].duration,
                 sleepTracking[0].quality, sleepTracking[0].notes, addedUser.id
@@ -142,7 +142,7 @@ class SleepTrackingControllerTest {
         fun `add a sleep entry when a user exists for it, returns a 201 response`() {
 
             // Arrange - add a user and an associated sleep entry that we plan to do a delete on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             val addEntryResponse = addSleepEntry(
                 sleepTracking[0].date, sleepTracking[0].duration,
@@ -193,7 +193,7 @@ class SleepTrackingControllerTest {
         fun `updating a sleep entry by sleep entry id when it exists, returns 204 response`() {
 
             // Arrange - add a user and an associated sleep entry that we plan to do an update on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addEntryResponse = addSleepEntry(
                 sleepTracking[0].date, sleepTracking[0].duration,
                 sleepTracking[0].quality, sleepTracking[0].notes, addedUser.id
@@ -234,7 +234,7 @@ class SleepTrackingControllerTest {
         fun `deleting all sleep entries by user id when it exists, returns a 204 response`() {
 
             // Arrange - add a user and 3 associated sleep entries that we plan to do a cascade delete
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addEntryResponse1 = addSleepEntry(
                 sleepTracking[0].date, sleepTracking[0].duration,
                 sleepTracking[0].quality, sleepTracking[0].notes, addedUser.id

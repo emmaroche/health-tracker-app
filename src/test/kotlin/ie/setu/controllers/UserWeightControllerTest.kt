@@ -5,10 +5,7 @@ import ie.setu.config.DbConfig
 import ie.setu.domain.Activity
 import ie.setu.domain.CurrentWeight
 import ie.setu.domain.User
-import ie.setu.helpers.ServerContainer
-import ie.setu.helpers.userWeight2
-import ie.setu.helpers.validEmail
-import ie.setu.helpers.validName
+import ie.setu.helpers.*
 import ie.setu.utils.TestUtilities
 import ie.setu.utils.jsonNodeToObject
 import ie.setu.utils.jsonToObject
@@ -62,7 +59,7 @@ class UserWeightControllerTest {
         @Test
         fun `get user weight by weight ID when user weight exists returns 200 response`() {
             // Arrange - add a user and an associated user weight
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addUserWeightResponse = addUserWeight(
                 userWeight2[0].currentWeight,
                 userWeight2[0].currentWeightTimestamp,
@@ -83,7 +80,7 @@ class UserWeightControllerTest {
         @Test
         fun `get user weight by weight ID when no user weight exists returns 404 response`() {
             // Arrange - add a user
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             // Act & Assert - retrieve the user weight by weight ID
             val response = retrieveUserWeightByWeightId(-1)
@@ -96,7 +93,7 @@ class UserWeightControllerTest {
         @Test
         fun `get all user weights when user weights exist returns 200 response`() {
             // Arrange - add a user and an associated user weight
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             addUserWeight(
                 userWeight2[0].currentWeight,
                 userWeight2[0].currentWeightTimestamp,
@@ -129,7 +126,7 @@ class UserWeightControllerTest {
         @Test
         fun `add user weight when a user exists for it, returns a 201 response`() {
             // Arrange - add a user
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             // Act & Assert - add a user weight
             val addUserWeightResponse = addUserWeight(
@@ -163,7 +160,7 @@ class UserWeightControllerTest {
         @Test
         fun `update user weight by weight ID when it exists returns 204 response`() {
             // Arrange - add a user and an associated user weight
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addUserWeightResponse = addUserWeight(
                 userWeight2[0].currentWeight,
                 userWeight2[0].currentWeightTimestamp,
@@ -211,7 +208,7 @@ class UserWeightControllerTest {
         @Test
         fun `delete user weight by weight ID when it exists, returns 204 response`() {
             // Arrange - add a user and an associated user weight
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addUserWeightResponse = addUserWeight(
                 userWeight2[0].currentWeight,
                 userWeight2[0].currentWeightTimestamp,

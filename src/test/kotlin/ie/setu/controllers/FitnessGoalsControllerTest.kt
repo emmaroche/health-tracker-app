@@ -56,7 +56,7 @@ class FitnessGoalsControllerTest {
         @Test
         fun `get all fitness goals by user id when user and fitness goals exist returns 200 response`() {
             // Arrange - add a user and 3 associated fitness goals that we plan to retrieve
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             addFitnessGoal(
                 fitnessGoals[0].type, fitnessGoals[0].workoutsPerWeek, fitnessGoals[0].minutesOfWorkouts,
                 fitnessGoals[0].calorieBurningGoalDuringExercise, addedUser.id
@@ -83,7 +83,7 @@ class FitnessGoalsControllerTest {
         @Test
         fun `get all fitness goals by user id when no fitness goals exist returns 404 response`() {
             // Arrange - add a user
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             // Act and Assert - retrieve the fitness goals by user id
             val response = retrieveFitnessGoalsByUserId(addedUser.id)
@@ -116,7 +116,7 @@ class FitnessGoalsControllerTest {
         @Test
         fun `get fitness goal by goal id when fitness goal exists returns 200 response`() {
             // Arrange - add a user and an associated fitness goal
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addGoalResponse = addFitnessGoal(
                 fitnessGoals[0].type, fitnessGoals[0].workoutsPerWeek, fitnessGoals[0].minutesOfWorkouts,
                 fitnessGoals[0].calorieBurningGoalDuringExercise, addedUser.id
@@ -141,7 +141,7 @@ class FitnessGoalsControllerTest {
         fun `add a fitness goal when a user exists for it, returns a 201 response`() {
 
             // Arrange - add a user and an associated fitness goal that we plan to do a delete on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             val addGoalResponse = addFitnessGoal(
                 fitnessGoals[0].type, fitnessGoals[0].workoutsPerWeek, fitnessGoals[0].minutesOfWorkouts,
@@ -193,7 +193,7 @@ class FitnessGoalsControllerTest {
         fun `updating a fitness goal by goal id when it exists, returns 204 response`() {
 
             // Arrange - add a user and an associated fitness goal that we plan to do an update on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addGoalResponse = addFitnessGoal(
                 fitnessGoals[0].type, fitnessGoals[0].workoutsPerWeek, fitnessGoals[0].minutesOfWorkouts,
                 fitnessGoals[0].calorieBurningGoalDuringExercise, addedUser.id
@@ -226,7 +226,7 @@ class FitnessGoalsControllerTest {
         fun `deleting all fitness goals by user id when it exists, returns a 204 response`() {
 
             // Arrange - add a user and 3 associated fitness goals that we plan to do a cascade delete
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addGoalResponse1 = addFitnessGoal(
                 fitnessGoals[0].type, fitnessGoals[0].workoutsPerWeek, fitnessGoals[0].minutesOfWorkouts,
                 fitnessGoals[0].calorieBurningGoalDuringExercise, addedUser.id
