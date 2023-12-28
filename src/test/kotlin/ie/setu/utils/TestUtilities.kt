@@ -15,7 +15,6 @@ class TestUtilities {
             .asJson()
     }
 
-
     // Helper function to delete a test user from the database
     fun deleteUser(id: Int): HttpResponse<String> {
         return Unirest.delete("$origin/api/users/$id").asString()

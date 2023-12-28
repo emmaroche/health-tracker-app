@@ -11,7 +11,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;">  Add current weight.</div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;">Your current weight</div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addUserWeight">
           <div class="input-group mb-3">

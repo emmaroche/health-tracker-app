@@ -107,7 +107,7 @@ class UserControllerTest {
         fun `add a user with correct details returns a 201 response`() {
 
             //Arrange & Act & Assert
-            //    add the user and verify return code (using fixture data)
+            // Add the user and verify return code (using fixture data)
             val addResponse = testUtilities.addUser(validName, validEmail, validPhone, validAddress)
             assertEquals(201, addResponse.status)
 

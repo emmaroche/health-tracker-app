@@ -406,6 +406,7 @@ class WeightGoalsControllerTest {
         userId: Int,
         actId: Int
     ): HttpResponse<JsonNode> {
+
         // ChatGPT generated the 3 lines 372-374 to help with a formatting error
         val startingWeightTimestampStr =
             startingWeightTimestamp.toString(ISODateTimeFormat.dateTime())  // Format as ISO 8601
