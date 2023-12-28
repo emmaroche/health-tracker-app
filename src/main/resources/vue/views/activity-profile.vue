@@ -52,7 +52,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date & Time</span>
             </div>
-            <input type="text" class="form-control" v-model="activity.started" name="started"/>
+            <input type="date" class="form-control" v-model="started" name="started"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -64,7 +64,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-fitnessGoalId">Fitness Goal ID</span>
             </div>
-            <input type="number" class="form-control" v-model="activity.fitnessId" name="fitnessGoalId" readonly placeholder="Fitness Goal ID"/>
+            <input type="number" class="form-control" v-model="activity.fitnessId" name="fitnessGoalId"  placeholder="Fitness Goal ID"/>
           </div>
         </form>
       </div>
@@ -102,6 +102,7 @@ app.component("activity-profile", {
     activity: null,
     noActivity: false,
     weightGoals: [],
+    started: null,
   }),
   created: function () {
     const actId = this.$javalin.pathParams["activity-id"];
@@ -111,6 +112,8 @@ app.component("activity-profile", {
         .then(res => {
           console.log("Activity Response:", res.data);
           this.activity = res.data;
+
+          this.started = formatDate(this.activity.started);
         })
         .catch(error => {
           console.error("Error while fetching activity:", error);
@@ -133,7 +136,7 @@ app.component("activity-profile", {
         description: this.activity.description,
         duration: this.activity.duration,
         calories: this.activity.calories,
-        started: this.activity.started,
+        started: formatDateISO(this.started),
         userId: this.activity.userId,
         fitnessId: this.activity.fitnessId
       };
@@ -159,4 +162,15 @@ app.component("activity-profile", {
     }
   }
 });
+
+// Helper function to format date
+function formatDate(date) {
+  const formattedDate = new Date(date);
+  return formattedDate.toISOString().split('T')[0];
+}
+
+// Helper function to format date as ISO string
+function formatDateISO(date) {
+  return new Date(date).toISOString();
+}
 </script>

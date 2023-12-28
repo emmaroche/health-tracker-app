@@ -44,6 +44,19 @@
                 placeholder="Last Name"
             />
           </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-health-record-timestamp">Record Timestamp</span>
+            </div>
+            <input
+                type="date"
+                class="form-control"
+                v-model="formData.timestamp"
+                name="timestamp"
+                placeholder="Timestamp"
+            />
+          </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-health-record-sex">Sex</span>
@@ -54,11 +67,11 @@
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-health-record-dob">Date of Birth</span>
             </div>
-            <input type="text" class="form-control" v-model="formData.dob" name="dob" placeholder="Date of Birth" />
+            <input type="date" class="form-control" v-model="formData.dob" name="dob" placeholder="Date of Birth" />
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-health-record-height">Height</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-health-record-height">Height (cm)</span>
             </div>
             <input
                 type="number"
@@ -159,7 +172,7 @@
           <p><strong>Name:</strong> {{ healthRecord.firstName }} {{ healthRecord.lastName }}</p>
           <p><strong>Sex:</strong> {{ healthRecord.sex }}</p>
           <p><strong>DOB:</strong> {{ new Date(healthRecord.dob).toLocaleDateString() }}</p>
-          <p><strong>Height:</strong> {{ healthRecord.height }}</p>
+          <p><strong>Height:</strong> {{ healthRecord.height }} cm</p>
           <a :href="`/healthRecords/${healthRecord.id}`" style="color: #08a29e;">
             View more Details
           </a>

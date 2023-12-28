@@ -160,11 +160,14 @@ class UserWeightControllerTest {
         @Test
         fun `update user weight by weight ID when it exists returns 204 response`() {
             // Arrange - add a user and an associated user weight
+
+            val weightId = 789
+
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addUserWeightResponse = addUserWeight(
                 userWeight2[0].currentWeight,
                 userWeight2[0].currentWeightTimestamp,
-                userWeight2[0].weightGoalId,
+                weightId,
                 addedUser.id
             )
             assertEquals(201, addUserWeightResponse.status)
@@ -173,14 +176,18 @@ class UserWeightControllerTest {
             // Act & Assert - update the user weight
             val updatedWeight = 90.0
             val updatedTimestamp = DateTime.parse("2023-11-24T10:30:00")
+
+            // Update the user weight using the correct parameters and endpoint
             val updatedWeightResponse = updateUserWeight(
                 addedUserWeight.id,
                 updatedWeight,
                 updatedTimestamp,
-                userWeight2[0].weightGoalId,
-                addedUser.id
+                weightId,
+                addedUser.id,
             )
-//            assertEquals(204, updatedWeightResponse.status)
+
+            // Check if the update was successful (HTTP status code 204)
+            assertEquals(204, updatedWeightResponse.status)
 
             // After - delete the user
             testUtilities.deleteUser(addedUser.id)
@@ -271,7 +278,6 @@ class UserWeightControllerTest {
             .asJson()
     }
 
-
     private fun updateUserWeight(
         id: Int,
         currentWeight: Double,
@@ -279,29 +285,19 @@ class UserWeightControllerTest {
         weightGoalId: Int,
         userId: Int
     ): HttpResponse<JsonNode> {
-        val requestBody = """
-        {
-          "id": $id,
-          "currentWeight": $currentWeight,
-          "currentWeightTimestamp": "$currentWeightTimestamp",
-          "weightGoalId": $weightGoalId,
-          "userId": $userId
-        }
-    """.trimIndent()
-
-        val endpoint = "$origin/api/userWeight/$id"
-
-        // Print relevant information for debugging
-        println("Updating user weight at endpoint: $endpoint")
-        println("Updated User Weight ID: $id")
-        println("Updated User Weight Body: $requestBody")
-
-        return Unirest.put(endpoint)
-            .header("Content-Type", "application/json")
-            .body(requestBody)
+        return Unirest.patch("$origin/api/userWeight/$id")
+            .body(
+                """
+            {
+                "currentWeight": $currentWeight,
+                "currentWeightTimestamp": "$currentWeightTimestamp",
+                "weightGoalId": $weightGoalId,
+                "userId": $userId
+            }
+            """.trimIndent()
+            )
             .asJson()
     }
-
 
     private fun deleteUserWeight(weightId: Int): HttpResponse<String> {
         return Unirest.delete("$origin/api/userWeight/$weightId").asString()
