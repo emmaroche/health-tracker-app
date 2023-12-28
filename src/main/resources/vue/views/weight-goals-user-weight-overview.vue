@@ -43,34 +43,35 @@
           </div>
 
         </form>
-        <button rel="tooltip" title="Add Weight Goal" class="btn btn-info btn-sm mt-3" @click="addWeight" style="background-color: #08a29e; border-color: #08a29e;">
+        <button rel="tooltip" title="Add Weight Goal" class="btn btn-info btn-sm mt-3" @click="addWeightGoal" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add Weight
         </button>
+
       </div>
     </div>
     <div class="list-group list-group-flush">
-      <div class="col-6 mb-3" style="font-weight: 600;">Current Weight Goals</div>
       <div class="list-group-item d-flex align-items-start" v-for="(currentWeight, index) in userWeight" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/userWeight/${currentWeight.id}`" style="color: #08a29e;">
-              Current Weight: {{ currentWeight.currentWeight }} (Weight ID: {{ currentWeight.weightGoalId }}, User ID: {{ currentWeight.userId }})
-            </a>
-          </span>
+          <p><strong>Current Weight:</strong> {{ currentWeight.currentWeight }}</p>
+          <p><strong>Weight ID: </strong> {{ currentWeight.weightGoalId }}</p>
+          <p><strong>User ID:</strong> {{ currentWeight.userId }}</p>
+          <a :href="`/userWeight/${currentWeight.id}`" style="color: #08a29e;">
+            View Details
+          </a>
         </div>
         <div class="p-2">
           <div class="btn-group d-flex" role="group">
             <a :href="`/userWeight/${currentWeight.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <div class="mr-2"></div>
+            <div class="mr-2"></div> <!-- Added margin-right for spacing -->
             <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteWeightGoal(currentWeight, index)">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>
         </div>
-        </div>
       </div>
+    </div>
   </app-layout>
 </template>
 

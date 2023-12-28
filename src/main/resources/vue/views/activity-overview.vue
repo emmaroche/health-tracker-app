@@ -40,9 +40,9 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date & Time</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Date</span>
             </div>
-            <input type="text" class="form-control" v-model="formData.started" name="started" placeholder="Date & Time"/>
+            <input type="date" class="form-control" v-model="formData.started" name="started" placeholder="Date & Time"/>
           </div>
 
           <div class="input-group mb-3">
@@ -74,7 +74,7 @@
           <p><strong>Description:</strong> {{ activity.description }}</p>
           <p><strong>Duration:</strong> {{ activity.duration }} hour(s)</p>
           <p><strong>Calories Burnt:</strong> {{ activity.calories }}</p>
-          <p><strong>Date & Time of Activity:</strong> {{ activity.started }}</p>
+          <p><strong>Date of Activity:</strong> {{ new Date(activity.started).toLocaleDateString() }}</p>
           <p><strong>User ID:</strong> {{ activity.userId }}</p>
           <a :href="`/activities/${activity.id}`" style="color: #08a29e;">
             View Details

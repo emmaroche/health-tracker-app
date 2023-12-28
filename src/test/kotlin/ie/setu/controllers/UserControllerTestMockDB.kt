@@ -181,7 +181,7 @@ class UserControllerTestMockDB {
             .asJson()
     }
 
-    fun retrieveAllUsers(): HttpResponse<String> {
+    private fun retrieveAllUsers(): HttpResponse<String> {
         return Unirest.get("$origin/api/users").asString()
     }
 

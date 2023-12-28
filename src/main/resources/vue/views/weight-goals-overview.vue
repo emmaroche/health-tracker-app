@@ -107,7 +107,7 @@
       </div>
     </div>
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-4 mb-5">
       <button @click="navigateToUserWeight" class="btn btn-info btn-md" style="background-color: #08a29e; border-color: #08a29e;">
         <i class="fa fa-eye" aria-hidden="true"></i> View Current Weight
       </button>
@@ -118,7 +118,7 @@
 
 <style>
 .custom-label {
-  width: 200px;
+  width: 230px;
 }
 </style>
 
