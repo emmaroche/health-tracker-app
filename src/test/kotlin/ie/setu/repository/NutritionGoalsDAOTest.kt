@@ -85,6 +85,51 @@ class NutritionGoalsDAOTest {
                 assertEquals(nutritionGoal2, nutritionGoalsDAO.findByGoalId(2))
             }
         }
+
+        @Test
+        fun `get nutrition goals by weight goal id that has no records, results in no records returned`() {
+            transaction {
+                populateUserTable()
+                populateActivityTable()
+                val nutritionGoalsDAO = populateNGTable()
+                assertEquals(0, nutritionGoalsDAO.findNutritionGoalsByWeightGoalId(4).size)
+            }
+        }
+
+        @Test
+        fun `get nutrition goals by weight goal id that exists, results in correct records returned`() {
+            transaction {
+                populateUserTable()
+                populateActivityTable()
+                val nutritionGoalsDAO = populateNGTable()
+
+                // Assuming that nutritionGoal1 and nutritionGoal2 have the same weightId
+                assertEquals(1, nutritionGoalsDAO.findNutritionGoalsByWeightGoalId(nutritionGoal1.weightId).size)
+                assertEquals(1, nutritionGoalsDAO.findNutritionGoalsByWeightGoalId(nutritionGoal3.weightId).size)
+            }
+        }
+
+        @Test
+        fun `get nutrition goals by fitness goal id that has no records, results in no records returned`() {
+            transaction {
+                populateUserTable()
+                populateActivityTable()
+                val nutritionGoalsDAO = populateNGTable()
+                assertEquals(0, nutritionGoalsDAO.findByFitnessId(4).size)
+            }
+        }
+
+        @Test
+        fun `get nutrition goals by fitness goal id that exists, results in correct records returned`() {
+            transaction {
+                populateUserTable()
+                populateActivityTable()
+                val nutritionGoalsDAO = populateNGTable()
+
+                assertEquals(1, nutritionGoalsDAO.findByFitnessId(nutritionGoal1.fitnessId).size)
+                assertEquals(1, nutritionGoalsDAO.findByFitnessId(nutritionGoal3.fitnessId).size)
+            }
+        }
     }
 
     @Nested

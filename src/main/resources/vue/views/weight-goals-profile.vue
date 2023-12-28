@@ -87,24 +87,19 @@
           </div>
         </form>
       </div>
-      <div class="card-footer text-center">
-        <div v-if="weightGoal">
-          <br />
-          <a :href="`/weightGoals/${weightGoal.id}/userWeight`">View Current Weight</a>
-          <br />
-          <br />
-        </div>
-      </div>
       <div class="card-footer text-left">
         <p v-if="nutritionGoals.length === 0">
           No nutrition goals associated with this weight goal yet
         </p>
         <p v-else>
-          View associated nutrition goal you have set to assist in achieving your weight goal:
+          View associated current weight and nutrition goal you have set to assist in achieving your weight goal:
         </p>
         <div class="card-footer text-center">
           <div v-if="weightGoal">
-            <div class="btn-group-vertical" role="group" aria-label="Fitness Actions">
+            <div class="btn-group-vertical" role="group" aria-label="Current Weight Actions">
+              <a :href="`/weightGoals/${weightGoal.id}/userWeight`" class="btn btn-link" style="color: #08a29e;">
+                <i class="fas fa-apple-alt"></i> View Current Weight
+              </a>
               <a :href="`/weightGoals/${weightGoal.id}/nutritionGoals`" class="btn btn-link" style="color: #08a29e;">
                 <i class="fas fa-apple-alt"></i> View Nutrition Goals
               </a>

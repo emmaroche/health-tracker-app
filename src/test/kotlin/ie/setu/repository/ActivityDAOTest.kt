@@ -105,6 +105,31 @@ class ActivityDAOTest {
                 assertEquals(activity3, activityDAO.findByActivityId(3))
             }
         }
+
+        @Test
+        fun `get activities by fitness id that has no records, results in no records returned`() {
+            transaction {
+                // Arrange - create and populate tables with three users and three activities
+                populateUserTable()
+                val activityDAO = populateActivityTable()
+
+                // Act & Assert
+                assertEquals(0, activityDAO.findByFitnessId(4).size)
+            }
+        }
+
+        @Test
+        fun `get activities by fitness id that exists, results in correct records returned`() {
+            transaction {
+                // Arrange - create and populate tables with three users and three activities
+                populateUserTable()
+                val activityDAO = populateActivityTable()
+
+                // Assuming that activity1 and activity2 have the same fitnessId
+                assertEquals(1, activityDAO.findByFitnessId(activity1.fitnessId).size)
+                assertEquals(1, activityDAO.findByFitnessId(activity3.fitnessId).size)
+            }
+        }
     }
 
     @Nested

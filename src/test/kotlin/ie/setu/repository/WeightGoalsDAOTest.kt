@@ -82,6 +82,29 @@ class WeightGoalsDAOTest {
                 assertEquals(weightGoal2, weightGoalsDAO.findByGoalId(2))
             }
         }
+
+        @Test
+        fun `get weight goals by activity id that has no records, results in no records returned`() {
+            transaction {
+                populateUserTable()
+                populateActivityTable()
+                val weightGoalsDAO = populateWGTable()
+                assertEquals(0, weightGoalsDAO.findByActivityId(4).size)
+            }
+        }
+
+        @Test
+        fun `get weight goals by activity id that exists, results in correct records returned`() {
+            transaction {
+                populateUserTable()
+                populateActivityTable()
+                val weightGoalsDAO = populateWGTable()
+
+                // Assuming that weightGoal1 and weightGoal2 have the same actId
+                assertEquals(1, weightGoalsDAO.findByActivityId(weightGoal1.actId).size)
+                assertEquals(1, weightGoalsDAO.findByActivityId(weightGoal3.actId).size)
+            }
+        }
     }
 
     @Nested

@@ -1,100 +1,126 @@
-<!-- weight-goals-user-weight-overview-template -->
 <template id="weight-goals-user-weight-overview">
   <app-layout>
-    <div>
-      <h3>User Weight Data</h3>
-      <ul>
-        <li v-for="currentWeight in userWeight">
-          Your weight was {{ currentWeight.currentWeight }} kg on {{ currentWeight.currentWeightTimestamp }}
-        </li>
-      </ul>
+    <div class="card bg-light mt-4 mb-3">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-6" style="font-weight: 600;">Current Weight</div>
+          <div class="col" align="right">
+            <button rel="tooltip" title="Add" class="btn btn-info btn-sm" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-plus" aria-hidden="true"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;">  Add current weight.</div>
+      <div class="card-body" :class="{ 'd-none': hideForm}">
+        <form id="addUserWeight">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-weeklyGoal">Current Weight (kg)</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.currentWeight" name="currentWeight" placeholder="Current Weight"/>
+          </div>
 
-      <!-- Display the form when 'editMode' is true -->
-      <form v-if="editMode" @submit.prevent="saveUserWeight">
-        <label for="currentWeight">Updated Weight (kg):</label>
-        <input v-model="editedUserWeight.currentWeight" type="number" step="0.1" required />
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-deadline">Current Weight Timestamp</span>
+            </div>
+            <input type="date" class="form-control" v-model="formData.currentWeightTimestamp" name="currentWeightTimestamp" placeholder="Current Weight Timestamp"/>
+          </div>
 
-        <button type="submit">Save</button>
-        <button @click="cancelEdit">Cancel</button>
-      </form>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-userId">Weight Goal ID</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.weightGoalId" name="weightGoalId" placeholder="Weight Goal ID"/>
+          </div>
 
-      <!-- Display the button to enter edit mode -->
-      <button v-else @click="enterEditMode">Update User Weight</button>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-userId">User ID</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.userId" name="userId" placeholder="User ID"/>
+          </div>
+
+        </form>
+        <button rel="tooltip" title="Add Weight Goal" class="btn btn-info btn-sm mt-3" @click="addWeight" style="background-color: #08a29e; border-color: #08a29e;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add Weight
+        </button>
+      </div>
     </div>
+    <div class="list-group list-group-flush">
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Weight Goals</div>
+      <div class="list-group-item d-flex align-items-start" v-for="(currentWeight, index) in userWeight" :key="index">
+        <div class="mr-auto p-2">
+          <span>
+            <a :href="`/userWeight/${currentWeight.id}`" style="color: #08a29e;">
+              Current Weight: {{ currentWeight.currentWeight }} (Weight ID: {{ currentWeight.weightGoalId }}, User ID: {{ currentWeight.userId }})
+            </a>
+          </span>
+        </div>
+        <div class="p-2">
+          <div class="btn-group d-flex" role="group">
+            <a :href="`/userWeight/${currentWeight.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <div class="mr-2"></div>
+            <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteWeightGoal(currentWeight, index)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 200px;
+}
+</style>
 
 <script>
 app.component("weight-goals-user-weight-overview", {
   template: "#weight-goals-user-weight-overview",
   data: () => ({
     userWeight: [],
-    editMode: false,
-    editedUserWeight: {
-      currentWeight: 0,  // Set a default value
-      currentWeightTimestamp: '',
-    },
+    formData: {},
+    hideForm: true,
   }),
   created() {
-    const wgID = this.$javalin.pathParams["weight-goals-id"];
-
-    // Fetch User Weight Data
-    axios.get(`/api/weightGoals/${wgID}/userWeight`)
-        .then(res => {
-          this.userWeight = res.data;
-
-          // Set editedUserWeight to the first item in the userWeight array (if it exists)
-          if (this.userWeight.length > 0) {
-            this.editedUserWeight = { ...this.userWeight[0] };
-          }
-        })
-        .catch(() => alert("Error while fetching user weight data"));
+    this.fetchWeightGoals();
   },
-
   methods: {
-    enterEditMode: function () {
-      // Enter edit mode, set initial values
-      this.editMode = true;
+    fetchWeightGoals: function () {
+      axios.get("/api/userWeight")
+          .then(res => this.userWeight = res.data)
+          .catch(() => alert("We couldn't find any user weights at the moment. Feel free to add a new weight, wait a moment, or refresh the page to check again"));
     },
-    cancelEdit: function () {
-      // Cancel edit mode
-      this.editMode = false;
-    },
-    saveUserWeight: function () {
-      // Check if this.editedUserWeight.currentWeight is null or not a valid number
-      if (this.editedUserWeight.currentWeight === null || isNaN(parseFloat(this.editedUserWeight.currentWeight))) {
-        alert("Please enter a valid value for updated weight.");
-        return;
-      }
-      const userWeightId = this.editedUserWeight.id;
-      const url = `/api/userWeight/${userWeightId}`;
-
-      // Automatically set the timestamp to today's date
-      const today = new Date();
-      const formattedTimestamp = today.toISOString();
-
-      const updatedUserWeight = {
-        id: this.editedUserWeight.id,
-        currentWeight: parseFloat(this.editedUserWeight.currentWeight),
-        currentWeightTimestamp: formattedTimestamp,
-        weightGoalId: this.editedUserWeight.weightGoalId,
-        userId: this.editedUserWeight.userId
-      };
-
-      console.log("Updating user weight with data:", updatedUserWeight);
-
-      axios.patch(url, updatedUserWeight)
+    addWeightGoal: function () {
+      const url = "/api/userWeight";
+      axios.post(url, this.formData)
           .then(response => {
-            console.log("Update response:", response.data);
-            const responseData = response.data;
-            Object.assign(this.editedUserWeight, responseData);
-            this.editMode = false; // Exit edit mode after a successful update
-            alert("User Weight updated!");
+            this.userWeight.push(response.data);
+            this.hideForm = true;
+            // Reset form data after adding user weight
+            this.formData = {};
           })
           .catch(error => {
-            console.error("Update error:", error);
-            alert("Error updating User Weight");
+            console.log(error);
           });
+    },
+    deleteWeightGoal: function (currentWeight, index) {
+      if (confirm('Are you sure you want to delete this weight? This action cannot be undone.', 'Warning')) {
+        const userWeightId = currentWeight.id;
+        const url = `/api/userWeight/${userWeightId}`;
+        axios.delete(url)
+            .then(response =>
+                this.userWeight.splice(index, 1).push(response.data))
+            .catch(function (error) {
+              console.log(error);
+            });
+      }
     },
   }
 });
