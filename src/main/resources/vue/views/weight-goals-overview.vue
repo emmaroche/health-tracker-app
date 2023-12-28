@@ -24,6 +24,13 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-startingWeightTimestamp">Starting Weight Timestamp</span>
+            </div>
+            <input type="date" class="form-control" v-model="formData.startingWeightTimestamp" name="startingWeightTimestamp" placeholder="Starting Weight Timestamp"/>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-startingWeight">Starting Weight (kg)</span>
             </div>
             <input type="text" class="form-control" v-model="formData.startingWeight" name="startingWeight" placeholder="Starting Weight"/>
