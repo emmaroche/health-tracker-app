@@ -42,6 +42,18 @@
             </div>
             <input type="email" class="form-control" v-model="user.email" name="email" placeholder="Email"/>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-phone">Phone Number</span>
+            </div>
+            <input type="number" class="form-control" v-model="user.phoneNumber" name="phoneNumber" placeholder="Phone Number"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-address">Address</span>
+            </div>
+            <input type="text" class="form-control" v-model="user.address" name="address" placeholder="Address"/>
+          </div>
         </form>
       </div>
 
@@ -139,7 +151,9 @@ app.component("user-profile", {
       axios.patch(url,
           {
             name: this.user.name,
-            email: this.user.email
+            email: this.user.email,
+            phoneNumber: this.user.phoneNumber,
+            address: this.user.address
           })
           .then(response =>
               this.user.push(response.data))

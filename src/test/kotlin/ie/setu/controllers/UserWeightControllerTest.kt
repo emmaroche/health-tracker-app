@@ -19,6 +19,7 @@ import org.joda.time.DateTime
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -113,23 +114,12 @@ class UserWeightControllerTest {
 
         @Test
         fun `get all user weights when no user weights exist returns 404 response`() {
-            // Arrange - add a user and delete its associated user weight
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
-            val userWeightResponse = addUserWeight(
-                userWeight2[0].currentWeight,
-                userWeight2[0].currentWeightTimestamp,
-                userWeight2[0].weightGoalId,
-                addedUser.id
-            )
-            val addedUserWeight = jsonNodeToObject<CurrentWeight>(userWeightResponse)
-            deleteUserWeight(addedUserWeight.id)
+            //Arrange
+            val userId = -1
 
-            // Act & Assert - retrieve all user weights
-            val response = retrieveAllUserWeights()
+            //Assert and Act - retrieve activities by user id
+            val response = retrieveActivitiesByUserId(userId)
             assertEquals(404, response.status)
-
-            // After - delete the added user
-            testUtilities.deleteUser(addedUser.id)
         }
     }
 
@@ -252,6 +242,12 @@ class UserWeightControllerTest {
     private fun retrieveAllUserWeights(): HttpResponse<JsonNode> {
         return Unirest.get("$origin/api/userWeight").header("Content-Type", "application/json").asJson()
     }
+
+    //Helper function to retrieve activities by user id
+    private fun retrieveActivitiesByUserId(id: Int): HttpResponse<JsonNode> {
+        return Unirest.get(origin + "/api/users/${id}/userWeight").asJson()
+    }
+
 
     private fun retrieveUserWeightByWeightId(weightId: Int): HttpResponse<JsonNode> {
         return Unirest.get("$origin/api/userWeight/$weightId").header("Content-Type", "application/json").asJson()

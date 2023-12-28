@@ -58,10 +58,10 @@ const val updatedMood = "Sad"
 const val updatedRating = 1
 
 val users = arrayListOf(
-    User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),
-    User(name = "Bob Cat", email = "bob@cat.ie", id = 2),
-    User(name = "Mary Contrary", email = "mary@contrary.com", id = 3),
-    User(name = "Carol Singer", email = "carol@singer.com", id = 4)
+    User(name = "Alice Wonderland", email = "alice@wonderland.com", phoneNumber = 897765679, address = "123 Wonderland St, Wonderland City", id = 1),
+    User(name = "Bob Cat", email = "bob@cat.ie", phoneNumber = 123456789, address = "456 Cat Ave, Cat Town", id = 2),
+    User(name = "Mary Contrary", email = "mary@contrary.com", phoneNumber = 987654321, address = "789 Contrary Blvd, Contrary Village", id = 3),
+    User(name = "Carol Singer", email = "carol@singer.com", phoneNumber = 555555555, address = "321 Singer Rd, Singer Hamlet", id = 4)
 )
 
 val activities = arrayListOf(
