@@ -58,18 +58,6 @@
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-health-record-weight">Weight</span>
-            </div>
-            <input
-                type="number"
-                class="form-control"
-                v-model="formData.weight"
-                name="weight"
-                placeholder="Weight"
-            />
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-health-record-height">Height</span>
             </div>
             <input
@@ -165,27 +153,23 @@
       </div>
     </div>
     <div class="list-group list-group-flush">
-      <div class="col-6 mb-3" style="font-weight: 600;">Current Health Record</div>
-      <div
-          class="list-group-item d-flex align-items-start"
-          v-for="(healthRecord, index) in healthRecords"
-          :key="index"
-      >
+      <div class="col-6 mb-3" style="font-weight: 600;">Current Health Records</div>
+      <div class="list-group-item d-flex align-items-start" v-for="(healthRecord, index) in healthRecords" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/healthRecords/${healthRecord.id}`" style="color: #08a29e;">
-              {{ healthRecord.firstName }} {{ healthRecord.lastName }} (
-              Sex: {{ healthRecord.sex }}, DOB: {{ new Date(healthRecord.dob).toLocaleDateString() }},
-              Weight: {{ healthRecord.weight }}, Height: {{ healthRecord.height }}, click to see more)
-            </a>
-          </span>
+          <p><strong>Name:</strong> {{ healthRecord.firstName }} {{ healthRecord.lastName }}</p>
+          <p><strong>Sex:</strong> {{ healthRecord.sex }}</p>
+          <p><strong>DOB:</strong> {{ new Date(healthRecord.dob).toLocaleDateString() }}</p>
+          <p><strong>Height:</strong> {{ healthRecord.height }}</p>
+          <a :href="`/healthRecords/${healthRecord.id}`" style="color: #08a29e;">
+            View more Details
+          </a>
         </div>
         <div class="p-2">
           <div class="btn-group d-flex" role="group">
             <a :href="`/healthRecords/${healthRecord.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <div class="mr-2"></div>
+            <div class="mr-2"></div> <!-- Added margin-right for spacing -->
             <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteHealthRecord(healthRecord, index)">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>

@@ -72,7 +72,6 @@ class HealthRecordDAO {
                 it[lastName] = healthRecord.lastName
                 it[sex] = healthRecord.sex
                 it[dob] = healthRecord.dob
-                it[weight] = healthRecord.weight
                 it[height] = healthRecord.height
                 it[bloodType] = healthRecord.bloodType
                 it[allergies] = healthRecord.allergies
@@ -131,7 +130,6 @@ class HealthRecordDAO {
                 it[lastName] = healthRecordToUpdate.lastName
                 it[sex] = healthRecordToUpdate.sex
                 it[dob] = healthRecordToUpdate.dob
-                it[weight] = healthRecordToUpdate.weight
                 it[height] = healthRecordToUpdate.height
                 it[bloodType] = healthRecordToUpdate.bloodType
                 it[allergies] = healthRecordToUpdate.allergies

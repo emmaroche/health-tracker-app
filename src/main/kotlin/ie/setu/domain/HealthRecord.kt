@@ -27,7 +27,6 @@ data class HealthRecord(
     val lastName: String,
     val sex: String,
     val dob: DateTime,
-    val weight: Double,
     val height: Int,
     val bloodType: String,
     val allergies: String,

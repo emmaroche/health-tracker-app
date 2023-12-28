@@ -26,7 +26,7 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Duration</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Duration (hours)</span>
             </div>
             <input type="text" class="form-control" v-model="formData.duration" name="duration" placeholder="Duration"/>
           </div>
@@ -68,26 +68,29 @@
     </div>
     <div class="list-group list-group-flush">
       <div class="col-6 mb-3" style="font-weight: 600;">Current Activities Started</div>
-      <div class="list-group-item d-flex align-items-start"
-           v-for="(activity, index) in activities" :key="index">
+      <div class="list-group-item d-flex align-items-start" v-for="(activity, index) in activities" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/activities/${activity.id}`" style="color: #08a29e;">
-              {{ activity.description }} (Duration: {{ activity.duration }} hour(s), Calories Burnt: {{ activity.calories }}, Date & Time of Activity: {{ activity.started }}, User ID: {{ activity.userId }})
-            </a>
-          </span>
-        </div>
-        <div class="p-2">
-        <div class="btn-group d-flex" role="group">
-          <a :href="`/activities/${activity.id}`" class="btn btn-info btn-sm mr-2" style="background-color: #08a29e; border-color: #08a29e;">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
+          <p><strong>ID:</strong> {{ activity.id }}</p>
+          <p><strong>Description:</strong> {{ activity.description }}</p>
+          <p><strong>Duration:</strong> {{ activity.duration }} hour(s)</p>
+          <p><strong>Calories Burnt:</strong> {{ activity.calories }}</p>
+          <p><strong>Date & Time of Activity:</strong> {{ activity.started }}</p>
+          <p><strong>User ID:</strong> {{ activity.userId }}</p>
+          <a :href="`/activities/${activity.id}`" style="color: #08a29e;">
+            View Details
           </a>
-          <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteActivity(activity, index)">
-            <i class="fas fa-trash" aria-hidden="true"></i>
-          </button>
+        </div>
+        <div class="ml-auto p-2">
+          <div class="btn-group d-flex" role="group">
+            <a :href="`/activities/${activity.id}`" class="btn btn-info btn-sm mr-2" style="background-color: #08a29e; border-color: #08a29e;">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteActivity(activity, index)">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </app-layout>
 </template>

@@ -23,7 +23,7 @@
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-rating">Rating</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-mood-rating">Rating / 10</span>
             </div>
             <input type="number" class="form-control" v-model="formData.rating" name="rating" placeholder="Rating"/>
           </div>
@@ -61,16 +61,23 @@
       <div class="col-6 mb-3" style="font-weight: 600;">Current Mood Entries</div>
       <div class="list-group-item d-flex align-items-start" v-for="(moodEntry, index) in moodTracking" :key="index">
         <div class="mr-auto p-2">
-          <span><a :href="`/moodTracking/${moodEntry.id}`" style="color: #08a29e;">
-            {{ moodEntry.mood }} (Rating: {{ moodEntry.rating }}, Notes: {{ moodEntry.notes }}, Date: {{ new Date (moodEntry.date).toLocaleDateString() }}, User ID: {{ moodEntry.userId }})
-          </a></span>
+          <p><strong>ID:</strong> {{ moodEntry.id }}</p>
+          <p><strong>Mood:</strong> {{ moodEntry.mood }}</p>
+          <p><strong>Rating:</strong> {{ moodEntry.rating }} / 10</p>
+          <p><strong>Notes:</strong> {{ moodEntry.notes }}</p>
+          <p><strong>Date:</strong> {{ new Date(moodEntry.date).toLocaleDateString() }}</p>
+          <p><strong>User ID:</strong> {{ moodEntry.userId }}</p>
+          <p><strong>Sleep Entry ID:</strong> {{ moodEntry.sleepId }}</p>
+          <a :href="`/moodTracking/${moodEntry.id}`" style="color: #08a29e;">
+            View Details
+          </a>
         </div>
         <div class="p-2">
           <div class="btn-group d-flex" role="group">
             <a :href="`/moodTracking/${moodEntry.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <div class="mr-2"></div>
+            <div class="mr-2"></div> <!-- Added margin-right for spacing -->
             <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteMoodEntry(moodEntry, index)">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>

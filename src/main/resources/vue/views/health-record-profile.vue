@@ -68,12 +68,6 @@
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight">Weight</span>
-            </div>
-            <input class="form-control" v-model="healthRecord.weight" name="weight" type="number" placeholder="Weight"/>
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-height">Height</span>
             </div>
             <input class="form-control" v-model="healthRecord.height" name="height" type="number" placeholder="Height"/>

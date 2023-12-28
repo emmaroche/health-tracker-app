@@ -21,7 +21,7 @@
   const sleepId = this.$javalin.pathParams["sleep-tracking-id"];
   axios.get(`/api/sleepTracking/${sleepId}/moodTracking`)
   .then(res => this.moodTracking = res.data)
-  .catch(() => alert("Error while fetching mood entries"));
+  .catch(() => alert("We couldn't find any mood entries at the moment. Feel free to add a new mood entry, wait a moment, or refresh the page to check again"));
 }
 });
 </script>

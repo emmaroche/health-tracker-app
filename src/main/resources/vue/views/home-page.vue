@@ -5,7 +5,7 @@
         <div class="card" style="width: 300px;">
           <h5 class="card-header text-center">Registered Users</h5>
           <div class="card-body text-center" style="height: 130px;">
-            <h5 class="card-title mb-3">{{users.length}} users</h5>
+            <h5 class="card-title mb-3">{{users.length}} user(s)</h5>
             <a href="/users" class="btn btn-primary">More Details...</a>
           </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="card" style="width: 300px;">
           <h5 class="card-header text-center">Total Fitness Goals</h5>
           <div class="card-body text-center" style="height: 130px;">
-            <h5 class="card-title mb-3">{{fitnessGoals.length}} fitness goals</h5>
+            <h5 class="card-title mb-3">{{fitnessGoals.length}} fitness goal(s)</h5>
             <a href="/fitnessGoals" class="btn btn-primary">More Details...</a>
           </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="card" style="width: 300px;">
           <h5 class="card-header text-center">Total Weight Goals</h5>
           <div class="card-body text-center" style="height: 130px;">
-            <h5 class="card-title mb-3">{{weightGoals.length}} weight goals</h5>
+            <h5 class="card-title mb-3">{{weightGoals.length}} weight goal(s)</h5>
             <a href="/weightGoals" class="btn btn-primary">More Details...</a>
           </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="card" style="width: 300px;">
           <h5 class="card-header text-center">Total Nutrition Goals</h5>
           <div class="card-body text-center" style="height: 130px;">
-            <h5 class="card-title mb-3">{{nutritionGoals.length}} nutrition goals</h5>
+            <h5 class="card-title mb-3">{{nutritionGoals.length}} nutrition goal(s)</h5>
             <a href="/nutritionGoals" class="btn btn-primary">More Details...</a>
           </div>
         </div>
@@ -50,7 +50,7 @@
         <div class="card" style="width: 300px;">
           <h5 class="card-header text-center">Health Records</h5>
           <div class="card-body text-center" style="height: 130px;">
-            <h5 class="card-title mb-3">{{healthRecords.length}} health records</h5>
+            <h5 class="card-title mb-3">{{healthRecords.length}} health record(s)</h5>
             <a href="/healthRecords" class="btn btn-primary">More Details...</a>
           </div>
         </div>

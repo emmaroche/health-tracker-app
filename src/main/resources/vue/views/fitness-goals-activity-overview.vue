@@ -21,7 +21,7 @@
   const fitnessId = this.$javalin.pathParams["fitness-goal-id"];
   axios.get(`/api/fitnessGoals/${fitnessId}/activities`)
   .then(res => this.activities = res.data)
-  .catch(() => alert("Error while fetching activities"));
+  .catch(() => alert("We couldn't find any activities at the moment. Feel free to add a new activity, wait a moment, or refresh the page to check again"));
 }
 });
 </script>

@@ -4,7 +4,7 @@
       <h5>Weight Entries</h5>
       <ul>
         <li v-for="currentWeight in userWeight">
-          Current Weight: {{ currentWeight.currentWeight }} (Timestamp: {{ currentWeight.currentWeightTimestamp }}, Weight ID: {{ currentWeight.weightGoalId }}, User ID: {{ currentWeight.userId }})
+          Current Weight: {{ currentWeight.currentWeight }} kg (Timestamp: {{ currentWeight.currentWeightTimestamp }}, Weight ID: {{ currentWeight.weightGoalId }}, User ID: {{ currentWeight.userId }})
         </li>
       </ul>
     </div>
@@ -21,7 +21,7 @@ app.component("user-weight-weight-goals-overview", {
     const weightGoalId = this.$javalin.pathParams["weight-goal-id"];
     axios.get(`/api/weightGoals/${weightGoalId}/userWeight`)
         .then(res => this.userWeight = res.data)
-        .catch(() => alert("Error while fetching weight entries"));
+        .catch(() => alert("We couldn't find any current weight at the moment. Feel free to add a new current weight, wait a moment, or refresh the page to check again"));
   }
 });
 </script>

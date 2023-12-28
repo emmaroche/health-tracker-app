@@ -74,25 +74,30 @@
       <div class="col-6 mb-3" style="font-weight: 600;">Current Weight Goals</div>
       <div class="list-group-item d-flex align-items-start" v-for="(weightGoal, index) in weightGoals" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/weightGoals/${weightGoal.id}`" style="color: #08a29e;">
-              {{ weightGoal.type }} (Starting Weight: {{ weightGoal.startingWeight }} kg, Target Weight: {{ weightGoal.targetWeight }} kg, Weekly Goal: {{ weightGoal.weeklyGoal }} kg, Deadline: {{ new Date (weightGoal.deadline).toLocaleDateString() }}, User ID: {{ weightGoal.userId }})
-            </a>
-          </span>
+          <p><strong>ID:</strong> {{ weightGoal.id }}</p>
+          <p><strong>Type:</strong> {{ weightGoal.type }}</p>
+          <p><strong>Starting Weight:</strong> {{ weightGoal.startingWeight }} kg</p>
+          <p><strong>Target Weight:</strong> {{ weightGoal.targetWeight }} kg</p>
+          <p><strong>Weekly Goal:</strong> {{ weightGoal.weeklyGoal }} kg</p>
+          <p><strong>Deadline:</strong> {{ new Date(weightGoal.deadline).toLocaleDateString() }}</p>
+          <p><strong>User ID:</strong> {{ weightGoal.userId }}</p>
+          <p><strong>Activity ID:</strong> {{ weightGoal.actId }}</p>
+          <a :href="`/weightGoals/${weightGoal.id}`" style="color: #08a29e;">
+            View Details
+          </a>
         </div>
         <div class="p-2">
           <div class="btn-group d-flex" role="group">
             <a :href="`/weightGoals/${weightGoal.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <div class="mr-2"></div>
+            <div class="mr-2"></div> <!-- Added margin-right for spacing -->
             <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteWeightGoal(weightGoal, index)">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="text-center mt-4">

@@ -76,7 +76,7 @@
 
 <style>
 .custom-label {
-  width: 200px;
+  width: 250px;
 }
 </style>
 

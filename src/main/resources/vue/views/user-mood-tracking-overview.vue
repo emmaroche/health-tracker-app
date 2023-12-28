@@ -21,7 +21,7 @@ app.component("user-mood-tracking-overview", {
     const userId = this.$javalin.pathParams["user-id"];
     axios.get(`/api/users/${userId}/moodTracking`)
         .then(res => this.moodTracking = res.data)
-        .catch(() => alert("Error while fetching mood entries"));
+        .catch(() => alert("We couldn't find any mood entries at the moment. Feel free to add a new mood entry, wait a moment, or refresh the page to check again"));
   }
 });
 </script>

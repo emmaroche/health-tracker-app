@@ -21,7 +21,7 @@ app.component("user-nutrition-goals-overview",{
     const userId = this.$javalin.pathParams["user-id"];
     axios.get(`/api/users/${userId}/nutritionGoals`)
         .then(res => this.nutritionGoals = res.data)
-        .catch(() => alert("Error while fetching nutrition goals"));
+        .catch(() => alert("We couldn't find any nutrition goals at the moment. Feel free to add a new nutrition goal, wait a moment, or refresh the page to check again"));
   }
 });
 </script>

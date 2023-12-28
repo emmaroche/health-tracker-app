@@ -21,7 +21,7 @@ app.component("user-health-record-overview",{
     const userId = this.$javalin.pathParams["user-id"];
     axios.get(`/api/users/${userId}/healthRecords`)
         .then(res => this.healthRecords = res.data)
-        .catch(() => alert("Error while fetching health records"));
+        .catch(() => alert("We couldn't find any health records at the moment. Feel free to add a new health record, wait a moment, or refresh the page to check again"));
   }
 });
 </script>
