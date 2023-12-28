@@ -1,12 +1,14 @@
 ## App Overview
 
-This Health Tracker Web Application is designed to help users track their health and fitness goals. It is written in Kotlin, tested using JUnit 5 and Unirest, and hosted on Railway (https://health-tracker-app-production.up.railway.app).
+This Web Application is designed to help users track their health goals. 
 
-The application's data is stored in an ElephantSQL database, providing a robust and scalable solution for managing user data, activities, health records, and various tracking features.
+The application is developed using Kotlin, with data storage handled by an ElephantSQL database. Testing is carried out using JUnit 5 and Unirest, and the app is hosted on Railway at https://health-tracker-app-production.up.railway.app.
 
 ## App Functionality
 
 ### Core Features
+
+Some of these features are linked to eachother through their corresponding profile pages.
 
 1. **User and Activities:**
    - Designed features for user information and activity tracking.
@@ -47,7 +49,6 @@ The application's data is stored in an ElephantSQL database, providing a robust 
 - **Unit and Integration Tests:**
    - Wrote JUnit tests to verify the functionality of the application's core features.
    - Included unit tests for individual components and integration tests to test the interaction between components.
-
 
 ## GitHub Workflow
 
