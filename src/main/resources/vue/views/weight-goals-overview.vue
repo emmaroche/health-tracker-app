@@ -22,8 +22,6 @@
             <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>
           </div>
 
-
-
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-startingWeight">Starting Weight (kg)</span>
@@ -49,7 +47,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text custom-label" style="font-weight: 600;" id="input-weight-goal-deadline">Deadline</span>
             </div>
-            <input type="text" class="form-control" v-model="formData.deadline" name="deadline" placeholder="Deadline"/>
+            <input type="date" class="form-control" v-model="formData.deadline" name="deadline" placeholder="Deadline"/>
           </div>
 
           <div class="input-group mb-3">
@@ -94,17 +92,21 @@
           </div>
         </div>
       </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+      <button @click="navigateToUserWeight" class="btn btn-info btn-md" style="background-color: #08a29e; border-color: #08a29e;">
+        <i class="fa fa-eye" aria-hidden="true"></i> View Current Weight
+      </button>
     </div>
   </app-layout>
 </template>
 
+
 <style>
 .custom-label {
   width: 200px;
-}
-.description-text {
-  font-size: 16px;
-  color: #495057;
 }
 </style>
 
@@ -149,6 +151,10 @@ app.component("weight-goals-overview", {
               console.log(error);
             });
       }
+    },
+    navigateToUserWeight: function (weightGoalId) {
+      // Navigate to /userWeight using the weight goal id
+      window.location.href = `/userWeight`;
     },
   }
 });

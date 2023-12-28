@@ -204,7 +204,6 @@ class JavalinConfig {
             get("/nutritionGoals/{nutrition-goal-id}", VueComponent("<nutrition-goals-profile></nutrition-goals-profile>"))
             get("/healthRecords/{health-record-id}", VueComponent("<health-record-profile></health-record-profile>"))
             get("/sleepTracking/{sleep-tracking-id}", VueComponent("<sleep-tracking-profile></sleep-tracking-profile>"))
-            get("/userWeight/{user-weight-id}", VueComponent("<user-weight-profile></user-weight-profile>"))
             get("/moodTracking/{mood-tracking-id}", VueComponent("<mood-tracking-profile></mood-tracking-profile>"))
             get("/users/{user-id}/activities", VueComponent("<user-activity-overview></user-activity-overview>"))
             get("/users/{user-id}/fitnessGoals", VueComponent("<user-fitness-goals-overview></user-fitness-goals-overview>"))
@@ -217,7 +216,9 @@ class JavalinConfig {
             get("/fitnessGoals/{fitness-goal-id}/nutritionGoals", VueComponent("<fitness-goals-nutrition-goal-overview></fitness-goals-nutrition-goal-overview>"))
             get("/activities/{activity-id}/weightGoals", VueComponent("<activity-weight-goal-overview></activity-weight-goal-overview>"))
             get("/weightGoals/{weight-goal-id}/nutritionGoals", VueComponent("<weight-goal-nutrition-goal-overview></weight-goal-nutrition-goal-overview>"))
-            get("/weightGoals/{weight-goal-id}/userWeight", VueComponent("<weight-goals-user-weight-overview></weight-goals-user-weight-overview>"))
+            get("/weightGoals/{weight-goal-id}/userWeight", VueComponent("<user-weight-weight-goals-overview></user-weight-weight-goals-overview>"))
+            get("/userWeight", VueComponent("<weight-goals-user-weight-overview></weight-goals-user-weight-overview>"))
+            get("/userWeight/{user-weight-id}", VueComponent("<weight-goals-user-weight-profile></weight-goals-user-weight-profile>"))
             get("/sleepTracking/{sleep-tracking-id}/moodTracking", VueComponent("<sleep-tracking-mood-tracking-overview></sleep-tracking-mood-tracking-overview>"))
         }
     }
