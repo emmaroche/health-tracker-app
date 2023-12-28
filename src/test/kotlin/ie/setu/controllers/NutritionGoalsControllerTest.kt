@@ -57,8 +57,8 @@ class NutritionGoalsControllerTest {
         fun `get all nutrition goals by user id when user and nutrition goals exist returns 200 response`() {
             // Arrange - add a user and 3 associated nutrition goals that we plan to retrieve
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
@@ -123,8 +123,8 @@ class NutritionGoalsControllerTest {
         fun `get nutrition goal by goal id when nutrition goal exists returns 200 response`() {
             // Arrange - add a user and an associated nutrition goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             val addGoalResponse = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
@@ -146,8 +146,8 @@ class NutritionGoalsControllerTest {
         fun `get nutrition goals by weight goal id when weight goal exists returns 200 response`() {
             // Arrange - add a weight goal, a user, and an associated nutrition goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
@@ -176,8 +176,8 @@ class NutritionGoalsControllerTest {
         fun `get nutrition goals by fitness goal id when fitness goal exists returns 200 response`() {
             // Arrange - add a fitness goal, a user, and an associated nutrition goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
@@ -212,8 +212,8 @@ class NutritionGoalsControllerTest {
         fun `add a nutrition goal when a user exists for it, returns a 201 response`() {
             // Arrange - add a user and an associated nutrition goal that we plan to do a delete on
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             val addGoalResponse = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,
@@ -233,8 +233,8 @@ class NutritionGoalsControllerTest {
             val userId = -1
             assertEquals(404, testUtilities.retrieveUserById(userId).status)
 
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             // Add fitnessId to the addNutritionGoal call
             val addGoalResponse = addNutritionGoal(
@@ -260,8 +260,8 @@ class NutritionGoalsControllerTest {
             // Arrange - check there is no user for -1 id
             assertEquals(404, testUtilities.retrieveUserById(userId).status)
 
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             // Act and Assert - attempt to update the details of a nutrition goal/user that doesn't exist
             assertEquals(
@@ -277,8 +277,8 @@ class NutritionGoalsControllerTest {
         fun `updating a nutrition goal by goal id when it exists, returns 204 response`() {
 
             // Arrange - add a user and an associated nutrition goal that we plan to do an update on
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addGoalResponse = addNutritionGoal(
@@ -316,8 +316,8 @@ class NutritionGoalsControllerTest {
 
             // Arrange - add a user and 3 associated nutrition goals that we plan to do a cascade delete
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val fitnessId = 174
-            val weightId = 304
+            val fitnessId = 457
+            val weightId = 789
 
             val addGoalResponse1 = addNutritionGoal(
                 nutritionGoals[0].type, nutritionGoals[0].proteinGoal,

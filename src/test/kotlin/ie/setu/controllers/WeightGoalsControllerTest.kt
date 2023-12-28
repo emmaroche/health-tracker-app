@@ -59,7 +59,7 @@ class WeightGoalsControllerTest {
         fun `get all weight goals by user id when user and weight goals exist returns 200 response`() {
             // Arrange - add a user and 3 associated weight goals that we plan to retrieve
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val actId = 186
+            val actId = 706
 
             addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
@@ -124,7 +124,7 @@ class WeightGoalsControllerTest {
         fun `get weight goal by goal id when weight goal exists returns 200 response`() {
             // Arrange - add a user and an associated weight goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val actId = 186
+            val actId = 706
 
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
@@ -147,7 +147,7 @@ class WeightGoalsControllerTest {
             // Arrange - add an activity and weight goals associated with it
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
-            val actId = 186
+            val actId = 706
 
             addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
@@ -206,7 +206,7 @@ class WeightGoalsControllerTest {
 
             // Arrange - add a user and an associated weight goal that we plan to do a delete on
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val actId = 186
+            val actId = 706
 
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
@@ -225,7 +225,7 @@ class WeightGoalsControllerTest {
             // Arrange - check there is no user for -1 id
             val userId = -1
             assertEquals(404, testUtilities.retrieveUserById(userId).status)
-            val actId = 186
+            val actId = 706
 
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
@@ -244,7 +244,7 @@ class WeightGoalsControllerTest {
         fun `updating a weight goal by goal id when it doesn't exist, returns a 404 response`() {
             val userId = -1
             val goalId = -1
-            val actId = 186
+            val actId = 706
 
             // Arrange - check there is no user for -1 id
             assertEquals(404, testUtilities.retrieveUserById(userId).status)
@@ -262,7 +262,7 @@ class WeightGoalsControllerTest {
         fun `updating a weight goal by goal id when it exists, returns 204 response`() {
             // Arrange - add a user and an associated weight goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val actId = 186
+            val actId = 706
 
             val addGoalResponse = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
@@ -305,7 +305,7 @@ class WeightGoalsControllerTest {
 
             // Arrange - add a user and 3 associated weight goals that we plan to do a cascade delete
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val actId = 186
+            val actId = 706
 
             val addGoalResponse1 = addWeightGoal(
                 weightGoals[0].type, weightGoals[0].startingWeight, weightGoals[0].startingWeightTimestamp,
@@ -406,6 +406,7 @@ class WeightGoalsControllerTest {
         userId: Int,
         actId: Int
     ): HttpResponse<JsonNode> {
+
         // ChatGPT generated the 3 lines 372-374 to help with a formatting error
         val startingWeightTimestampStr =
             startingWeightTimestamp.toString(ISODateTimeFormat.dateTime())  // Format as ISO 8601

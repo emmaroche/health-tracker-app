@@ -251,21 +251,21 @@ val userWeight2 = arrayListOf(
         id = 1,
         currentWeight = 80.0,
         currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
-        weightGoalId = 304,
+        weightGoalId = 789,
         userId = 2
     ),
     CurrentWeight(
         id = 2,
         currentWeight = 75.0,
         currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
-        weightGoalId = 304,
+        weightGoalId = 789,
         userId = 2
     ),
     CurrentWeight(
         id = 3,
         currentWeight = 160.0,
         currentWeightTimestamp = DateTime.parse("2023-11-23T10:30:00"),
-        weightGoalId = 304,
+        weightGoalId = 789,
         userId = 3
     )
 )

@@ -40,7 +40,7 @@
             <input type="text" class="form-control" v-model="formData.address" name="address" placeholder="Address"/>
           </div>
         </form>
-        <button rel="tooltip" title="Add" class="btn btn-info btn-sm mt-3" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
+        <button rel="tooltip" title="Add" class="btn btn-info btn-sm mt-3" @click="addUser" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add
         </button>
       </div>
@@ -80,7 +80,7 @@ app.component("user-overview", {
   template: "#user-overview",
   data: () => ({
     users: [],
-    formData: [],
+    formData: {},
     hideForm: true,
   }),
   created() {
@@ -102,19 +102,23 @@ app.component("user-overview", {
       }
     },
     addUser: function () {
-      const url = `/api/users`;
-      axios.post(url, {
-        name: this.formData.name,
-        email: this.formData.email,
-        phoneNumber: this.formData.phoneNumber,
-        address: this.formData.address
-      })
+      const url = "/api/users";
+      axios.post(url, this.formData)
           .then(response => {
             this.users.push(response.data);
             this.hideForm = true;
+            // Reset form data after adding user
+            this.formData = {
+              name: '',
+              email: null,
+              phoneNumber: null,
+              address: null,
+            };
           })
-          .catch(error => console.log(error));
-    }
+          .catch(error => {
+            console.error('Error adding user:', error);
+          });
+    },
   }
 });
 </script>

@@ -85,7 +85,7 @@ app.component("app-layout", {
     };
   },
 
-  // ChatGPT generated active VUE code
+  // ChatGPT generated highlight active nav item VUE code
 
   mounted() {
     // Retrieve active link from local storage on component mount
@@ -116,7 +116,7 @@ app.component("app-layout", {
 
 .navbar-nav .nav-link {
   color: white !important;
-  font-size: 18px; /* Adjust the font size to your preference */
+  font-size: 18px;
 }
 
 .app-layout {

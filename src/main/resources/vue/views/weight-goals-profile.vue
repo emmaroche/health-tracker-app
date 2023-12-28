@@ -51,6 +51,7 @@
             <input class="form-control" v-model="startingWeightDate" name="startingWeightDate" type="date" />
           </div>
 
+
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Target Weight (kg)</span>

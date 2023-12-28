@@ -60,7 +60,7 @@ class ActivityControllerTest {
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             // Replace 1 with a valid fitness goal ID
-            val fitnessId = 174
+            val fitnessId = 457
 
             addActivity(
                 activities[0].description, activities[0].duration,
@@ -127,7 +127,7 @@ class ActivityControllerTest {
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             // Replace 1 with a valid fitness goal ID
-            val fitnessId = 174
+            val fitnessId = 457
 
             val addActivityResponse = addActivity(
                 activities[0].description,
@@ -149,7 +149,7 @@ class ActivityControllerTest {
         fun `get activities by fitness ID when fitness goal exists and has activities returns 200 response`() {
             // Arrange - add a user and an associated fitness goal
             val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
-            val fitnessGoalId = 174
+            val fitnessGoalId = 457
 
             // Add three associated activities that we plan to retrieve
             addActivity(
@@ -202,7 +202,7 @@ class ActivityControllerTest {
                 val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
                 // Replace 1 with a valid fitness goal ID
-                val fitnessId = 174
+                val fitnessId = 457
 
                 val addActivityResponse = addActivity(
                     activities[0].description,
@@ -224,7 +224,7 @@ class ActivityControllerTest {
                 assertEquals(404, testUtilities.retrieveUserById(userId).status)
 
                 // Replace 1 with a valid fitness goal ID
-                val fitnessId = 174
+                val fitnessId = 457
 
                 val addActivityResponse = addActivity(
                     activities[0].description,
@@ -263,7 +263,7 @@ class ActivityControllerTest {
                 val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
                 // Replace 1 with a valid fitness goal ID
-                val fitnessId = 174
+                val fitnessId = 457
 
                 val addActivityResponse = addActivity(
                     activities[0].description,
@@ -316,7 +316,7 @@ class ActivityControllerTest {
                 val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
                 // Replace 1 with a valid fitness goal ID
-                val fitnessId = 174
+                val fitnessId = 457
 
                 val addActivityResponse = addActivity(
                     activities[0].description,
@@ -341,7 +341,7 @@ class ActivityControllerTest {
                 val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
                 // Replace 1 with a valid fitness goal ID
-                val fitnessId = 174
+                val fitnessId = 457
 
                 val addActivityResponse1 = addActivity(
                     activities[0].description,
