@@ -21,7 +21,7 @@ app.component("user-weight-goals-overview",{
     const userId = this.$javalin.pathParams["user-id"];
     axios.get(`/api/users/${userId}/weightGoals`)
         .then(res => this.weightGoals = res.data)
-        .catch(() => alert("Error while fetching weight goals"));
+        .catch(() => alert("We couldn't find any weight goals at the moment. Feel free to add a new weight goal, wait a moment, or refresh the page to check again"));
   }
 });
 </script>

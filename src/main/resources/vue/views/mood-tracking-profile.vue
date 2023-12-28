@@ -39,7 +39,7 @@
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Rating</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Rating / 10</span>
             </div>
             <input class="form-control" v-model="moodEntry.rating" name="rating" type="number" />
           </div>

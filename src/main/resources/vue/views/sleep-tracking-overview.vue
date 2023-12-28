@@ -55,22 +55,29 @@
       <div class="col-6 mb-3" style="font-weight: 600;">Current Sleep Entries</div>
       <div class="list-group-item d-flex align-items-start" v-for="(sleepEntry, index) in sleepTracking" :key="index">
         <div class="mr-auto p-2">
-          <span><a :href="`/sleepTracking/${sleepEntry.id}`" style="color: #08a29e;">
-            {{ sleepEntry.quality }} (Duration: {{ sleepEntry.duration }} hours, Notes: {{ sleepEntry.notes }}, Date: {{ new Date (sleepEntry.date).toLocaleDateString() }}, User ID: {{ sleepEntry.userId }})
-          </a></span>
+          <p><strong>ID:</strong> {{ sleepEntry.id }}</p>
+          <p><strong>Quality:</strong> {{ sleepEntry.quality }}</p>
+          <p><strong>Duration:</strong> {{ sleepEntry.duration }} hours</p>
+          <p><strong>Notes:</strong> {{ sleepEntry.notes }}</p>
+          <p><strong>Date:</strong> {{ new Date(sleepEntry.date).toLocaleDateString() }}</p>
+          <p><strong>User ID:</strong> {{ sleepEntry.userId }}</p>
+          <a :href="`/sleepTracking/${sleepEntry.id}`" style="color: #08a29e;">
+            View Details
+          </a>
         </div>
         <div class="p-2">
           <div class="btn-group d-flex" role="group">
             <a :href="`/sleepTracking/${sleepEntry.id}`" class="btn btn-info btn-sm" style="background-color: #08a29e; border-color: #08a29e;">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
-            <div class="mr-2"></div>
+            <div class="mr-2"></div> <!-- Added margin-right for spacing -->
             <button rel="tooltip" title="Delete" class="btn btn-danger btn-sm" @click="deleteSleepEntry(sleepEntry, index)">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>
         </div>
       </div>
+    </div>
   </app-layout>
 </template>
 

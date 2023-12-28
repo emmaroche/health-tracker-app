@@ -62,24 +62,21 @@ class HealthRecordControllerTest {
             addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
-                healthRecords[0].dob, healthRecords[0].weight,
-                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].dob, healthRecords[0].height, healthRecords[0].bloodType,
                 healthRecords[0].allergies, healthRecords[0].medicalConditions,
                 healthRecords[0].medications, healthRecords[0].notes, addedUser.id
             )
             addHealthRecord(
                 healthRecords[1].timestamp, healthRecords[1].firstName,
                 healthRecords[1].lastName, healthRecords[1].sex,
-                healthRecords[1].dob, healthRecords[1].weight,
-                healthRecords[1].height, healthRecords[1].bloodType,
+                healthRecords[1].dob, healthRecords[1].height, healthRecords[1].bloodType,
                 healthRecords[1].allergies, healthRecords[1].medicalConditions,
                 healthRecords[1].medications, healthRecords[1].notes, addedUser.id
             )
             addHealthRecord(
                 healthRecords[2].timestamp, healthRecords[2].firstName,
                 healthRecords[2].lastName, healthRecords[2].sex,
-                healthRecords[2].dob, healthRecords[2].weight,
-                healthRecords[2].height, healthRecords[2].bloodType,
+                healthRecords[2].dob, healthRecords[2].height, healthRecords[2].bloodType,
                 healthRecords[2].allergies, healthRecords[2].medicalConditions,
                 healthRecords[2].medications, healthRecords[2].notes, addedUser.id
             )
@@ -134,8 +131,7 @@ class HealthRecordControllerTest {
             val addHrResponse = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
-                healthRecords[0].dob, healthRecords[0].weight,
-                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].dob, healthRecords[0].height, healthRecords[0].bloodType,
                 healthRecords[0].allergies, healthRecords[0].medicalConditions,
                 healthRecords[0].medications, healthRecords[0].notes, addedUser.id
             )
@@ -164,8 +160,7 @@ class HealthRecordControllerTest {
             val addHrResponse = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
-                healthRecords[0].dob, healthRecords[0].weight,
-                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].dob, healthRecords[0].height, healthRecords[0].bloodType,
                 healthRecords[0].allergies, healthRecords[0].medicalConditions,
                 healthRecords[0].medications, healthRecords[0].notes, addedUser.id
             )
@@ -185,8 +180,7 @@ class HealthRecordControllerTest {
             val addHrResponse = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
-                healthRecords[0].dob, healthRecords[0].weight,
-                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].dob, healthRecords[0].height, healthRecords[0].bloodType,
                 healthRecords[0].allergies, healthRecords[0].medicalConditions,
                 healthRecords[0].medications, healthRecords[0].notes, userId
             )
@@ -209,7 +203,7 @@ class HealthRecordControllerTest {
             assertEquals(
                 404, updateHealthRecord(
                     hrId, updatedTimestamp, updatedFirstname,
-                    updatedLastname, updatedSex, updatedDob, updatedWeight,
+                    updatedLastname, updatedSex, updatedDob,
                     updatedHeight, updatedBloodType, updatedAllergies, updatedMedicalConditions,
                     updatedMedications, updatedNote, userId
                 ).status
@@ -224,8 +218,7 @@ class HealthRecordControllerTest {
             val addHrResponse = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
-                healthRecords[0].dob, healthRecords[0].weight,
-                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].dob, healthRecords[0].height, healthRecords[0].bloodType,
                 healthRecords[0].allergies, healthRecords[0].medicalConditions,
                 healthRecords[0].medications, healthRecords[0].notes, addedUser.id
             )
@@ -235,7 +228,7 @@ class HealthRecordControllerTest {
             //Act & Assert - update the added health record and assert a 204 is returned
             val updatedHrResponse = updateHealthRecord(
                 addedHr.id, updatedTimestamp, updatedFirstname,
-                updatedLastname, updatedSex, updatedDob, updatedWeight,
+                updatedLastname, updatedSex, updatedDob,
                 updatedHeight, updatedBloodType, updatedAllergies, updatedMedicalConditions,
                 updatedMedications, updatedNote, addedUser.id
             )
@@ -249,7 +242,6 @@ class HealthRecordControllerTest {
             assertEquals(updatedLastname, updatedHr.lastName)
             assertEquals(updatedSex, updatedHr.sex)
             assertEquals(updatedDob, updatedHr.dob)
-            assertEquals(updatedWeight, updatedHr.weight)
             assertEquals(updatedHeight, updatedHr.height)
             assertEquals(updatedBloodType, updatedHr.bloodType)
             assertEquals(updatedAllergies, updatedHr.allergies)
@@ -279,8 +271,7 @@ class HealthRecordControllerTest {
             val addHrResponse1 = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
-                healthRecords[0].dob, healthRecords[0].weight,
-                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].dob, healthRecords[0].height, healthRecords[0].bloodType,
                 healthRecords[0].allergies, healthRecords[0].medicalConditions,
                 healthRecords[0].medications, healthRecords[0].notes, addedUser.id
             )
@@ -288,8 +279,7 @@ class HealthRecordControllerTest {
             val addHrResponse2 = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
-                healthRecords[0].dob, healthRecords[0].weight,
-                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].dob, healthRecords[0].height, healthRecords[0].bloodType,
                 healthRecords[0].allergies, healthRecords[0].medicalConditions,
                 healthRecords[0].medications, healthRecords[0].notes, addedUser.id
             )
@@ -297,8 +287,7 @@ class HealthRecordControllerTest {
             val addHrResponse3 = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
-                healthRecords[0].dob, healthRecords[0].weight,
-                healthRecords[0].height, healthRecords[0].bloodType,
+                healthRecords[0].dob, healthRecords[0].height, healthRecords[0].bloodType,
                 healthRecords[0].allergies, healthRecords[0].medicalConditions,
                 healthRecords[0].medications, healthRecords[0].notes, addedUser.id
             )
@@ -349,7 +338,6 @@ class HealthRecordControllerTest {
         lastName: String,
         sex: String,
         dob: DateTime,
-        weight: Double,
         height: Int,
         bloodType: String,
         allergies: String,
@@ -367,7 +355,6 @@ class HealthRecordControllerTest {
                 "lastName": "$lastName",
                 "sex": "$sex",
                 "dob": "$dob",
-                "weight": $weight,
                 "height": $height,
                 "bloodType": "$bloodType",
                 "allergies": "$allergies",
@@ -388,7 +375,6 @@ class HealthRecordControllerTest {
         lastName: String,
         sex: String,
         dob: DateTime,
-        weight: Double,
         height: Int,
         bloodType: String,
         allergies: String,
@@ -406,7 +392,6 @@ class HealthRecordControllerTest {
                 "lastName": "$lastName",
                 "sex": "$sex",
                 "dob": "$dob",
-                "weight": $weight,
                 "height": $height,
                 "bloodType": "$bloodType",
                 "allergies": "$allergies",

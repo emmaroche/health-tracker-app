@@ -17,25 +17,25 @@
         <form id="addUser">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" style="font-weight: 600;" id="input-user-name">Name</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-name">Username</span>
             </div>
             <input type="text" class="form-control" v-model="formData.name" name="name" placeholder="Name"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" style="font-weight: 600;" id="input-user-email">Email</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-email">Email</span>
             </div>
             <input type="email" class="form-control" v-model="formData.email" name="email" placeholder="Email"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" style="font-weight: 600;" id="input-user-phone">Phone Number</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-phone">Phone Number</span>
             </div>
             <input type="number" class="form-control" v-model="formData.phoneNumber" name="phoneNumber" placeholder="Phone Number"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" style="font-weight: 600;" id="input-user-address">Address</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-address">Address</span>
             </div>
             <input type="text" class="form-control" v-model="formData.address" name="address" placeholder="Address"/>
           </div>
@@ -48,9 +48,15 @@
     <div class="list-group list-group-flush">
       <div class="list-group-item d-flex align-items-start" v-for="(user, index) in users" :key="index">
         <div class="mr-auto p-2">
-          <span><a :href="`/users/${user.id}`" style="color: #08a29e;">{{ user.name }} (Email: {{ user.email }}, Phone: {{ user.phoneNumber }}, Address: {{ user.address }})</a></span>
+          <p><strong>Username:</strong> {{ user.name }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Phone:</strong> {{ user.phoneNumber }}</p>
+          <p><strong>Address:</strong> {{ user.address }}</p>
+          <a :href="`/users/${user.id}`" style="color: #08a29e;">
+            View Details
+          </a>
         </div>
-        <div class="p-2">
+        <div class="ml-auto p-2">
           <a :href="`/users/${user.id}`" class="btn btn-info btn-sm mr-2" style="background-color: #08a29e; border-color: #08a29e;">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
@@ -62,6 +68,12 @@
     </div>
   </app-layout>
 </template>
+
+<style>
+.custom-label {
+  width: 150px;
+}
+</style>
 
 <script>
 app.component("user-overview", {

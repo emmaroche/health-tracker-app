@@ -98,7 +98,7 @@
           <div v-if="weightGoal">
             <div class="btn-group-vertical" role="group" aria-label="Current Weight Actions">
               <a :href="`/weightGoals/${weightGoal.id}/userWeight`" class="btn btn-link" style="color: #08a29e;">
-                <i class="fas fa-apple-alt"></i> View Current Weight
+                <i class="fas fa-weight"></i> View Current Weight
               </a>
               <a :href="`/weightGoals/${weightGoal.id}/nutritionGoals`" class="btn btn-link" style="color: #08a29e;">
                 <i class="fas fa-apple-alt"></i> View Nutrition Goals

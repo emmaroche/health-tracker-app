@@ -14,12 +14,12 @@
       <div class="col-12 ml-2 mb-3 mt-3" style="font-weight: 400;"> Set and track your fitness goals effortlessly with our Fitness Goals feature. Stay motivated on your fitness journey! </div>
       <div class="card-body" :class="{ 'd-none': hideForm}">
         <form id="addFitnessGoal">
-<!--          <div class="input-group mb-3">-->
-<!--            <div class="input-group-prepend">-->
-<!--              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-type">Type</span>-->
-<!--            </div>-->
-<!--            <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>-->
-<!--          </div>-->
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-fitness-goal-type">Type</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.type" name="type" placeholder="Type"/>
+          </div>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -58,11 +58,15 @@
       <div class="col-6 mb-3" style="font-weight: 600;">Current Fitness Goals</div>
       <div class="list-group-item d-flex align-items-start" v-for="(fitnessGoal, index) in fitnessGoals" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/fitnessGoals/${fitnessGoal.id}`" style="color: #08a29e;">
-              {{ fitnessGoal.type }} (Workouts per week: {{ fitnessGoal.workoutsPerWeek }}, Workout Duration: {{ fitnessGoal.minutesOfWorkouts }} minutes, Calorie Burning Goal: {{ fitnessGoal.calorieBurningGoalDuringExercise }} calories per workout, User ID: {{ fitnessGoal.userId }})
-            </a>
-          </span>
+          <p><strong>ID:</strong> {{ fitnessGoal.id }}</p>
+          <p><strong>Type:</strong> {{ fitnessGoal.type }}</p>
+          <p><strong>Workouts per week:</strong> {{ fitnessGoal.workoutsPerWeek }}</p>
+          <p><strong>Workout Duration:</strong> {{ fitnessGoal.minutesOfWorkouts }} minutes</p>
+          <p><strong>Calorie Burning Goal:</strong> {{ fitnessGoal.calorieBurningGoalDuringExercise }} calories per workout</p>
+          <p><strong>User ID:</strong> {{ fitnessGoal.userId }}</p>
+          <a :href="`/fitnessGoals/${fitnessGoal.id}`" style="color: #08a29e;">
+            View Details
+          </a>
         </div>
         <div class="p-2">
           <div class="btn-group d-flex" role="group">

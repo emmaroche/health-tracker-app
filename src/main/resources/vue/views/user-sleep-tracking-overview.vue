@@ -21,7 +21,7 @@ app.component("user-sleep-tracking-overview", {
     const userId = this.$javalin.pathParams["user-id"];
     axios.get(`/api/users/${userId}/sleepTracking`)
         .then(res => this.sleepTracking = res.data)
-        .catch(() => alert("Error while fetching sleep entries"));
+        .catch(() => alert("We couldn't find any sleep entries at the moment. Feel free to add a new sleep entry, wait a moment, or refresh the page to check again"));
   }
 });
 </script>

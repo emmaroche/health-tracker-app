@@ -21,7 +21,7 @@ app.component("user-fitness-goals-overview",{
     const userId = this.$javalin.pathParams["user-id"];
     axios.get(`/api/users/${userId}/fitnessGoals`)
         .then(res => this.fitnessGoals = res.data)
-        .catch(() => alert("Error while fetching fitness goals"));
+        .catch(() => alert("We couldn't find any fitness goals at the moment. Feel free to add a new fitness goal, wait a moment, or refresh the page to check again"));
   }
 });
 </script>

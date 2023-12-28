@@ -34,7 +34,6 @@ fun mapToHealthRecord(it: ResultRow): HealthRecord {
         lastName = it[HealthRecords.lastName],
         sex = it[HealthRecords.sex],
         dob = it[HealthRecords.dob],
-        weight = it[HealthRecords.weight],
         height = it[HealthRecords.height],
         bloodType = it[HealthRecords.bloodType],
         allergies = it[HealthRecords.allergies],

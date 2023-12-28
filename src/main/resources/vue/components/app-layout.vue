@@ -27,6 +27,11 @@
                 Users
               </a>
             </li>
+            <li class="nav-item" :class="{ 'active': activeLink === '/healthRecords' }">
+              <a @click="setActiveLink('/healthRecords')" class="nav-link">
+                Health Records
+              </a>
+            </li>
             <li class="nav-item" :class="{ 'active': activeLink === '/activities' }">
               <a @click="setActiveLink('/activities')" class="nav-link">
                 Activities
@@ -45,11 +50,6 @@
             <li class="nav-item" :class="{ 'active': activeLink === '/nutritionGoals' }">
               <a @click="setActiveLink('/nutritionGoals')" class="nav-link">
                 Nutrition Goals
-              </a>
-            </li>
-            <li class="nav-item" :class="{ 'active': activeLink === '/healthRecords' }">
-              <a @click="setActiveLink('/healthRecords')" class="nav-link">
-                Health Records
               </a>
             </li>
             <li class="nav-item" :class="{ 'active': activeLink === '/sleepTracking' }">

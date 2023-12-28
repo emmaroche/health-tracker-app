@@ -38,14 +38,14 @@
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Protein Goal</span>
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-duration">Protein Goal (grams)</span>
           </div>
           <input class="form-control" v-model="nutritionGoal.proteinGoal" name="proteinGoal" type="number" />
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Fibre Goal</span>
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-calories">Fibre Goal (grams)</span>
           </div>
           <input class="form-control" v-model="nutritionGoal.fibreGoal" name="fibreGoal" type="number" />
         </div>
@@ -59,14 +59,14 @@
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Carbs Goal</span>
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-started">Carbs Goal (grams)</span>
           </div>
           <input class="form-control" v-model="nutritionGoal.carbsGoal" name="carbsGoal" type="number" />
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-deadline">Fat Goal</span>
+            <span class="input-group-text custom-label" style="font-weight: 600;" id="input-activity-deadline">Fat Goal (grams)</span>
           </div>
           <input class="form-control" v-model="nutritionGoal.fatGoal" name="fatGoal" type="number" />
         </div>
@@ -96,7 +96,7 @@
 
 <style>
 .custom-label {
-  width: 150px;
+  width: 180px;
 }
 </style>
 

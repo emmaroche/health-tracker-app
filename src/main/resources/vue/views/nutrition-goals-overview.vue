@@ -22,13 +22,13 @@
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-protein">Protein Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-protein">Protein Goal (grams)</span>
             </div>
             <input type="number" class="form-control" v-model="formData.proteinGoal" name="proteinGoal" placeholder="Protein Goal"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-fibre">Fibre Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-fibre">Fibre Goal (grams)</span>
             </div>
             <input type="number" class="form-control" v-model="formData.fibreGoal" name="fibreGoal" placeholder="Fibre Goal"/>
           </div>
@@ -40,13 +40,13 @@
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-carbs">Carbs Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-carbs">Carbs Goal (grams)</span>
             </div>
             <input type="number" class="form-control" v-model="formData.carbsGoal" name="carbsGoal" placeholder="Carbs Goal"/>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-fat">Fat Goal</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-nutrition-goal-fat">Fat Goal (grams)</span>
             </div>
             <input type="number" class="form-control" v-model="formData.fatGoal" name="fatGoal" placeholder="Fat Goal"/>
           </div>
@@ -79,11 +79,19 @@
       <div class="col-6 mb-3" style="font-weight: 600;">Current Nutrition Goals</div>
       <div class="list-group-item d-flex align-items-start" v-for="(nutritionGoal, index) in nutritionGoals" :key="index">
         <div class="mr-auto p-2">
-          <span>
-            <a :href="`/nutritionGoals/${nutritionGoal.id}`" style="color: #08a29e;">
-              {{ nutritionGoal.type }} (Protein Goal: {{ nutritionGoal.proteinGoal }} g, Fibre Goal: {{ nutritionGoal.fibreGoal }} g, Calorie Goal: {{ nutritionGoal.calorieGoal }} calories, Carbs Goal: {{ nutritionGoal.carbsGoal }} g, Fat Goal: {{ nutritionGoal.fatGoal }} g, User ID: {{ nutritionGoal.userId }})
-            </a>
-          </span>
+          <p><strong>ID:</strong> {{ nutritionGoal.id }}</p>
+          <p><strong>Type:</strong> {{ nutritionGoal.type }}</p>
+          <p><strong>Protein Goal:</strong> {{ nutritionGoal.proteinGoal }} g</p>
+          <p><strong>Fibre Goal:</strong> {{ nutritionGoal.fibreGoal }} g</p>
+          <p><strong>Calorie Goal:</strong> {{ nutritionGoal.calorieGoal }} calories</p>
+          <p><strong>Carbs Goal:</strong> {{ nutritionGoal.carbsGoal }} g</p>
+          <p><strong>Fat Goal:</strong> {{ nutritionGoal.fatGoal }} g</p>
+          <p><strong>User ID:</strong> {{ nutritionGoal.userId }}</p>
+          <p><strong>Fitness ID:</strong> {{ nutritionGoal.fitnessId }}</p>
+          <p><strong>Weight ID:</strong> {{ nutritionGoal.weightId }}</p>
+          <a :href="`/nutritionGoals/${nutritionGoal.id}`" style="color: #08a29e;">
+            View Details
+          </a>
         </div>
         <div class="p-2">
           <div class="btn-group d-flex" role="group">
@@ -103,7 +111,7 @@
 
 <style>
 .custom-label {
-  width: 150px;
+  width: 180px;
 }
 </style>
 

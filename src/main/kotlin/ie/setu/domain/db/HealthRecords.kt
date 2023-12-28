@@ -13,7 +13,6 @@ object HealthRecords : Table("healthRecords") {
     val lastName = varchar("last_name", 50)
     val sex = varchar("sex", 10)
     val dob = datetime("dob")
-    val weight = double("weight")
     val height = integer("height")
     val bloodType = varchar("blood_type", 5)
     val allergies = varchar("allergies", 100)

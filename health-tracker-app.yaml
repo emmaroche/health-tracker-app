@@ -85,6 +85,91 @@ paths:
                 items:
                   $ref: '#/components/schemas/Activity'
 
+  /api/users/{user-id}/healthRecords:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: List of health records for a specific user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HealthRecord'
+
+  /api/users/{user-id}/sleepTracking:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: List of sleep tracking entries for a specific user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SleepTracking'
+
+  /api/users/{user-id}/moodTracking:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: List of mood tracking entries for a specific user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MoodEntry'
+
+  /api/users/{user-id}/weightGoals:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: List of weight goals for a specific user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goals'
+
+  /api/users/{user-id}/fitnessGoals:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: List of fitness goals for a specific user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goals'
+
+
+  /api/users/{user-id}/nutritionGoals:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: List of nutrition goals for a specific user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goals'
+
   /api/activities:
     get:
       responses:
@@ -146,7 +231,7 @@ paths:
         200:
           description: Activity has been updated
 
-  /api/health-records:
+  /api/healthRecords:
     post:
       description: Create a Health Record Entry
       requestBody:
@@ -158,7 +243,7 @@ paths:
         201:
           description: Health Record Entry has been created
 
-  /api/health-records/{id}:
+  /api/healthRecords/{id}:
     patch:
       parameters:
         - in: path
@@ -205,20 +290,7 @@ paths:
         204:
           description: Health Record Entry has been deleted
 
-  /api/health-records/user/{user-id}:
-    get:
-      parameters:
-      - $ref: '#/components/parameters/UserIdPath'
-
-      responses:
-        200:
-          description: Get all Health Records for a User
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HealthRecord'
-
-  /api/sleep-entries:
+  /api/sleepTracking:
     post:
       description: Create a Sleep Entry
       requestBody:
@@ -230,7 +302,7 @@ paths:
         201:
           description: Sleep Entry has been created
 
-  /api/sleep-entries/{id}:
+  /api/sleepTracking/{id}:
     patch:
       parameters:
         - in: path
@@ -277,7 +349,7 @@ paths:
         204:
           description: Sleep Entry has been deleted
 
-  /api/sleep-entries/user/{user-id}:
+  /api/sleepTracking/user/{user-id}:
     get:
       parameters:
         - $ref: '#/components/parameters/UserIdPath'
@@ -296,7 +368,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SleepTracking'
 
-  /api/fitness-goals:
+  /api/fitnessGoals:
     post:
       description: Create a Fitness Goal
       requestBody:
@@ -308,7 +380,7 @@ paths:
         201:
           description: Fitness Goal has been created
 
-  /api/fitness-goals/{id}:
+  /api/fitnessGoals/{id}:
     patch:
       parameters:
         - in: path
@@ -355,7 +427,7 @@ paths:
         204:
           description: Fitness Goal has been deleted
 
-  /api/fitness-goals/{id}/complete:
+  /api/fitnessGoals/{id}/complete:
     put:
       parameters:
         - in: path
@@ -369,7 +441,7 @@ paths:
         200:
           description: Fitness Goal has been marked as completed
 
-  /api/nutrition-goals:
+  /api/nutritionGoals:
     post:
       description: Create a Nutrition Goal
       requestBody:
@@ -381,7 +453,7 @@ paths:
         201:
           description: Nutrition Goal has been created
 
-  /api/nutrition-goals/{id}:
+  /api/nutritionGoals/{id}:
     patch:
       parameters:
         - in: path
@@ -428,7 +500,7 @@ paths:
         204:
           description: Nutrition Goal has been deleted
 
-  /api/nutrition-goals/{id}/complete:
+  /api/nutritionGoals/{id}/complete:
     put:
       parameters:
         - in: path
@@ -442,7 +514,7 @@ paths:
         200:
           description: Nutrition Goal has been marked as completed
 
-  /api/weight-goals:
+  /api/weightGoals:
     post:
       description: Create a Weight Goal
       requestBody:
@@ -454,7 +526,7 @@ paths:
         201:
           description: Weight Goal has been created
 
-  /api/weight-goals/{id}:
+  /api/weightGoals/{id}:
     patch:
       parameters:
         - in: path
@@ -501,7 +573,7 @@ paths:
         204:
           description: Weight Goal has been deleted
 
-  /api/weight-goals/{id}/complete:
+  /api/weightGoals/{id}/complete:
     put:
       parameters:
         - in: path
@@ -514,6 +586,65 @@ paths:
       responses:
         200:
           description: Weight Goal has been marked as completed
+
+  /api/moodTracking:
+    post:
+      description: Create a Mood Entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoodEntry'
+      responses:
+        201:
+          description: Mood Entry has been created
+
+  /api/moodTracking/{id}:
+    patch:
+      parameters:
+        - in: path
+          name: id
+          description: Mood Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      description: Update a Mood Entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoodEntry'
+      responses:
+        200:
+          description: Mood Entry has been updated
+
+    get:
+      parameters:
+        - in: path
+          name: id
+          description: Mood Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Get a specific Mood Entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodEntry'
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          description: Mood Entry ID path parameter
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Mood Entry has been deleted
 
 components:
   parameters:
@@ -580,3 +711,28 @@ components:
         type:
           type: string
           example: Poor
+    MoodEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 5648
+        date:
+          type: string
+          format: date-time
+          example: "2023-12-23T10:30:00"
+        mood:
+          type: string
+          example: "Happy"
+        rating:
+          type: integer
+          example: 5
+        notes:
+          type: string
+          example: "Had a great day!"
+        userId:
+          type: integer
+          example: 2
+        sleepId:
+          type: integer
+          example: 5649

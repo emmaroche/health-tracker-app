@@ -32,7 +32,7 @@
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-name">Name</span>
+              <span class="input-group-text custom-label" style="font-weight: 600;" id="input-user-name">Username</span>
             </div>
             <input type="text" class="form-control" v-model="user.name" name="name" placeholder="Name"/>
           </div>
@@ -99,7 +99,7 @@
 
 <style>
 .custom-label {
-  width: 100px;
+  width: 150px;
 }
 </style>
 
