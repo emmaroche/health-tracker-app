@@ -9,4 +9,6 @@ object Users : Table("users") {
     val id = integer("id").autoIncrement().primaryKey()
     val name = varchar("name", 100)
     val email = varchar("email", 255)
+    val phoneNumber = integer("phone")
+    val address = varchar("address", 255)
 }

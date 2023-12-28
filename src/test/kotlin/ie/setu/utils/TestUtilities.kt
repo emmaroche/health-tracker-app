@@ -9,11 +9,12 @@ class TestUtilities {
 
     private val app = ServerContainer.instance
     private val origin = "http://localhost:" + app.port()
-    fun addUser(name: String, email: String): HttpResponse<JsonNode> {
+    fun addUser(name: String, email: String, phoneNumber: Int, address: String): HttpResponse<JsonNode> {
         return Unirest.post("$origin/api/users")
-            .body("{\"name\":\"$name\", \"email\":\"$email\"}")
+            .body("{\"name\":\"$name\", \"email\":\"$email\", \"phoneNumber\": $phoneNumber, \"address\": \"$address\"}")
             .asJson()
     }
+
 
     // Helper function to delete a test user from the database
     fun deleteUser(id: Int): HttpResponse<String> {

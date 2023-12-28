@@ -27,6 +27,18 @@
             </div>
             <input type="email" class="form-control" v-model="formData.email" name="email" placeholder="Email"/>
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="font-weight: 600;" id="input-user-phone">Phone Number</span>
+            </div>
+            <input type="number" class="form-control" v-model="formData.phoneNumber" name="phoneNumber" placeholder="Phone Number"/>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="font-weight: 600;" id="input-user-address">Address</span>
+            </div>
+            <input type="text" class="form-control" v-model="formData.address" name="address" placeholder="Address"/>
+          </div>
         </form>
         <button rel="tooltip" title="Add" class="btn btn-info btn-sm mt-3" @click="hideForm = !hideForm" style="background-color: #08a29e; border-color: #08a29e;">
           <i class="fa fa-plus" aria-hidden="true"></i> Add
@@ -36,7 +48,7 @@
     <div class="list-group list-group-flush">
       <div class="list-group-item d-flex align-items-start" v-for="(user, index) in users" :key="index">
         <div class="mr-auto p-2">
-          <span><a :href="`/users/${user.id}`" style="color: #08a29e;">{{ user.name }} ({{ user.email }})</a></span>
+          <span><a :href="`/users/${user.id}`" style="color: #08a29e;">{{ user.name }} (Email: {{ user.email }}, Phone: {{ user.phoneNumber }}, Address: {{ user.address }})</a></span>
         </div>
         <div class="p-2">
           <a :href="`/users/${user.id}`" class="btn btn-info btn-sm mr-2" style="background-color: #08a29e; border-color: #08a29e;">
@@ -81,7 +93,9 @@ app.component("user-overview", {
       const url = `/api/users`;
       axios.post(url, {
         name: this.formData.name,
-        email: this.formData.email
+        email: this.formData.email,
+        phoneNumber: this.formData.phoneNumber,
+        address: this.formData.address
       })
           .then(response => {
             this.users.push(response.data);

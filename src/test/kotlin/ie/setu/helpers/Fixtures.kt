@@ -9,8 +9,12 @@ import org.joda.time.DateTime
 const val nonExistingEmail = "112233445566778testUser@xxxxx.xx"
 const val validName = "Test User 1"
 const val validEmail = "testuser1@test.com"
+const val validPhone = 123456789
+const val validAddress = "123 Main Street"
 const val updatedName = "Updated Name"
 const val updatedEmail = "Updated Email"
+const val updatedPhone = 123456789
+const val updatedAddress = "123 Main Street"
 
 const val updatedDescription = "Updated Description"
 const val updatedDuration = 30.0
@@ -58,10 +62,10 @@ const val updatedMood = "Sad"
 const val updatedRating = 1
 
 val users = arrayListOf(
-    User(name = "Alice Wonderland", email = "alice@wonderland.com", id = 1),
-    User(name = "Bob Cat", email = "bob@cat.ie", id = 2),
-    User(name = "Mary Contrary", email = "mary@contrary.com", id = 3),
-    User(name = "Carol Singer", email = "carol@singer.com", id = 4)
+    User(name = "Alice Wonderland", email = "alice@wonderland.com", phoneNumber = 897765679, address = "123 Wonderland St, Wonderland City", id = 1),
+    User(name = "Bob Cat", email = "bob@cat.ie", phoneNumber = 123456789, address = "456 Cat Ave, Cat Town", id = 2),
+    User(name = "Mary Contrary", email = "mary@contrary.com", phoneNumber = 987654321, address = "789 Contrary Blvd, Contrary Village", id = 3),
+    User(name = "Carol Singer", email = "carol@singer.com", phoneNumber = 555555555, address = "321 Singer Rd, Singer Hamlet", id = 4)
 )
 
 val activities = arrayListOf(

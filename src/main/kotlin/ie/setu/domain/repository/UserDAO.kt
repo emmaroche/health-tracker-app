@@ -54,6 +54,8 @@ class UserDAO {
             Users.insert {
                 it[name] = user.name
                 it[email] = user.email
+                it[phoneNumber] = user.phoneNumber
+                it[address] = user.address
             } get Users.id
         }
     }
@@ -102,6 +104,8 @@ class UserDAO {
             }) {
                 it[name] = user.name
                 it[email] = user.email
+                it[phoneNumber] = user.phoneNumber
+                it[address] = user.address
             }
         }
     }

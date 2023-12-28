@@ -58,7 +58,7 @@ class WeightGoalsControllerTest {
         @Test
         fun `get all weight goals by user id when user and weight goals exist returns 200 response`() {
             // Arrange - add a user and 3 associated weight goals that we plan to retrieve
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val actId = 186
 
             addWeightGoal(
@@ -90,7 +90,7 @@ class WeightGoalsControllerTest {
         @Test
         fun `get all weight goals by user id when no weight goals exist returns 404 response`() {
             // Arrange - add a user
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             // Act and Assert - retrieve the weight goals by user id
             val response = retrieveWeightGoalsByUserId(addedUser.id)
@@ -123,7 +123,7 @@ class WeightGoalsControllerTest {
         @Test
         fun `get weight goal by goal id when weight goal exists returns 200 response`() {
             // Arrange - add a user and an associated weight goal
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val actId = 186
 
             val addGoalResponse = addWeightGoal(
@@ -145,7 +145,7 @@ class WeightGoalsControllerTest {
         @Test
         fun `get weight goals by activity id when activity exists returns 200 response`() {
             // Arrange - add an activity and weight goals associated with it
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             val actId = 186
 
@@ -173,7 +173,7 @@ class WeightGoalsControllerTest {
         @Test
         fun `get weight goals by activity id when no weight goals exist returns 404 response`() {
             // Arrange - add an activity
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             val actId = 106
 
@@ -205,7 +205,7 @@ class WeightGoalsControllerTest {
         fun `add a weight goal when a user exists for it, returns a 201 response`() {
 
             // Arrange - add a user and an associated weight goal that we plan to do a delete on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val actId = 186
 
             val addGoalResponse = addWeightGoal(
@@ -261,7 +261,7 @@ class WeightGoalsControllerTest {
         @Test
         fun `updating a weight goal by goal id when it exists, returns 204 response`() {
             // Arrange - add a user and an associated weight goal
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val actId = 186
 
             val addGoalResponse = addWeightGoal(
@@ -304,7 +304,7 @@ class WeightGoalsControllerTest {
         fun `deleting all weight goals by user id when it exists, returns a 204 response`() {
 
             // Arrange - add a user and 3 associated weight goals that we plan to do a cascade delete
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val actId = 186
 
             val addGoalResponse1 = addWeightGoal(

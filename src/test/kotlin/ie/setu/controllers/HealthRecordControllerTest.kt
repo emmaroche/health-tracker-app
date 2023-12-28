@@ -58,7 +58,7 @@ class HealthRecordControllerTest {
         @Test
         fun `get all health records by user id when user and health records  exists returns 200 response`() {
             //Arrange - add a user and 3 associated health records that we plan to retrieve
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
@@ -97,7 +97,7 @@ class HealthRecordControllerTest {
         @Test
         fun `get all health records by user id when no health records exist returns 404 response`() {
             //Arrange - add a user
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             //Assert and Act - retrieve the health records by user id
             val response = retrieveHrByUserId(addedUser.id)
@@ -130,7 +130,7 @@ class HealthRecordControllerTest {
         @Test
         fun `get health record by health record id when health record exists returns 200 response`() {
             //Arrange - add a user and associated health record
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addHrResponse = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
@@ -159,7 +159,7 @@ class HealthRecordControllerTest {
         fun `add a health record when a user exists for it, returns a 201 response`() {
 
             //Arrange - add a user and an associated health record that we plan to do a delete on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
 
             val addHrResponse = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
@@ -220,7 +220,7 @@ class HealthRecordControllerTest {
         fun `updating a health record by health record id when it exists, returns 204 response`() {
 
             //Arrange - add a user and an associated health record that we plan to do an update on
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addHrResponse = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
@@ -275,7 +275,7 @@ class HealthRecordControllerTest {
         fun `deleting all health records by userid when it exists, returns a 204 response`() {
 
             //Arrange - add a user and 3 associated health records that we plan to do a cascade delete
-            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail).body.toString())
+            val addedUser: User = jsonToObject(testUtilities.addUser(validName, validEmail, validPhone, validAddress).body.toString())
             val addHrResponse1 = addHealthRecord(
                 healthRecords[0].timestamp, healthRecords[0].firstName,
                 healthRecords[0].lastName, healthRecords[0].sex,
